@@ -19,6 +19,7 @@ namespace RATA_FMM
         public Form1()
         {
             InitializeComponent();
+            //column headers for first listbox
             listBoxDisplay.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) +
                 "Locality Name".PadRight(35) + "Locality ID".PadRight(15) + "Displacement".PadRight(15) +
                 "End".PadRight(10) + "Footpath".PadRight(12) + "Footpath".PadRight(12) + "Footpath Surface Material".PadRight(27) +
@@ -35,6 +36,9 @@ namespace RATA_FMM
                 "Survey Method".PadRight(15) + "Survey Method".PadRight(15) + "Edit Survey Data".PadRight(20) + "Edit Survey Data".PadRight(35) +
                 "Map Desc 1".PadRight(30) + "Date Added".PadRight(15) + "Added By".PadRight(10) +
                 "Date Changed".PadRight(15) + "Changed By".PadRight(10));
+            //column headers for second listbox
+            listBoxDisplay2.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) + "End".PadRight(10) + "Displacement".PadRight(15) +
+                "Date".PadRight(15) + "Side".PadRight(7) + "Footpath Surface Material".PadRight(27) + "Notes".PadRight(150));
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -108,7 +112,10 @@ namespace RATA_FMM
             //displaying in second listbox
             foreach (Road r in roadList)
             {
-
+                listBoxDisplay2.Items.Add(r.GetRoad().ToString().PadRight(10) + r.GetRoadName().ToString().PadRight(35) +
+                    r.GetStart().ToString().PadRight(10) + r.GetEnd().ToString().PadRight(10) + r.GetDisplacement().ToString().PadRight(15) + 
+                    r.GetDate().ToShortDateString().PadRight(15) + r.GetSide().ToString().PadRight(7) + 
+                    r.GetFootpathSurfaceMaterial().ToString().PadRight(27) + r.GetNotes().ToString().PadRight(150));
             }
         }
     }
