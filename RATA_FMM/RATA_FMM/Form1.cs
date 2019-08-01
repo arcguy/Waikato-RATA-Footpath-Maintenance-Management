@@ -38,7 +38,7 @@ namespace RATA_FMM
                 "Date Changed".PadRight(15) + "Changed By".PadRight(10));
             //column headers for second listbox
             listBoxDisplay2.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) + "End".PadRight(10) + "Displacement".PadRight(15) +
-                "Date".PadRight(15) + "Side".PadRight(7) + "Footpath Surface Material".PadRight(27) + "Notes".PadRight(150));
+                "Length".PadRight(7) + "Length".PadRight(7) + "Date Added".PadRight(15) + "Side".PadRight(7) + "Footpath Surface Material".PadRight(27));
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -112,10 +112,7 @@ namespace RATA_FMM
             //displaying in second listbox
             foreach (Road r in roadList)
             {
-                listBoxDisplay2.Items.Add(r.GetRoad().ToString().PadRight(10) + r.GetRoadName().ToString().PadRight(35) +
-                    r.GetStart().ToString().PadRight(10) + r.GetEnd().ToString().PadRight(10) + r.GetDisplacement().ToString().PadRight(15) + 
-                    r.GetDate().ToShortDateString().PadRight(15) + r.GetSide().ToString().PadRight(7) + 
-                    r.GetFootpathSurfaceMaterial().ToString().PadRight(27) + r.GetNotes().ToString().PadRight(150));
+                listBoxDisplay2.Items.Add(r.PrintDataShort());
             }
         }
     }
