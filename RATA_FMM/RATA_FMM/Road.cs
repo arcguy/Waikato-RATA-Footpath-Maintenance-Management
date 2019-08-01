@@ -152,6 +152,13 @@ namespace RATA_FMM
                 mapDesc1.PadRight(30) + dateAdded.ToShortDateString().PadRight(15) + addedBy.PadRight(10) +
                 dateChanged.ToString().PadRight(20) + changedBy.PadRight(10);
         }
+        
+        public string PrintDataShort()
+        {
+            return road.ToString().PadRight(10) + roadName.PadRight(35) + start.ToString().PadRight(10) + end.ToString().PadRight(10) +
+                displacement.PadRight(15) + length1.ToString().PadRight(7) + length2.ToString().PadRight(7) + dateAdded.ToShortDateString().PadRight(15)
+                + side.PadRight(7) + footpathSurfaceMaterial.PadRight(27);
+        }
 
         public int GetRoad()
         {
