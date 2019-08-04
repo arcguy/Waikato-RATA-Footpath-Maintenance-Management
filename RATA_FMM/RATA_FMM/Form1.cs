@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,15 +12,15 @@ using Aspose.Cells; //if getting errors install Asopse.cells library
 
 namespace RATA_FMM
 {
-    
+
 
     public partial class Form1 : Form
     {
         const string FILTER = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
         List<Road> roadList = new List<Road>();
 
-        static string[] MAINTENANCE_CODES = { "a" , "b" , "c" , "d" , "e" , "f" };
-        static string[] MAINTENANCE_FAULTS = { "Trip Hazard" , "Vertical Displacement" , "Horizontal Displacement" , "Broken" , "Hole" , "Poor Previous Reinstatement"};
+        static string[] MAINTENANCE_CODES = { "a", "b", "c", "d", "e", "f" };
+        static string[] MAINTENANCE_FAULTS = { "Trip Hazard", "Vertical Displacement", "Horizontal Displacement", "Broken", "Hole", "Poor Previous Reinstatement" };
 
         public Form1()
         {
@@ -118,7 +119,8 @@ namespace RATA_FMM
             foreach (Road r in roadList)
             {
                 listBoxDisplay2.Items.Add(r.PrintDataShort());
-            rankOnSeverity();
+                rankOnSeverity();
+            }
         }
 
         /// <summary>
@@ -126,7 +128,7 @@ namespace RATA_FMM
         /// </summary>
         /// <param name="c">The maintenance code</param>
         /// <returns>The maintenance fault</returns>
-        public string getMaintenanceFault (string c)
+        private string getMaintenanceFault(string c)
         {
             string fault = "";
 
@@ -145,21 +147,21 @@ namespace RATA_FMM
         /// Ranks data entries based on severity, with 5 being prioritized first and 1 last
         /// Very crude ranking implementation at present
         /// </summary>
-        public void rankOnSeverity ()
+        private void rankOnSeverity()
         {
             List<string[]> footpaths = new List<string[]>(); //A list to hold all footpaths
 
             //Some temporary dummy entries
-            string[] dummyEntryOne = {"Albert Street" , "5"};
-            string[] dummyEntryTwo = { "Anzac Street" , "4"};
-            string[] dummyEntryThree = { "Hurley Place" , "6"};
-            string[] dummyEntryFour = { "Queen Street" , "2"};
-            string[] dummyEntryFive = { "Shakespeare Street" , "1"};
-            string[] dummyEntrySix = { "Taylor Street" , "1"};
-            string[] dummyEntrySeven = { "Thornton Road" , "2"};
-            string[] dummyEntryEight = { "Victoria Street" , "3"};
-            string[] dummyEntryNine = { "Cotter Place" , "4"};
-            string[] dummyEntryTen = { "Wallace Terrace" , "5"};
+            string[] dummyEntryOne = { "Albert Street", "5" };
+            string[] dummyEntryTwo = { "Anzac Street", "4" };
+            string[] dummyEntryThree = { "Hurley Place", "6" };
+            string[] dummyEntryFour = { "Queen Street", "2" };
+            string[] dummyEntryFive = { "Shakespeare Street", "1" };
+            string[] dummyEntrySix = { "Taylor Street", "1" };
+            string[] dummyEntrySeven = { "Thornton Road", "2" };
+            string[] dummyEntryEight = { "Victoria Street", "3" };
+            string[] dummyEntryNine = { "Cotter Place", "4" };
+            string[] dummyEntryTen = { "Wallace Terrace", "5" };
 
             //Adding dummy entries to footpath list
             footpaths.Add(dummyEntryOne);
