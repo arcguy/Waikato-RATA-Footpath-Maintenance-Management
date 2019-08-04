@@ -15,12 +15,27 @@ namespace RATA_FMM
     {
         const string FILTER = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
         List<Road> roadList = new List<Road>();
+        int window_length = Screen.PrimaryScreen.Bounds.Width;
+        int window_height = Screen.PrimaryScreen.Bounds.Height;
 
         public Form1()
         {
             InitializeComponent();
+            //setting sizes and positions of listboxes
+            listBoxData.Width = window_length / 3 - 50;
+            listBoxData.Height = window_height - 100;
+            listBoxReplacement.Location = new System.Drawing.Point(10, 30);
+
+            listBoxReplacement.Height = window_height / 2 - 60;
+            listBoxReplacement.Width = window_length / 3 - 50;
+            listBoxReplacement.Location = new System.Drawing.Point((window_length / 3 - 30), 30);
+
+            listBoxMaintenance.Height = window_height / 2 - 30;
+            listBoxMaintenance.Width = window_length / 3 - 50;
+            listBoxMaintenance.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2 - 30));
+
             //column headers for first listbox
-            listBoxDisplay.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) +
+            listBoxData.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) +
                 "Locality Name".PadRight(35) + "Locality ID".PadRight(15) + "Displacement".PadRight(15) +
                 "End".PadRight(10) + "Footpath".PadRight(12) + "Footpath".PadRight(12) + "Footpath Surface Material".PadRight(27) +
                 "Inspection".PadRight(15) + "Survey Description".PadRight(20) + "Length".PadRight(7) + "Length".PadRight(7) +
@@ -36,9 +51,10 @@ namespace RATA_FMM
                 "Survey Method".PadRight(15) + "Survey Method".PadRight(15) + "Edit Survey Data".PadRight(20) + "Edit Survey Data".PadRight(35) +
                 "Map Desc 1".PadRight(30) + "Date Added".PadRight(15) + "Added By".PadRight(10) +
                 "Date Changed".PadRight(15) + "Changed By".PadRight(10));
-            //column headers for second listbox
-            listBoxDisplay2.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) + "End".PadRight(10) + "Displacement".PadRight(15) +
-                "Length".PadRight(7) + "Length".PadRight(7) + "Date Added".PadRight(15) + "Side".PadRight(7) + "Footpath Surface Material".PadRight(27));
+
+            //temp stuff
+            listBoxMaintenance.Items.Add("Maintenance jobs");
+            listBoxReplacement.Items.Add("Replacement jobs");
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -106,13 +122,7 @@ namespace RATA_FMM
             //displaying in first listbox
             foreach (Road r in roadList)
             {
-                listBoxDisplay.Items.Add(r.ToString());
-            }
-
-            //displaying in second listbox
-            foreach (Road r in roadList)
-            {
-                listBoxDisplay2.Items.Add(r.PrintDataShort());
+                listBoxData.Items.Add(r.ToString());
             }
         }
     }
