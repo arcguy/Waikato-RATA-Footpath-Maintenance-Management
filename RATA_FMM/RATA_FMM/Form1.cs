@@ -109,6 +109,10 @@ namespace RATA_FMM
 
         private void DisplayData()
         {
+            string text = "";
+            
+
+
             //displaying in first listbox
             foreach (Road r in roadList)
             {
@@ -121,6 +125,15 @@ namespace RATA_FMM
                 listBoxDisplay2.Items.Add(r.PrintDataShort());
                 rankOnSeverity();
             }
+
+            text += roadList.ElementAt(1);
+            text += "\n";
+            text += roadList.ElementAt(2);
+            text += "\n";
+
+            PCPrint printer = new PCPrint(text);
+            printer.PrinterFont = new System.Drawing.Font("Times New Roman", 14);
+            printer.Print();
         }
 
         /// <summary>
