@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ using Aspose.Cells; //if getting errors install Asopse.cells library
 
 namespace RATA_FMM
 {
+
+
     public partial class Form1 : Form
     {
         const string FILTER = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
@@ -120,16 +123,6 @@ namespace RATA_FMM
                 roadList.Add(r);
             }
         }
-
-        /*private void DisplayData()
-        {
-            //displaying in first listbox
-            foreach (Road r in roadList)
-            {
-                listBoxData.Items.Add(r.ToString());
-            }
-        }*/
-
         private void DisplayData()
         {
             string text = "";
@@ -139,7 +132,11 @@ namespace RATA_FMM
             //displaying in first listbox
             foreach (Road r in roadList)
             {
+
                 listBoxData.Items.Add(r.ToString());
+                
+                rankOnSeverity();
+
             }
 
             text += roadList.ElementAt(1);

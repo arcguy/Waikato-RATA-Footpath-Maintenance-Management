@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RATA_FMM
 {
-    public partial class PCPrint : System.Drawing.Printing.PrintDocument
+    public class PCPrint : System.Drawing.Printing.PrintDocument
     {
         private Font font; //Variable for the font the user wants
         private string text; //The text to be printed in the report
@@ -35,7 +35,7 @@ namespace RATA_FMM
         /// <summary>
         /// Empty constructor
         /// </summary>
-        public PCPrint() : base()
+        public PCPrint () : base()
         {
             text = ""; //Set the text to print as an empty string
         }
@@ -44,7 +44,7 @@ namespace RATA_FMM
         /// Contructor to create PCPrint object with the desired text to print
         /// </summary>
         /// <param name="s"></param>
-        public PCPrint(string s) : base()
+        public PCPrint (string s) : base()
         {
             text = s; //Set the text to print as the desired argument
         }
