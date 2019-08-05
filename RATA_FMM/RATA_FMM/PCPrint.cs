@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RATA_FMM
 {
-    public class PCPrint : System.Drawing.Printing.PrintDocument
+    public partial class PCPrint : System.Drawing.Printing.PrintDocument
     {
         private Font font; //Variable for the font the user wants
         private string text; //The text to be printed in the report
