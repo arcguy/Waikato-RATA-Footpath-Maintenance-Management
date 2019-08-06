@@ -125,10 +125,6 @@ namespace RATA_FMM
         }
         private void DisplayData()
         {
-            string text = "";
-
-
-
             //displaying in first listbox
             foreach (Road r in roadList)
             {
@@ -138,15 +134,6 @@ namespace RATA_FMM
                 rankOnSeverity();
 
             }
-
-            text += roadList.ElementAt(1);
-            text += "\n";
-            text += roadList.ElementAt(2);
-            text += "\n";
-
-            PCPrint printer = new PCPrint(text);
-            printer.PrinterFont = new System.Drawing.Font("Times New Roman", 14);
-            printer.Print();
         }
 
         /// <summary>
@@ -210,6 +197,26 @@ namespace RATA_FMM
                 string[] currFootpath = footpaths[i];
                 Console.WriteLine(currFootpath[0] + " with severity " + currFootpath[1]); //Output street name and severity
             }
+        }
+
+        /// <summary>
+        /// Prints report to file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string text = " ";
+
+            text += "Replacements\n";
+            text += "\n<Insert footpaths to be replaced, ranked on severity>\n\n";
+            text += "Maintenance\n";
+            text += "\n<Insert footpaths to maintain, ranked on severity>\n";
+
+            PCPrint printer = new PCPrint(text);
+            printer.PrinterFont = new System.Drawing.Font("Times New Roman", 14);
+            printer.PrinterSettings.PrintToFile = true;
+            printer.Print();
         }
     }
 }
