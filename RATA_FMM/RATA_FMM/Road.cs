@@ -66,6 +66,8 @@ namespace RATA_FMM
         private string dateChanged; //string due to errors if no date present
         private string changedBy;
 
+        private int numFaults;
+
         //contructor function
         public Road(string[] roadData)
         {
@@ -130,6 +132,8 @@ namespace RATA_FMM
             addedBy = roadData[53];
             dateChanged = roadData[54];//string to avoid errors when no date entered
             changedBy = roadData[55];
+
+            numFaults = CalcFaults();
         }
 
         //Returns every field in string format
@@ -152,12 +156,21 @@ namespace RATA_FMM
                 mapDesc1.PadRight(30) + dateAdded.ToShortDateString().PadRight(15) + addedBy.PadRight(10) +
                 dateChanged.ToString().PadRight(20) + changedBy.PadRight(10);
         }
-        
+
         public string PrintDataShort()
         {
+            //calc length (longer of 2) at some point
+            int tempLength = 0;
+            if (length1 > length2)
+                tempLength = length1;
+            if (length1 < length2)
+                tempLength = length2;
+            else
+                tempLength = length1;
+
             return road.ToString().PadRight(10) + roadName.PadRight(35) + start.ToString().PadRight(10) + end.ToString().PadRight(10) +
-                displacement.PadRight(15) + length1.ToString().PadRight(7) + length2.ToString().PadRight(7) + dateAdded.ToShortDateString().PadRight(15)
-                + side.PadRight(7) + footpathSurfaceMaterial.PadRight(27);
+                displacement.PadRight(15) + tempLength.ToString().PadRight(7) + dateAdded.ToShortDateString().PadRight(15)
+                + side.PadRight(7) + footpathSurfaceMaterial.PadRight(27) + numFaults.ToString().PadRight(18);
         }
 
         public int GetRoad()
@@ -438,6 +451,33 @@ namespace RATA_FMM
         public string GetChangedBy()
         {
             return this.changedBy;
+        }
+
+        public int GetNumFaults()
+        {
+            return this.numFaults;
+        }
+
+        private int CalcFaults()
+        {
+            int faults = 0;
+
+            if (bumps == -1)
+                bumps = 0;
+            if (depressions == -1)
+                depressions = 0;
+            if (potholes == -1)
+                potholes = 0;
+            if (cracked == -1)
+                cracked = 0;
+            if (scabbing == -1)
+                scabbing = 0;
+            if (patches == -1)
+                patches = 0;
+
+            faults = bumps + depressions + potholes + cracked + scabbing + patches;
+
+            return faults;
         }
     }
 }
