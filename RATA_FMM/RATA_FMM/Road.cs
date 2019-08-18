@@ -67,6 +67,7 @@ namespace RATA_FMM
         private string changedBy;
 
         private int numFaults;
+        private int conditionRating;
 
         //contructor function
         public Road(string[] roadData)
@@ -134,6 +135,7 @@ namespace RATA_FMM
             changedBy = roadData[55];
 
             numFaults = CalcFaults();
+            conditionRating = calcConditionRating();
         }
 
         //Returns every field in string format
@@ -169,8 +171,8 @@ namespace RATA_FMM
                 tempLength = length1;
 
             return road.ToString().PadRight(10) + roadName.PadRight(35) + start.ToString().PadRight(10) + end.ToString().PadRight(10) +
-                displacement.PadRight(15) + tempLength.ToString().PadRight(7) + dateAdded.ToShortDateString().PadRight(15)
-                + side.PadRight(7) + footpathSurfaceMaterial.PadRight(27) + numFaults.ToString().PadRight(18);
+                tempLength.ToString().PadRight(7) + dateAdded.ToShortDateString().PadRight(15)
+                + side.PadRight(7) + footpathSurfaceMaterial.PadRight(27) + numFaults.ToString().PadRight(10);
         }
 
         public int GetRoad()
@@ -478,6 +480,25 @@ namespace RATA_FMM
             faults = bumps + depressions + potholes + cracked + scabbing + patches;
 
             return faults;
+        }
+
+        private int calcConditionRating()
+        {
+            int rating = 0;
+
+
+
+            return rating;
+        }
+
+        public int GetLongLength()
+        {
+            if (length1 > length2)
+                return length1;
+            else if (length2 > length1)
+                return length2;
+            else
+                return length1;
         }
     }
 }

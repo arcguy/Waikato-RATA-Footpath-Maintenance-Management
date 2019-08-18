@@ -124,18 +124,27 @@ namespace RATA_FMM
             }
         }
         private void DisplayData()
-        {
-            //SortList();
-            roadList.Sort((x, y) => y.GetNumFaults().CompareTo(x.GetNumFaults()));
-
-
+        {         
             //displaying in first listbox
             foreach (Road r in roadList)
             {
-                listBoxData.Items.Add(r.ToString());
-                listBoxMaintenance.Items.Add(r.PrintDataShort());
+                listBoxData.Items.Add(r.ToString());                
 
                 rankOnSeverity();
+            }
+
+            //roadList.Sort((x, y) => y.GetNumFaults().CompareTo(x.GetNumFaults()));
+            roadList.Sort((x, y) => 
+            {
+                var ret = y.GetNumFaults().CompareTo(x.GetNumFaults());
+                if (ret == 0) ret = y.GetLongLength().CompareTo(x.GetLongLength());
+                return ret;
+            });
+            listBoxMaintenance.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) + "End".PadRight(10) + "Length".PadRight(7) +
+                "Date Added".PadRight(15) + "Side".PadRight(7) + "Footpath Surface Material".PadRight(27) + "Faults".PadRight(10));
+            foreach (Road r in roadList)
+            {
+                listBoxMaintenance.Items.Add(r.PrintDataShort());
             }
         }
 
