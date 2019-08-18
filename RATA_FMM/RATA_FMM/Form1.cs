@@ -33,10 +33,12 @@ namespace RATA_FMM
             listBoxData.Height = window_height - 100;
             listBoxData.Location = new System.Drawing.Point(10, 30);
 
-            listBoxReplacement.Height = window_height / 2 - 60;
+            labelReplacement.Location = new System.Drawing.Point((window_length / 3 - 30), 30);
+            listBoxReplacement.Height = window_height / 2 - 90;
             listBoxReplacement.Width = window_length / 3 - 50;
-            listBoxReplacement.Location = new System.Drawing.Point((window_length / 3 - 30), 30);
+            listBoxReplacement.Location = new System.Drawing.Point((window_length / 3 - 30), 45);
 
+            labelMaintenance.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2 - 45));
             listBoxMaintenance.Height = window_height / 2 - 30;
             listBoxMaintenance.Width = window_length / 3 - 50;
             listBoxMaintenance.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2 - 30));
@@ -58,10 +60,6 @@ namespace RATA_FMM
                 "Survey Method".PadRight(15) + "Survey Method".PadRight(15) + "Edit Survey Data".PadRight(20) + "Edit Survey Data".PadRight(35) +
                 "Map Desc 1".PadRight(30) + "Date Added".PadRight(15) + "Added By".PadRight(10) +
                 "Date Changed".PadRight(15) + "Changed By".PadRight(10));
-
-            //temp stuff
-            listBoxMaintenance.Items.Add("Maintenance jobs");
-            listBoxReplacement.Items.Add("Replacement jobs");
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
