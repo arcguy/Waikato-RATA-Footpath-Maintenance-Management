@@ -69,6 +69,15 @@ namespace RATA_FMM
         private int numFaults;
         private int conditionRating;
 
+        private string[] qgisData;
+        //0 - road id
+        //1 - start
+        //2 - end
+        //5 - length
+        //10 - age
+        //20 - school buffer area
+        //22 - health buffer area
+
         //contructor function
         public Road(string[] roadData)
         {
@@ -134,14 +143,13 @@ namespace RATA_FMM
             dateChanged = roadData[54];//string to avoid errors when no date entered
             changedBy = roadData[55];
 
-            numFaults = CalcFaults();
-            conditionRating = calcConditionRating();
+            numFaults = CalcFaults();            
         }
 
         //Returns every field in string format
         public override string ToString()
-        {
-            return road.ToString().PadRight(10) + roadName.PadRight(35) + start.ToString().PadRight(10) +
+        {          
+                return road.ToString().PadRight(10) + roadName.PadRight(35) + start.ToString().PadRight(10) +
                 localityName.PadRight(35) + localityID.ToString().PadRight(15) + displacement.PadRight(15) +
                 end.ToString().PadRight(10) + footpath1.ToString().PadRight(12) + footpath2.ToString().PadRight(12) + footpathSurfaceMaterial.PadRight(27) +
                 inspection.PadRight(15) + surveyDescription.PadRight(20) + length1.ToString().PadRight(7) + length2.ToString().PadRight(7) +
@@ -161,6 +169,7 @@ namespace RATA_FMM
 
         public string PrintDataShort()
         {
+            conditionRating = calcConditionRating();
             //calc length (longer of 2) at some point
             int tempLength = 0;
             if (length1 > length2)
@@ -170,9 +179,9 @@ namespace RATA_FMM
             else
                 tempLength = length1;
 
-            return road.ToString().PadRight(10) + roadName.PadRight(35) + start.ToString().PadRight(10) + end.ToString().PadRight(10) +
+            return roadName.PadRight(35) + start.ToString().PadRight(10) + end.ToString().PadRight(10) +
                 tempLength.ToString().PadRight(7) + dateAdded.ToShortDateString().PadRight(15)
-                + side.PadRight(7) + footpathSurfaceMaterial.PadRight(27) + numFaults.ToString().PadRight(10);
+                + side.PadRight(7) + footpathSurfaceMaterial.PadRight(27) + numFaults.ToString().PadRight(10) + conditionRating.ToString().PadRight(20);
         }
 
         public int GetRoad()
@@ -460,6 +469,17 @@ namespace RATA_FMM
             return this.numFaults;
         }
 
+        public void SetQgisData(string[] data)
+        {
+            qgisData = data;
+            Console.WriteLine(qgisData[0] + " " + qgisData[1] + " " + qgisData[2] + " " + qgisData[5] + " " + qgisData[10] + " " + qgisData[20] + " " + qgisData[22]);
+        }
+
+        public string[] GetQgisData()
+        {
+            return this.qgisData;
+        }
+
         private int CalcFaults()
         {
             int faults = 0;
@@ -485,9 +505,24 @@ namespace RATA_FMM
         private int calcConditionRating()
         {
             int rating = 0;
-
-
-
+            try
+            {
+                if (qgisData != null)
+                {
+                    if (double.Parse(qgisData[20]) > 0)
+                    {
+                        rating += 20;
+                    }
+                    if (double.Parse(qgisData[22]) > 0)
+                    {
+                        rating += 25;
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
             return rating;
         }
 

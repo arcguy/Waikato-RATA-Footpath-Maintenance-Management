@@ -8,7 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Aspose.Cells; //if getting errors install Asopse.cells library
+using Aspose.Cells;
+using System.IO;
 
 namespace RATA_FMM
 {
@@ -18,6 +19,7 @@ namespace RATA_FMM
     {
         const string FILTER = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
         List<Road> roadList = new List<Road>();
+        List<string[]> qgisData = new List<string[]>();
 
         static string[] MAINTENANCE_CODES = { "a", "b", "c", "d", "e", "f" };
         static string[] MAINTENANCE_FAULTS = { "Trip Hazard", "Vertical Displacement", "Horizontal Displacement", "Broken", "Hole", "Poor Previous Reinstatement" };
@@ -60,6 +62,32 @@ namespace RATA_FMM
                 "Survey Method".PadRight(15) + "Survey Method".PadRight(15) + "Edit Survey Data".PadRight(20) + "Edit Survey Data".PadRight(35) +
                 "Map Desc 1".PadRight(30) + "Date Added".PadRight(15) + "Added By".PadRight(10) +
                 "Date Changed".PadRight(15) + "Changed By".PadRight(10));
+
+            listBoxMaintenance.Items.Add("Road Name".PadRight(35) + "Start".PadRight(10) + "End".PadRight(10) + "Length".PadRight(7) +
+                "Date Added".PadRight(15) + "Side".PadRight(7) + "Footpath Surface Material".PadRight(27) + "Faults".PadRight(10) + "Condition Rating".PadRight(20));
+
+            //reading file
+            StreamReader reader;
+            string line = "";
+            string[] csvArray;
+
+            reader = File.OpenText("Zone Data (QGIS).csv");
+            reader.ReadLine();
+
+            while (!reader.EndOfStream)
+            {
+                line = reader.ReadLine();
+                csvArray = line.Split(',');
+                //0 - road id
+                //1 - start
+                //2 - end
+                //5 - length
+                //10 - age
+                //20 - school buffer area
+                //22 - health buffer area
+                qgisData.Add(csvArray);
+            }
+            reader.Close();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -88,39 +116,61 @@ namespace RATA_FMM
 
         private void OpenExcelFile(string filename)
         {
-            //Open file and get first workbook
-            Workbook wb = new Workbook(filename);
-            Worksheet ws = wb.Worksheets[0];
-
-            //Get cells from worksheet and number of rows and columns from worksheet
-            Cells cells = ws.Cells;
-            int numRows = cells.MaxDataRow;
-            int numColumns = cells.MaxDataColumn;
-
-            // Current cell value
-            string cellContents = "";
-
-            for (int i = 1; i <= numRows; i++) // Numeration starts from 0 to MaxDataRow
+            try
             {
-                string[] dataArray = new string[56];
+                //Open file and get first workbook
+                Workbook wb = new Workbook(filename);
+                Worksheet ws = wb.Worksheets[0];
 
-                for (int j = 0; j <= numRows; j++)  // Numeration starts from 0 to MaxDataColumn
+                //Get cells from worksheet and number of rows and columns from worksheet
+                Cells cells = ws.Cells;
+                int numRows = cells.MaxDataRow;
+                int numColumns = cells.MaxDataColumn;
+
+                // Current cell value
+                string cellContents = "";
+
+                for (int i = 1; i <= numRows; i++) // Numeration starts from 0 to MaxDataRow
                 {
-                    cellContents = "";
-                    cellContents = Convert.ToString(cells[i, j].Value);
-                    if (String.IsNullOrEmpty(cellContents))
+                    string[] dataArray = new string[56];
+
+                    for (int j = 0; j <= numColumns; j++)  // Numeration starts from 0 to MaxDataColumn
                     {
-                        continue;
+                        cellContents = "";
+                        cellContents = Convert.ToString(cells[i, j].Value);
+                        if (String.IsNullOrEmpty(cellContents))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            dataArray[j] = cellContents;
+                        }
                     }
-                    else
+                    Road r = new Road(dataArray);
+                    roadList.Add(r);
+
+                    //find matching data in qgis data
+                    for (int k = 0; k <= qgisData.Count - 1; k++)
                     {
-                        dataArray[j] = cellContents;
+                        string[] data = qgisData[k];
+                        if (r.GetRoadName() == data[0])
+                        {
+                            if (r.GetStart() == int.Parse(data[1]) && r.GetEnd() == int.Parse(data[2]))
+                            {
+                                r.SetQgisData(data);                                
+                                break;
+                            }
+                        }
                     }
                 }
-                Road r = new Road(dataArray);
-                roadList.Add(r);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
+
         private void DisplayData()
         {         
             //displaying in first listbox
@@ -128,7 +178,7 @@ namespace RATA_FMM
             {
                 listBoxData.Items.Add(r.ToString());                
 
-                rankOnSeverity();
+                //rankOnSeverity();
             }
 
             //roadList.Sort((x, y) => y.GetNumFaults().CompareTo(x.GetNumFaults()));
@@ -138,8 +188,7 @@ namespace RATA_FMM
                 if (ret == 0) ret = y.GetLongLength().CompareTo(x.GetLongLength());
                 return ret;
             });
-            listBoxMaintenance.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) + "End".PadRight(10) + "Length".PadRight(7) +
-                "Date Added".PadRight(15) + "Side".PadRight(7) + "Footpath Surface Material".PadRight(27) + "Faults".PadRight(10));
+
             foreach (Road r in roadList)
             {
                 listBoxMaintenance.Items.Add(r.PrintDataShort());
