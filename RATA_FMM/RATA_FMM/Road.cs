@@ -14,19 +14,19 @@ namespace RATA_FMM
         private int start;
         private string localityName;
         private int localityID;
-        private string displacement; //could possibly split into 2 seperate ints
+        private string displacement; 
         private int end;
         private int footpath1;
         private char footpath2;
         private string footpathSurfaceMaterial;
-        private string inspection; //could possibly split into 2 seperate ints
+        private string inspection; 
         private string surveyDescription;
         private int length1;
         private int length2;
         private string side;
         private string survey;
         private DateTime date;
-        private string footpathSurfaceMaterial2; //duplicate?
+        private string footpathSurfaceMaterial2; 
         private int settlement;
         private int bumps;
         private int depressions;
@@ -49,10 +49,10 @@ namespace RATA_FMM
         private string priorityNotes;
         private int inspectionStart;
         private int inspectionEnd;
-        private int survey2; //probably needs better name
+        private int survey2; 
         private char latest;
-        private string latest2; //probably needs better name
-        private char side2; //probably needs better name
+        private string latest2; 
+        private char side2; 
         private string footpathSurfaceMaterial3;
         private string notes;
         private string rater;
@@ -169,15 +169,8 @@ namespace RATA_FMM
 
         public string PrintDataShort()
         {
-            conditionRating = calcConditionRating();
-            //calc length (longer of 2) at some point
-            int tempLength = 0;
-            if (length1 > length2)
-                tempLength = length1;
-            if (length1 < length2)
-                tempLength = length2;
-            else
-                tempLength = length1;
+            conditionRating = CalcConditionRating();
+            int tempLength = GetLongLength();
 
             return roadName.PadRight(35) + start.ToString().PadRight(10) + end.ToString().PadRight(10) +
                 tempLength.ToString().PadRight(7) + dateAdded.ToShortDateString().PadRight(15)
@@ -502,7 +495,7 @@ namespace RATA_FMM
             return faults;
         }
 
-        private int calcConditionRating()
+        private int CalcConditionRating()
         {
             int rating = 0;
             try
