@@ -31,13 +31,15 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listBoxData = new System.Windows.Forms.ListBox();
             this.listBoxReplacement = new System.Windows.Forms.ListBox();
             this.listBoxMaintenance = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelMap = new System.Windows.Forms.Label();
+            this.labelMaintenance = new System.Windows.Forms.Label();
+            this.labelReplacement = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,19 +67,26 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // printToolStripMenuItem
+            // 
+            this.printToolStripMenuItem.Name = "printToolStripMenuItem";
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.printToolStripMenuItem.Text = "Print";
+            this.printToolStripMenuItem.Click += new System.EventHandler(this.PrintToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(100, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -111,21 +120,32 @@
             this.listBoxMaintenance.Size = new System.Drawing.Size(500, 381);
             this.listBoxMaintenance.TabIndex = 3;
             // 
-            // label1
+            // labelMap
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1343, 438);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Insert map here";
+            this.labelMap.AutoSize = true;
+            this.labelMap.Location = new System.Drawing.Point(1343, 438);
+            this.labelMap.Name = "labelMap";
+            this.labelMap.Size = new System.Drawing.Size(80, 13);
+            this.labelMap.TabIndex = 4;
+            this.labelMap.Text = "Insert map here";
             // 
-            // printToolStripMenuItem
+            // labelMaintenance
             // 
-            this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.printToolStripMenuItem.Text = "Print";
-            this.printToolStripMenuItem.Click += new System.EventHandler(this.PrintToolStripMenuItem_Click);
+            this.labelMaintenance.AutoSize = true;
+            this.labelMaintenance.Location = new System.Drawing.Point(604, 327);
+            this.labelMaintenance.Name = "labelMaintenance";
+            this.labelMaintenance.Size = new System.Drawing.Size(94, 13);
+            this.labelMaintenance.TabIndex = 5;
+            this.labelMaintenance.Text = "Maintenance Jobs";
+            // 
+            // labelReplacement
+            // 
+            this.labelReplacement.AutoSize = true;
+            this.labelReplacement.Location = new System.Drawing.Point(603, 30);
+            this.labelReplacement.Name = "labelReplacement";
+            this.labelReplacement.Size = new System.Drawing.Size(95, 13);
+            this.labelReplacement.TabIndex = 6;
+            this.labelReplacement.Text = "Replacement Jobs";
             // 
             // Form1
             // 
@@ -133,7 +153,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1453, 720);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelReplacement);
+            this.Controls.Add(this.labelMaintenance);
+            this.Controls.Add(this.labelMap);
             this.Controls.Add(this.listBoxMaintenance);
             this.Controls.Add(this.listBoxReplacement);
             this.Controls.Add(this.listBoxData);
@@ -158,8 +180,10 @@
         private System.Windows.Forms.ListBox listBoxData;
         private System.Windows.Forms.ListBox listBoxReplacement;
         private System.Windows.Forms.ListBox listBoxMaintenance;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelMap;
         private System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem;
+        private System.Windows.Forms.Label labelMaintenance;
+        private System.Windows.Forms.Label labelReplacement;
     }
 }
 
