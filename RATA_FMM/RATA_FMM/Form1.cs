@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aspose.Cells;
 using System.IO;
+using System.Globalization;
 
 namespace RATA_FMM
 {
@@ -26,6 +27,8 @@ namespace RATA_FMM
 
         int window_length = Screen.PrimaryScreen.Bounds.Width;
         int window_height = Screen.PrimaryScreen.Bounds.Height;
+
+        string printToFile = "";
 
         public Form1()
         {
@@ -156,7 +159,16 @@ namespace RATA_FMM
                         string[] data = qgisData[k];
                         if (r.GetRoadName() == data[0])
                         {
-                            if (r.GetStart() == int.Parse(data[1]) && r.GetEnd() == int.Parse(data[2]))
+                            string startString = data[1];
+                            string endString = data[2];
+
+                            startString = new string(startString.Where(c => char.IsDigit(c)).ToArray());
+                            endString = new string(endString.Where(c => char.IsDigit(c)).ToArray());
+
+                            int startInt = int.Parse(startString);
+                            int endInt = int.Parse(endString);
+
+                            if (r.GetStart() == startInt && r.GetEnd() == endInt)
                             {
                                 r.SetQgisData(data);                                
                                 break;
@@ -192,71 +204,72 @@ namespace RATA_FMM
             foreach (Road r in roadList)
             {
                 listBoxMaintenance.Items.Add(r.PrintDataShort());
+                printToFile += r.GetRoadName() + ", " + r.GetStart().ToString() + ", " + r.GetEnd().ToString() + "\n";
             }
         }
 
-        /// <summary>
-        /// Takes the maintenance code and returns the maintenance fault as a string
-        /// </summary>
-        /// <param name="c">The maintenance code</param>
-        /// <returns>The maintenance fault</returns>
-        private string getMaintenanceFault(string c)
-        {
-            string fault = "";
+        ///// <summary>
+        ///// Takes the maintenance code and returns the maintenance fault as a string
+        ///// </summary>
+        ///// <param name="c">The maintenance code</param>
+        ///// <returns>The maintenance fault</returns>
+        //private string getMaintenanceFault(string c)
+        //{
+        //    string fault = "";
 
-            for (int i = 0; i < MAINTENANCE_CODES.Length; i++)
-            {
-                if (c == MAINTENANCE_CODES[i]) //If the code being searched on matches the code at the current position
-                {
-                    fault = MAINTENANCE_FAULTS[i]; //Assign it the appropriate maintenance fault
-                }
-            }
+        //    for (int i = 0; i < MAINTENANCE_CODES.Length; i++)
+        //    {
+        //        if (c == MAINTENANCE_CODES[i]) //If the code being searched on matches the code at the current position
+        //        {
+        //            fault = MAINTENANCE_FAULTS[i]; //Assign it the appropriate maintenance fault
+        //        }
+        //    }
 
-            return fault; //Return the fault
-        }
+        //    return fault; //Return the fault
+        //}
 
-        /// <summary>
-        /// Ranks data entries based on severity, with 5 being prioritized first and 1 last
-        /// Very crude ranking implementation at present
-        /// </summary>
-        private void rankOnSeverity()
-        {
-            List<string[]> footpaths = new List<string[]>(); //A list to hold all footpaths
+        ///// <summary>
+        ///// Ranks data entries based on severity, with 5 being prioritized first and 1 last
+        ///// Very crude ranking implementation at present
+        ///// </summary>
+        //private void rankOnSeverity()
+        //{
+        //    List<string[]> footpaths = new List<string[]>(); //A list to hold all footpaths
 
-            //Some temporary dummy entries
-            string[] dummyEntryOne = { "Albert Street", "5" };
-            string[] dummyEntryTwo = { "Anzac Street", "4" };
-            string[] dummyEntryThree = { "Hurley Place", "6" };
-            string[] dummyEntryFour = { "Queen Street", "2" };
-            string[] dummyEntryFive = { "Shakespeare Street", "1" };
-            string[] dummyEntrySix = { "Taylor Street", "1" };
-            string[] dummyEntrySeven = { "Thornton Road", "2" };
-            string[] dummyEntryEight = { "Victoria Street", "3" };
-            string[] dummyEntryNine = { "Cotter Place", "4" };
-            string[] dummyEntryTen = { "Wallace Terrace", "5" };
+        //    //Some temporary dummy entries
+        //    string[] dummyEntryOne = { "Albert Street", "5" };
+        //    string[] dummyEntryTwo = { "Anzac Street", "4" };
+        //    string[] dummyEntryThree = { "Hurley Place", "6" };
+        //    string[] dummyEntryFour = { "Queen Street", "2" };
+        //    string[] dummyEntryFive = { "Shakespeare Street", "1" };
+        //    string[] dummyEntrySix = { "Taylor Street", "1" };
+        //    string[] dummyEntrySeven = { "Thornton Road", "2" };
+        //    string[] dummyEntryEight = { "Victoria Street", "3" };
+        //    string[] dummyEntryNine = { "Cotter Place", "4" };
+        //    string[] dummyEntryTen = { "Wallace Terrace", "5" };
 
-            //Adding dummy entries to footpath list
-            footpaths.Add(dummyEntryOne);
-            footpaths.Add(dummyEntryTwo);
-            footpaths.Add(dummyEntryThree);
-            footpaths.Add(dummyEntryFour);
-            footpaths.Add(dummyEntryFive);
-            footpaths.Add(dummyEntrySix);
-            footpaths.Add(dummyEntrySeven);
-            footpaths.Add(dummyEntryEight);
-            footpaths.Add(dummyEntryNine);
-            footpaths.Add(dummyEntryTen);
+        //    //Adding dummy entries to footpath list
+        //    footpaths.Add(dummyEntryOne);
+        //    footpaths.Add(dummyEntryTwo);
+        //    footpaths.Add(dummyEntryThree);
+        //    footpaths.Add(dummyEntryFour);
+        //    footpaths.Add(dummyEntryFive);
+        //    footpaths.Add(dummyEntrySix);
+        //    footpaths.Add(dummyEntrySeven);
+        //    footpaths.Add(dummyEntryEight);
+        //    footpaths.Add(dummyEntryNine);
+        //    footpaths.Add(dummyEntryTen);
 
-            footpaths = footpaths.OrderByDescending(arr => arr[1]).ToList(); //Sort the footpath list from highest severity to lowest
+        //    footpaths = footpaths.OrderByDescending(arr => arr[1]).ToList(); //Sort the footpath list from highest severity to lowest
 
-            //Output the footpath report to the console window
-            Console.WriteLine("Footpath Severity Report:");
-            for (int i = 0; i < footpaths.Count; i++)
-            {
-                string[] currFootpath = footpaths[i];
-                Console.WriteLine(currFootpath[0] + " with severity " + currFootpath[1]); //Output street name and severity
-            }
-        }
+        //    //Output the footpath report to the console window
+        //    Console.WriteLine("Footpath Severity Report:");
+        //    for (int i = 0; i < footpaths.Count; i++)
+        //    {
+        //        string[] currFootpath = footpaths[i];
+        //        Console.WriteLine(currFootpath[0] + " with severity " + currFootpath[1]); //Output street name and severity
+        //    }
+        //}
 
         /// <summary>
         /// Prints report to file
@@ -267,13 +280,17 @@ namespace RATA_FMM
         {
             string text = " ";
 
-            text += "Replacements\n";
-            text += "\n<Insert footpaths to be replaced, ranked on severity>\n\n";
+            //text += "Replacements\n";
+            //text += "\n<Insert footpaths to be replaced, ranked on severity>\n\n";
             text += "Maintenance\n";
-            text += "\n<Insert footpaths to maintain, ranked on severity>\n";
+            text += " \n";
+            text += "Street Name, Start (m), End (m)\n";
+            text += " \n";
+            text += printToFile;
+
 
             PCPrint printer = new PCPrint(text);
-            printer.PrinterFont = new System.Drawing.Font("Times New Roman", 14);
+            printer.PrinterFont = new System.Drawing.Font("Times New Roman", 9);
             printer.PrinterSettings.PrintToFile = true;
             printer.Print();
         }
