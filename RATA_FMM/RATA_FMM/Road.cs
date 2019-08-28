@@ -67,7 +67,7 @@ namespace RATA_FMM
         private string changedBy;
 
         private int numFaults;
-        private int conditionRating;
+        private double conditionRating;
 
         private string[] qgisData;
         //0 - road id
@@ -75,8 +75,9 @@ namespace RATA_FMM
         //2 - end
         //5 - length
         //10 - age
-        //20 - school buffer area
-        //22 - health buffer area
+        //19 - service area
+        //21 - school area
+        //23 - health area
 
         //contructor function
         public Road(string[] roadData)
@@ -168,8 +169,7 @@ namespace RATA_FMM
         }
 
         public string PrintDataShort()
-        {
-            conditionRating = CalcConditionRating();
+        {            
             int tempLength = GetLongLength();
 
             return roadName.PadRight(35) + start.ToString().PadRight(10) + end.ToString().PadRight(10) +
@@ -462,10 +462,15 @@ namespace RATA_FMM
             return this.numFaults;
         }
 
+        public double GetConditionRating()
+        {
+            return this.conditionRating;
+        }
+
         public void SetQgisData(string[] data)
         {
             qgisData = data;
-            Console.WriteLine(qgisData[0] + " " + qgisData[1] + " " + qgisData[2] + " " + qgisData[5] + " " + qgisData[10] + " " + qgisData[20] + " " + qgisData[22]);
+            conditionRating = CalcConditionRating();
         }
 
         public string[] GetQgisData()
@@ -495,28 +500,53 @@ namespace RATA_FMM
             return faults;
         }
 
-        private int CalcConditionRating()
+        private double CalcConditionRating()
         {
-            int rating = 0;
+            double rating = 0;
+
+            rating += CalcZoneRating();
+            rating += CalcFootpathRating();
+
+            return Math.Round(rating, 2);
+        }
+
+        private double CalcZoneRating()
+        {
+            double rating = 0;
             try
             {
                 if (qgisData != null)
                 {
-                    if (double.Parse(qgisData[20]) > 0)
+                    if (double.Parse(qgisData[19]) > 0)//service
                     {
-                        rating += 20;
+                        double temp = (double.Parse(qgisData[19]) / 100) * 15;
+                        rating += (10 + temp);
                     }
-                    if (double.Parse(qgisData[22]) > 0)
+                    if (double.Parse(qgisData[21]) > 0) //school
                     {
-                        rating += 25;
+                        double temp = (double.Parse(qgisData[21]) / 100) * 15;
+                        rating += (15 + temp);
+                    }
+                    if (double.Parse(qgisData[23]) > 0) //health
+                    {
+                        double temp = (double.Parse(qgisData[23]) / 100) * 10;
+                        rating += (30 + temp);
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-            return rating;
+            return Math.Round(rating, 2);
+        }
+
+        private double CalcFootpathRating()
+        {
+            double rating = 0;
+
+
+            return Math.Round(rating, 2);
         }
 
         public int GetLongLength()

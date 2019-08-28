@@ -46,7 +46,7 @@ namespace RATA_FMM
             listBoxMaintenance.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2 - 30));
 
             //column headers for first listbox
-            listBoxData.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) +
+            /*listBoxData.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) +
                 "Locality Name".PadRight(35) + "Locality ID".PadRight(15) + "Displacement".PadRight(15) +
                 "End".PadRight(10) + "Footpath".PadRight(12) + "Footpath".PadRight(12) + "Footpath Surface Material".PadRight(27) +
                 "Inspection".PadRight(15) + "Survey Description".PadRight(20) + "Length".PadRight(7) + "Length".PadRight(7) +
@@ -61,9 +61,9 @@ namespace RATA_FMM
                 "Footpath Surface Material".PadRight(27) + "Notes".PadRight(150) + "Rater".PadRight(7) +
                 "Survey Method".PadRight(15) + "Survey Method".PadRight(15) + "Edit Survey Data".PadRight(20) + "Edit Survey Data".PadRight(35) +
                 "Map Desc 1".PadRight(30) + "Date Added".PadRight(15) + "Added By".PadRight(10) +
-                "Date Changed".PadRight(15) + "Changed By".PadRight(10));
+                "Date Changed".PadRight(15) + "Changed By".PadRight(10));*/
 
-            listBoxMaintenance.Items.Add("Road Name".PadRight(35) + "Start".PadRight(10) + "End".PadRight(10) + "Length".PadRight(7) +
+            listBoxData.Items.Add("Road Name".PadRight(35) + "Start".PadRight(10) + "End".PadRight(10) + "Length".PadRight(7) +
                 "Date Added".PadRight(15) + "Side".PadRight(7) + "Footpath Surface Material".PadRight(27) + "Faults".PadRight(10) + "Condition Rating".PadRight(20));
 
             //reading file
@@ -83,8 +83,9 @@ namespace RATA_FMM
                 //2 - end
                 //5 - length
                 //10 - age
-                //20 - school buffer area
-                //22 - health buffer area
+                //19 - service area
+                //21 - school area
+                //23 - health area
                 qgisData.Add(csvArray);
             }
             reader.Close();
@@ -151,6 +152,7 @@ namespace RATA_FMM
                     roadList.Add(r);
 
                     //find matching data in qgis data
+                    //potentially add date check
                     for (int k = 0; k <= qgisData.Count - 1; k++)
                     {
                         string[] data = qgisData[k];
@@ -174,24 +176,25 @@ namespace RATA_FMM
         private void DisplayData()
         {         
             //displaying in first listbox
-            foreach (Road r in roadList)
+            /*foreach (Road r in roadList)
             {
                 listBoxData.Items.Add(r.ToString());                
 
                 //rankOnSeverity();
-            }
+            }*/
 
             //roadList.Sort((x, y) => y.GetNumFaults().CompareTo(x.GetNumFaults()));
             roadList.Sort((x, y) => 
             {
-                var ret = y.GetNumFaults().CompareTo(x.GetNumFaults());
-                if (ret == 0) ret = y.GetLongLength().CompareTo(x.GetLongLength());
+                var ret = y.GetConditionRating().CompareTo(x.GetConditionRating());
+                if (ret == 0)
+                    ret = y.GetNumFaults().CompareTo(x.GetNumFaults());
                 return ret;
             });
 
             foreach (Road r in roadList)
             {
-                listBoxMaintenance.Items.Add(r.PrintDataShort());
+                listBoxData.Items.Add(r.PrintDataShort());
             }
         }
 
