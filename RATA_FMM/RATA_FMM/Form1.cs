@@ -175,15 +175,6 @@ namespace RATA_FMM
 
         private void DisplayData()
         {         
-            //displaying in first listbox
-            /*foreach (Road r in roadList)
-            {
-                listBoxData.Items.Add(r.ToString());                
-
-                //rankOnSeverity();
-            }*/
-
-            //roadList.Sort((x, y) => y.GetNumFaults().CompareTo(x.GetNumFaults()));
             roadList.Sort((x, y) => 
             {
                 var ret = y.GetConditionRating().CompareTo(x.GetConditionRating());
@@ -191,7 +182,7 @@ namespace RATA_FMM
                     ret = y.GetNumFaults().CompareTo(x.GetNumFaults());
                 return ret;
             });
-
+            //displaying in first listbox
             foreach (Road r in roadList)
             {
                 listBoxData.Items.Add(r.PrintDataShort());

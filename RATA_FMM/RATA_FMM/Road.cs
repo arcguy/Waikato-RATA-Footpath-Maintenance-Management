@@ -519,18 +519,15 @@ namespace RATA_FMM
                 {
                     if (double.Parse(qgisData[19]) > 0)//service
                     {
-                        double temp = (double.Parse(qgisData[19]) / 100) * 15;
-                        rating += (10 + temp);
+                        rating += 10 + ((double.Parse(qgisData[19]) / 100) * 15);
                     }
                     if (double.Parse(qgisData[21]) > 0) //school
                     {
-                        double temp = (double.Parse(qgisData[21]) / 100) * 15;
-                        rating += (15 + temp);
+                        rating += 15 + ((double.Parse(qgisData[21]) / 100) * 15);
                     }
                     if (double.Parse(qgisData[23]) > 0) //health
                     {
-                        double temp = (double.Parse(qgisData[23]) / 100) * 10;
-                        rating += (30 + temp);
+                        rating += 30 + ((double.Parse(qgisData[23]) / 100) * 10);
                     }
                 }
             }
