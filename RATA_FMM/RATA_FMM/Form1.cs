@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Aspose.Cells;
 using System.IO;
 using System.Globalization;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace RATA_FMM
 {
@@ -128,7 +129,7 @@ namespace RATA_FMM
                 Worksheet ws = wb.Worksheets[0];
 
                 //Get cells from worksheet and number of rows and columns from worksheet
-                Cells cells = ws.Cells;
+                Aspose.Cells.Cells cells = ws.Cells;
                 int numRows = cells.MaxDataRow;
                 int numColumns = cells.MaxDataColumn;
 
@@ -321,6 +322,43 @@ namespace RATA_FMM
             {
                 listBoxMaintenance.Items.Add(r.PrintDataShort());
             }
+        }
+
+        private Word.Table getTableByBookmark(Word.Document doc, string bookmarkName)
+        {
+            Word.Table table = doc.Bookmarks[bookmarkName].Range.Tables[1];
+            if (table != null)
+            {
+                return table;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private void insertDataIntoWordTemplate(string demoType)
+        {
+            Word.Application wordApp = new Word.Application();
+            Word.Table table = getTableByBookmark(wordApp.ActiveDocument, "maintenanceTable");
+           
+            if (table == null)
+            {
+                return;
+            }
+
+            int i = 1;
+            foreach (Road r in filteredFootpaths)
+            {
+                i++;
+                table.Rows.Add();
+                table.Cell(i, 1).Range.Text = r.GetRoadName();
+                table.Cell(i, 2).Range.Text = r.GetStart().ToString();
+                table.Cell(i, 3).Range.Text = r.GetEnd().ToString();
+                table.Cell(i, 4).Range.Text = r.GetNumFaults().ToString();
+            }
+
+            Marshal.ReleaseComObject(table);
         }
     }
 }
