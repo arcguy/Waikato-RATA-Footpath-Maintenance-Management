@@ -20,6 +20,7 @@ namespace RATA_FMM
     {
         const string FILTER = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
         List<Road> roadList = new List<Road>();
+        List<Road> filteredFootpaths = new List<Road>();
         List<string[]> qgisData = new List<string[]>();
 
         static string[] MAINTENANCE_CODES = { "a", "b", "c", "d", "e", "f" };
@@ -27,8 +28,6 @@ namespace RATA_FMM
 
         int window_length = Screen.PrimaryScreen.Bounds.Width;
         int window_height = Screen.PrimaryScreen.Bounds.Height;
-
-        string printToFile = "";
 
         static bool dataProcessed = false;
 
@@ -207,8 +206,9 @@ namespace RATA_FMM
             foreach (Road r in roadList)
             {
                 listBoxMaintenance.Items.Add(r.PrintDataShort());
-                printToFile += r.GetRoadName() + ", " + r.GetStart().ToString() + ", " + r.GetEnd().ToString() + "\n";
+                //printToFile += r.GetRoadName() + ", " + r.GetStart().ToString() + ", " + r.GetEnd().ToString() + "\n";
             }
+            filteredFootpaths = new List<Road>(roadList);
         }
 
         /// <summary>
@@ -219,12 +219,19 @@ namespace RATA_FMM
         private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string text = " ";
+            string footpathsToPrint = "";
 
             text += "Maintenance\n";
             text += " \n";
-            text += "Street Name, Start (m), End (m)\n";
+            text += "Street Name, Start (m), End (m), Number of Faults\n";
             text += " \n";
-            text += printToFile;
+
+            foreach (Road r in filteredFootpaths)
+            {
+                footpathsToPrint += r.GetRoadName() + ", " + r.GetStart().ToString() + ", " + r.GetEnd().ToString() + ", " + r.GetNumFaults() + "\n";
+            }
+
+            text += footpathsToPrint;
 
 
             PCPrint printer = new PCPrint(text);
@@ -257,13 +264,11 @@ namespace RATA_FMM
                     MessageBox.Show("Results have been updated on " + numFaults.ToString() + " defects.");
 
                     initializeMaintenanceListBox();
+                    filteredFootpaths = filterResults(numFaults);
 
-                    foreach (Road r in roadList)
+                    foreach (Road r in filteredFootpaths)
                     {
-                        if (r.GetNumFaults() >= numFaults)
-                        {
-                            listBoxMaintenance.Items.Add(r.PrintDataShort());
-                        }
+                        listBoxMaintenance.Items.Add(r.PrintDataShort());
                     }
                 }
             }
@@ -278,6 +283,29 @@ namespace RATA_FMM
 
             listBoxMaintenance.Items.Add("Road Name".PadRight(35) + "Start".PadRight(10) + "End".PadRight(10) + "Length".PadRight(7) +
                 "Date Added".PadRight(15) + "Side".PadRight(7) + "Footpath Surface Material".PadRight(27) + "Faults".PadRight(10) + "Condition Rating".PadRight(20));
+        }
+
+        /// <summary>
+        /// Applies filters to the whole road list
+        /// </summary>
+        /// <param name="numDefects">The number of defects to filter on</param>
+        /// <returns>The new road list that conforms to the applied filters</returns>
+        private List<Road> filterResults (int numDefects)
+        {
+            List<Road> filteredFootpaths = new List<Road>();
+
+            if (numDefects != -1)
+            {
+                foreach (Road r in roadList)
+                {
+                    if (r.GetNumFaults() >= numDefects)
+                    {
+                        filteredFootpaths.Add(r);
+                    }
+                }
+            }
+
+            return filteredFootpaths;
         }
 
         /// <summary>
