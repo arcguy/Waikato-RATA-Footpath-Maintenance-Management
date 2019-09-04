@@ -63,15 +63,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="PCPrint.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PCPrint.Designer.cs">
-      <DependentUpon>PCPrint.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Road.cs" />
+    <Compile Include="WordPrint.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
