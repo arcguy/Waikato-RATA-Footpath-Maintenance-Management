@@ -11,7 +11,14 @@ using System.Windows.Forms;
 using Aspose.Cells;
 using System.IO;
 using System.Globalization;
+
+using Microsoft.Office.Interop.Word;
 using Word = Microsoft.Office.Interop.Word;
+using Microsoft.Office.Core;
+using System.Reflection;
+using System.Diagnostics;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
 
 namespace RATA_FMM
 {
@@ -234,11 +241,16 @@ namespace RATA_FMM
 
             text += footpathsToPrint;
 
+            string templateName = Directory.GetCurrentDirectory() + "\\" + "reportTemplate.dotx";
+            string saveAs = Directory.GetCurrentDirectory() + "\\" + "Report.docx";
+            createWordDocument(templateName, saveAs);
 
             PCPrint printer = new PCPrint(text);
             printer.PrinterFont = new System.Drawing.Font("Times New Roman", 9);
             printer.PrinterSettings.PrintToFile = true;
-            printer.Print();
+            //printer.Print();
+            
+            
         }
 
         /// <summary>
@@ -337,10 +349,9 @@ namespace RATA_FMM
             }
         }
 
-        private void insertDataIntoWordTemplate(string demoType)
+        private void insertDataIntoWordTemplate(Word.Document doc)
         {
-            Word.Application wordApp = new Word.Application();
-            Word.Table table = getTableByBookmark(wordApp.ActiveDocument, "maintenanceTable");
+            Word.Table table = getTableByBookmark(doc, "maintenanceTable");
            
             if (table == null)
             {
@@ -357,8 +368,88 @@ namespace RATA_FMM
                 table.Cell(i, 3).Range.Text = r.GetEnd().ToString();
                 table.Cell(i, 4).Range.Text = r.GetNumFaults().ToString();
             }
-
+            
             Marshal.ReleaseComObject(table);
+        }
+
+        /* New Word document code */
+
+        private void createWordDocument(object templateName, object saveAs)
+        {
+            List<int> processesBeforeGen = getRunningProcesses();
+            object missing = Missing.Value;
+
+            Word.Application wordApp = new Word.Application();
+            Word.Document doc = null;
+
+            if (File.Exists((string)templateName))
+            {
+                DateTime today = DateTime.Now;
+
+                object readOnly = false;
+                object isVisible = false;
+                wordApp.Visible = false;
+
+                doc = wordApp.Documents.Open(ref templateName, ref missing, ref missing, 
+                    ref readOnly, ref missing, ref missing, ref missing, ref missing, 
+                    ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
+
+                doc.Activate();
+                insertDataIntoWordTemplate(doc);
+            }
+            else
+            {
+                //Error
+                MessageBox.Show("Error: Template path does not exist");
+                return;
+            }
+
+            doc.SaveAs2(ref saveAs, ref missing, ref missing, ref missing, ref missing, 
+                ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, 
+                ref missing, ref missing, ref missing, ref missing, ref missing);
+
+            MessageBox.Show("Document created");
+            List<int> processesAfterGen = getRunningProcesses();
+            killProcesses(processesBeforeGen, processesAfterGen);
+        }
+
+        public List<int> getRunningProcesses()
+        {
+            List<int> processIDs = new List<int>();
+
+            foreach (Process clsProcess in Process.GetProcesses())
+            {
+                if (Process.GetCurrentProcess().Id == clsProcess.Id)
+                {
+                    continue;
+                }
+                if (clsProcess.ProcessName.Contains("WINWORD"))
+                {
+                    processIDs.Add(clsProcess.Id);
+                }
+            }
+
+            return processIDs;
+        }
+
+        private void killProcesses(List<int> processesBeforeGen, List<int> processesAfterGen)
+        {
+            foreach (int pidAfter in processesBeforeGen)
+            {
+                bool processFound = false;
+                foreach (int pidBefore in processesBeforeGen)
+                {
+                    if (pidAfter == pidBefore)
+                    {
+                        processFound = true;
+                    }
+                }
+                if (processFound == false)
+                {
+                    Process clsProcess = Process.GetProcessById(pidAfter);
+                    clsProcess.Kill();
+                }
+            }
         }
     }
 }
