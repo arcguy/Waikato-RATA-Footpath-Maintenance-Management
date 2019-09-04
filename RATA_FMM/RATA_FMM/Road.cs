@@ -68,6 +68,7 @@ namespace RATA_FMM
 
         private int numFaults;
         private double conditionRating;
+        private int footpathCondition;
 
         private string[] qgisData;
         //0 - road id
@@ -144,37 +145,61 @@ namespace RATA_FMM
             dateChanged = roadData[54];//string to avoid errors when no date entered
             changedBy = roadData[55];
 
-            numFaults = CalcFaults();            
+            numFaults = CalcFaults();
+            conditionRating = 0;
+            footpathCondition = 0;
         }
 
         //Returns every field in string format
         public override string ToString()
-        {          
-                return road.ToString().PadRight(10) + roadName.PadRight(35) + start.ToString().PadRight(10) +
-                localityName.PadRight(35) + localityID.ToString().PadRight(15) + displacement.PadRight(15) +
-                end.ToString().PadRight(10) + footpath1.ToString().PadRight(12) + footpath2.ToString().PadRight(12) + footpathSurfaceMaterial.PadRight(27) +
-                inspection.PadRight(15) + surveyDescription.PadRight(20) + length1.ToString().PadRight(7) + length2.ToString().PadRight(7) +
-                side.PadRight(7) + survey.PadRight(25) + date.ToShortDateString().PadRight(15) + settlement.ToString().PadRight(12) +
-                bumps.ToString().PadRight(7) + depressions.ToString().PadRight(13) + cracked.ToString().PadRight(10) + scabbing.ToString().PadRight(10) +
-                patches.ToString().PadRight(9) + potholes.ToString().PadRight(9) + extra1.ToString().PadRight(8) + extra2.ToString().PadRight(8) +
-                extra3.ToString().PadRight(8) + extra4.ToString().PadRight(8) + extra5.ToString().PadRight(8) + extra6.ToString().PadRight(8) +
-                footpathRatingID.ToString().PadRight(20) + calculatedPriority.ToString().PadRight(20) + enteredPriority.ToString().PadRight(20) +
-                calculatedCost.ToString().PadRight(20) + enteredCost.ToString().PadRight(20) + warning.PadRight(30) +
-                priorityNotes.PadRight(20) + inspectionStart.ToString().PadRight(20) + inspectionEnd.ToString().PadRight(20) +
-                survey2.ToString().PadRight(10) + latest.ToString().PadRight(10) + latest2.ToString().PadRight(10) + side2.ToString().PadRight(5) +
-                footpathSurfaceMaterial3.PadRight(27) + notes.PadRight(150) + rater.PadRight(7) +
-                surveyMethod.PadRight(15) + surveyMethod2.PadRight(15) + editSurveyData.ToString().PadRight(20) + editSurveyData2.PadRight(35) +
-                mapDesc1.PadRight(30) + dateAdded.ToShortDateString().PadRight(15) + addedBy.PadRight(10) +
-                dateChanged.ToString().PadRight(20) + changedBy.PadRight(10);
+        {
+            /*return road.ToString().PadRight(10) + roadName.PadRight(35) + start.ToString().PadRight(10) +
+            localityName.PadRight(35) + localityID.ToString().PadRight(15) + displacement.PadRight(15) +
+            end.ToString().PadRight(10) + footpath1.ToString().PadRight(12) + footpath2.ToString().PadRight(12) + footpathSurfaceMaterial.PadRight(27) +
+            inspection.PadRight(15) + surveyDescription.PadRight(20) + length1.ToString().PadRight(7) + length2.ToString().PadRight(7) +
+            side.PadRight(7) + survey.PadRight(25) + date.ToShortDateString().PadRight(15) + settlement.ToString().PadRight(12) +
+            bumps.ToString().PadRight(7) + depressions.ToString().PadRight(13) + cracked.ToString().PadRight(10) + scabbing.ToString().PadRight(10) +
+            patches.ToString().PadRight(9) + potholes.ToString().PadRight(9) + extra1.ToString().PadRight(8) + extra2.ToString().PadRight(8) +
+            extra3.ToString().PadRight(8) + extra4.ToString().PadRight(8) + extra5.ToString().PadRight(8) + extra6.ToString().PadRight(8) +
+            footpathRatingID.ToString().PadRight(20) + calculatedPriority.ToString().PadRight(20) + enteredPriority.ToString().PadRight(20) +
+            calculatedCost.ToString().PadRight(20) + enteredCost.ToString().PadRight(20) + warning.PadRight(30) +
+            priorityNotes.PadRight(20) + inspectionStart.ToString().PadRight(20) + inspectionEnd.ToString().PadRight(20) +
+            survey2.ToString().PadRight(10) + latest.ToString().PadRight(10) + latest2.ToString().PadRight(10) + side2.ToString().PadRight(5) +
+            footpathSurfaceMaterial3.PadRight(27) + notes.PadRight(150) + rater.PadRight(7) +
+            surveyMethod.PadRight(15) + surveyMethod2.PadRight(15) + editSurveyData.ToString().PadRight(20) + editSurveyData2.PadRight(35) +
+            mapDesc1.PadRight(30) + dateAdded.ToShortDateString().PadRight(15) + addedBy.PadRight(10) +
+            dateChanged.ToString().PadRight(20) + changedBy.PadRight(10);*/
+
+            return roadName.PadRight(35) + start.ToString().PadRight(10) + end.ToString().PadRight(10) +
+            GetLongLength().ToString().PadRight(10) + dateAdded.ToShortDateString().PadRight(15)
+            + side.PadRight(7) + footpathSurfaceMaterial.PadRight(27) + numFaults.ToString().PadRight(10) 
+            + conditionRating.ToString().PadRight(20) + footpathCondition.ToString().PadRight(20);
         }
 
         public string PrintDataShort()
         {            
-            int tempLength = GetLongLength();
+            return roadName.PadRight(35) + GetLongLength().ToString().PadRight(10) + numFaults.ToString().PadRight(10) + conditionRating.ToString().PadRight(20) + footpathCondition.ToString().PadRight(15);
+        }
 
-            return roadName.PadRight(35) + start.ToString().PadRight(10) + end.ToString().PadRight(10) +
-                tempLength.ToString().PadRight(7) + dateAdded.ToShortDateString().PadRight(15)
-                + side.PadRight(7) + footpathSurfaceMaterial.PadRight(27) + numFaults.ToString().PadRight(10) + conditionRating.ToString().PadRight(20);
+        public List<string> GetRoadDataAsList()
+        {
+            List<string> itemList = new List<string>();
+
+            itemList.AddRange(new List<string>
+            {
+                "Road Name: ".PadRight(30) + roadName,
+                "Start: ".PadRight(30) + start.ToString(),
+                "End: ".PadRight(30) + end.ToString(),
+                "Length: ".PadRight(30) + GetLongLength().ToString(),
+                "Date Added: ".PadRight(30) + dateAdded.ToShortDateString(),
+                "Side: ".PadRight(30) + side,
+                "Footpath Surface Material: ".PadRight(30) + footpathSurfaceMaterial,
+                "Number of Faults: ".PadRight(30) + numFaults.ToString(),
+                "Condition Rating: ".PadRight(30) + conditionRating.ToString(),
+                "Footpath Condition: ".PadRight(30) + footpathCondition.ToString(),
+            });
+
+            return itemList;
         }
 
         public int GetRoad()
@@ -517,7 +542,7 @@ namespace RATA_FMM
             {
                 if (qgisData != null)
                 {
-                    if (double.Parse(qgisData[19]) > 0)//service
+                    if (double.Parse(qgisData[19]) > 0) //service
                     {
                         rating += 10 + ((double.Parse(qgisData[19]) / 100) * 15);
                     }
@@ -543,7 +568,7 @@ namespace RATA_FMM
             double rating = 0;
 
 
-            return Math.Round(rating, 2);
+            return rating;
         }
 
         public int GetLongLength()

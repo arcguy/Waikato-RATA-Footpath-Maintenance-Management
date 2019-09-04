@@ -35,7 +35,11 @@ namespace RATA_FMM
             listBoxData.Height = window_height - 100;
             listBoxData.Location = new System.Drawing.Point(10, 30);
 
-            labelReplacement.Location = new System.Drawing.Point((window_length / 3 - 30), 30);
+            listBoxDataLong.Width = window_length / 3 - 50;
+            listBoxDataLong.Height = window_height / 2 - 100;
+            listBoxDataLong.Location = new System.Drawing.Point((window_length / 3 - 30), 30);
+
+            /*labelReplacement.Location = new System.Drawing.Point((window_length / 3 - 30), 30);
             listBoxReplacement.Height = window_height / 2 - 90;
             listBoxReplacement.Width = window_length / 3 - 50;
             listBoxReplacement.Location = new System.Drawing.Point((window_length / 3 - 30), 45);
@@ -43,7 +47,7 @@ namespace RATA_FMM
             labelMaintenance.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2 - 45));
             listBoxMaintenance.Height = window_height / 2 - 30;
             listBoxMaintenance.Width = window_length / 3 - 50;
-            listBoxMaintenance.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2 - 30));
+            listBoxMaintenance.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2 - 30));*/
 
             //column headers for first listbox
             /*listBoxData.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) +
@@ -63,8 +67,7 @@ namespace RATA_FMM
                 "Map Desc 1".PadRight(30) + "Date Added".PadRight(15) + "Added By".PadRight(10) +
                 "Date Changed".PadRight(15) + "Changed By".PadRight(10));*/
 
-            listBoxData.Items.Add("Road Name".PadRight(35) + "Start".PadRight(10) + "End".PadRight(10) + "Length".PadRight(7) +
-                "Date Added".PadRight(15) + "Side".PadRight(7) + "Footpath Surface Material".PadRight(27) + "Faults".PadRight(10) + "Condition Rating".PadRight(20));
+            listBoxData.Items.Add("Road Name".PadRight(35) + "Length".PadRight(10) + "Faults".PadRight(10) + "Condition Rating".PadRight(20) + "Footpath Rating".PadRight(15));
 
             //reading file
             StreamReader reader;
@@ -270,6 +273,15 @@ namespace RATA_FMM
             printer.PrinterFont = new System.Drawing.Font("Times New Roman", 14);
             printer.PrinterSettings.PrintToFile = true;
             printer.Print();
+        }
+
+        private void listBoxData_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = listBoxData.SelectedIndex;
+            if (index > 0)
+            {
+                listBoxDataLong.DataSource = roadList[index - 1].GetRoadDataAsList();
+            }
         }
     }
 }
