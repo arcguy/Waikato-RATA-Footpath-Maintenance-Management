@@ -35,9 +35,10 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listBoxData = new System.Windows.Forms.ListBox();
-            this.listBoxReplacement = new System.Windows.Forms.ListBox();
-            this.listBoxMaintenance = new System.Windows.Forms.ListBox();
             this.labelMap = new System.Windows.Forms.Label();
+
+            this.listBoxDataLong = new System.Windows.Forms.ListBox();
+
             this.labelMaintenance = new System.Windows.Forms.Label();
             this.labelReplacement = new System.Windows.Forms.Label();
             this.buttonUpdateResults = new System.Windows.Forms.Button();
@@ -48,6 +49,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonShowAll = new System.Windows.Forms.Button();
+
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFilter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -109,26 +111,7 @@
             this.listBoxData.Name = "listBoxData";
             this.listBoxData.Size = new System.Drawing.Size(500, 680);
             this.listBoxData.TabIndex = 1;
-            // 
-            // listBoxReplacement
-            // 
-            this.listBoxReplacement.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBoxReplacement.FormattingEnabled = true;
-            this.listBoxReplacement.HorizontalScrollbar = true;
-            this.listBoxReplacement.Location = new System.Drawing.Point(704, 27);
-            this.listBoxReplacement.Name = "listBoxReplacement";
-            this.listBoxReplacement.Size = new System.Drawing.Size(500, 290);
-            this.listBoxReplacement.TabIndex = 2;
-            // 
-            // listBoxMaintenance
-            // 
-            this.listBoxMaintenance.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBoxMaintenance.FormattingEnabled = true;
-            this.listBoxMaintenance.HorizontalScrollbar = true;
-            this.listBoxMaintenance.Location = new System.Drawing.Point(704, 327);
-            this.listBoxMaintenance.Name = "listBoxMaintenance";
-            this.listBoxMaintenance.Size = new System.Drawing.Size(500, 381);
-            this.listBoxMaintenance.TabIndex = 3;
+            this.listBoxData.SelectedIndexChanged += new System.EventHandler(this.listBoxData_SelectedIndexChanged);
             // 
             // labelMap
             // 
@@ -139,23 +122,25 @@
             this.labelMap.TabIndex = 4;
             this.labelMap.Text = "Insert map here";
             // 
-            // labelMaintenance
+            // listBoxDataLong
             // 
-            this.labelMaintenance.AutoSize = true;
-            this.labelMaintenance.Location = new System.Drawing.Point(604, 327);
-            this.labelMaintenance.Name = "labelMaintenance";
-            this.labelMaintenance.Size = new System.Drawing.Size(94, 13);
-            this.labelMaintenance.TabIndex = 5;
-            this.labelMaintenance.Text = "Maintenance Jobs";
+            this.listBoxDataLong.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxDataLong.FormattingEnabled = true;
+            this.listBoxDataLong.HorizontalScrollbar = true;
+            this.listBoxDataLong.Location = new System.Drawing.Point(516, 30);
+            this.listBoxDataLong.Name = "listBoxDataLong";
+            this.listBoxDataLong.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.listBoxDataLong.Size = new System.Drawing.Size(602, 186);
+            this.listBoxDataLong.TabIndex = 5;
             // 
-            // labelReplacement
+            // label1
             // 
-            this.labelReplacement.AutoSize = true;
-            this.labelReplacement.Location = new System.Drawing.Point(603, 30);
-            this.labelReplacement.Name = "labelReplacement";
-            this.labelReplacement.Size = new System.Drawing.Size(95, 13);
-            this.labelReplacement.TabIndex = 6;
-            this.labelReplacement.Text = "Replacement Jobs";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(811, 560);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(110, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Filtering options here?";
             // 
             // buttonUpdateResults
             // 
@@ -235,6 +220,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+          
+            this.Controls.Add(this.listBoxDataLong);
+
             this.ClientSize = new System.Drawing.Size(1370, 720);
             this.Controls.Add(this.buttonShowAll);
             this.Controls.Add(this.label2);
@@ -244,9 +232,8 @@
             this.Controls.Add(this.buttonUpdateResults);
             this.Controls.Add(this.labelReplacement);
             this.Controls.Add(this.labelMaintenance);
+
             this.Controls.Add(this.labelMap);
-            this.Controls.Add(this.listBoxMaintenance);
-            this.Controls.Add(this.listBoxReplacement);
             this.Controls.Add(this.listBoxData);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.pictureBox1);
@@ -271,10 +258,12 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ListBox listBoxData;
-        private System.Windows.Forms.ListBox listBoxReplacement;
-        private System.Windows.Forms.ListBox listBoxMaintenance;
         private System.Windows.Forms.Label labelMap;
         private System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem;
+
+        private System.Windows.Forms.ListBox listBoxDataLong;
+
+
         private System.Windows.Forms.Label labelMaintenance;
         private System.Windows.Forms.Label labelReplacement;
         private System.Windows.Forms.Button buttonUpdateResults;
