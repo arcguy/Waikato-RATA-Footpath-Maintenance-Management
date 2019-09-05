@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aspose.Cells;
 using System.IO;
+using System.Globalization;
 
 namespace RATA_FMM
 {
@@ -19,6 +20,7 @@ namespace RATA_FMM
     {
         const string FILTER = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
         List<Road> roadList = new List<Road>();
+        List<Road> filteredFootpaths = new List<Road>();
         List<string[]> qgisData = new List<string[]>();
 
         static string[] MAINTENANCE_CODES = { "a", "b", "c", "d", "e", "f" };
@@ -27,9 +29,12 @@ namespace RATA_FMM
         int window_length = Screen.PrimaryScreen.Bounds.Width;
         int window_height = Screen.PrimaryScreen.Bounds.Height;
 
+        static bool dataProcessed = false;
+
         public Form1()
         {
             InitializeComponent();
+
             //setting sizes and positions of listboxes
             listBoxData.Width = window_length / 3 - 50;
             listBoxData.Height = window_height - 100;
@@ -67,7 +72,10 @@ namespace RATA_FMM
                 "Map Desc 1".PadRight(30) + "Date Added".PadRight(15) + "Added By".PadRight(10) +
                 "Date Changed".PadRight(15) + "Changed By".PadRight(10));*/
 
+
             listBoxData.Items.Add("Road Name".PadRight(35) + "Length".PadRight(10) + "Faults".PadRight(10) + "Condition Rating".PadRight(20) + "Footpath Rating".PadRight(15));
+
+            //initializeMaintenanceListBox();
 
             //reading file
             StreamReader reader;
@@ -105,6 +113,7 @@ namespace RATA_FMM
                 {
                     OpenExcelFile(openFileDialog1.FileName);
                     DisplayData();
+                    dataProcessed = true;
                 }
             }
             catch (Exception error)
@@ -127,7 +136,7 @@ namespace RATA_FMM
                 Worksheet ws = wb.Worksheets[0];
 
                 //Get cells from worksheet and number of rows and columns from worksheet
-                Cells cells = ws.Cells;
+                Aspose.Cells.Cells cells = ws.Cells;
                 int numRows = cells.MaxDataRow;
                 int numColumns = cells.MaxDataColumn;
 
@@ -161,7 +170,16 @@ namespace RATA_FMM
                         string[] data = qgisData[k];
                         if (r.GetRoadName() == data[0])
                         {
-                            if (r.GetStart() == int.Parse(data[1]) && r.GetEnd() == int.Parse(data[2]))
+                            string startString = data[1];
+                            string endString = data[2];
+
+                            startString = new string(startString.Where(c => char.IsDigit(c)).ToArray());
+                            endString = new string(endString.Where(c => char.IsDigit(c)).ToArray());
+
+                            int startInt = int.Parse(startString);
+                            int endInt = int.Parse(endString);
+
+                            if (r.GetStart() == startInt && r.GetEnd() == endInt)
                             {
                                 r.SetQgisData(data);                                
                                 break;
@@ -189,70 +207,10 @@ namespace RATA_FMM
             foreach (Road r in roadList)
             {
                 listBoxData.Items.Add(r.PrintDataShort());
+                //printToFile += r.GetRoadName() + ", " + r.GetStart().ToString() + ", " + r.GetEnd().ToString() + "\n";
+
             }
-        }
-
-        /// <summary>
-        /// Takes the maintenance code and returns the maintenance fault as a string
-        /// </summary>
-        /// <param name="c">The maintenance code</param>
-        /// <returns>The maintenance fault</returns>
-        private string getMaintenanceFault(string c)
-        {
-            string fault = "";
-
-            for (int i = 0; i < MAINTENANCE_CODES.Length; i++)
-            {
-                if (c == MAINTENANCE_CODES[i]) //If the code being searched on matches the code at the current position
-                {
-                    fault = MAINTENANCE_FAULTS[i]; //Assign it the appropriate maintenance fault
-                }
-            }
-
-            return fault; //Return the fault
-        }
-
-        /// <summary>
-        /// Ranks data entries based on severity, with 5 being prioritized first and 1 last
-        /// Very crude ranking implementation at present
-        /// </summary>
-        private void rankOnSeverity()
-        {
-            List<string[]> footpaths = new List<string[]>(); //A list to hold all footpaths
-
-            //Some temporary dummy entries
-            string[] dummyEntryOne = { "Albert Street", "5" };
-            string[] dummyEntryTwo = { "Anzac Street", "4" };
-            string[] dummyEntryThree = { "Hurley Place", "6" };
-            string[] dummyEntryFour = { "Queen Street", "2" };
-            string[] dummyEntryFive = { "Shakespeare Street", "1" };
-            string[] dummyEntrySix = { "Taylor Street", "1" };
-            string[] dummyEntrySeven = { "Thornton Road", "2" };
-            string[] dummyEntryEight = { "Victoria Street", "3" };
-            string[] dummyEntryNine = { "Cotter Place", "4" };
-            string[] dummyEntryTen = { "Wallace Terrace", "5" };
-
-            //Adding dummy entries to footpath list
-            footpaths.Add(dummyEntryOne);
-            footpaths.Add(dummyEntryTwo);
-            footpaths.Add(dummyEntryThree);
-            footpaths.Add(dummyEntryFour);
-            footpaths.Add(dummyEntryFive);
-            footpaths.Add(dummyEntrySix);
-            footpaths.Add(dummyEntrySeven);
-            footpaths.Add(dummyEntryEight);
-            footpaths.Add(dummyEntryNine);
-            footpaths.Add(dummyEntryTen);
-
-            footpaths = footpaths.OrderByDescending(arr => arr[1]).ToList(); //Sort the footpath list from highest severity to lowest
-
-            //Output the footpath report to the console window
-            Console.WriteLine("Footpath Severity Report:");
-            for (int i = 0; i < footpaths.Count; i++)
-            {
-                string[] currFootpath = footpaths[i];
-                Console.WriteLine(currFootpath[0] + " with severity " + currFootpath[1]); //Output street name and severity
-            }
+            filteredFootpaths = new List<Road>(roadList);
         }
 
         /// <summary>
@@ -262,17 +220,94 @@ namespace RATA_FMM
         /// <param name="e"></param>
         private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string text = " ";
+            string templateName = Directory.GetCurrentDirectory() + "\\" + "reportTemplate.dotx";
+            string saveAs = Directory.GetCurrentDirectory() + "\\" + "Report.docx";
+            WordPrint printer = new WordPrint(templateName, saveAs);
 
-            text += "Replacements\n";
-            text += "\n<Insert footpaths to be replaced, ranked on severity>\n\n";
-            text += "Maintenance\n";
-            text += "\n<Insert footpaths to maintain, ranked on severity>\n";
+            printer.printFromTemplate(filteredFootpaths);
+        }
 
-            PCPrint printer = new PCPrint(text);
-            printer.PrinterFont = new System.Drawing.Font("Times New Roman", 14);
-            printer.PrinterSettings.PrintToFile = true;
-            printer.Print();
+        /// <summary>
+        /// Updates the results to display only data that match certain user-specified filters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonUpdateResults_Click(object sender, EventArgs e)
+        {
+            if (dataProcessed)
+            {
+                int numFaults = 0;
+
+                if (!int.TryParse(textBoxFilterDefects.Text, out numFaults))
+                {
+                    MessageBox.Show("Error: Please enter a valid number of defects to filter on");
+                }
+                else if (numFaults < 0)
+                {
+                    MessageBox.Show("Error: Number of defects can not be less than 0");
+                }
+                else
+                {
+                    MessageBox.Show("Results have been updated on " + numFaults.ToString() + " defects.");
+
+                    initializeMaintenanceListBox();
+                    filteredFootpaths = filterResults(numFaults);
+
+                    foreach (Road r in filteredFootpaths)
+                    {
+                        listBoxMaintenance.Items.Add(r.PrintDataShort());
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Initializes maintenance list box
+        /// </summary>
+        private void initializeMaintenanceListBox()
+        {
+            listBoxMaintenance.Items.Clear();
+
+            listBoxMaintenance.Items.Add("Road Name".PadRight(35) + "Start".PadRight(10) + "End".PadRight(10) + "Length".PadRight(7) +
+                "Date Added".PadRight(15) + "Side".PadRight(7) + "Footpath Surface Material".PadRight(27) + "Faults".PadRight(10) + "Condition Rating".PadRight(20));
+        }
+
+        /// <summary>
+        /// Applies filters to the whole road list
+        /// </summary>
+        /// <param name="numDefects">The number of defects to filter on</param>
+        /// <returns>The new road list that conforms to the applied filters</returns>
+        private List<Road> filterResults (int numDefects)
+        {
+            List<Road> filteredFootpaths = new List<Road>();
+
+            if (numDefects != -1)
+            {
+                foreach (Road r in roadList)
+                {
+                    if (r.GetNumFaults() >= numDefects)
+                    {
+                        filteredFootpaths.Add(r);
+                    }
+                }
+            }
+
+            return filteredFootpaths;
+        }
+
+        /// <summary>
+        /// Shows all of the results in the maintenance list box. Used after user has applied filters to the results
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonShowAll_Click(object sender, EventArgs e)
+        {
+            initializeMaintenanceListBox();
+
+            foreach (Road r in roadList)
+            {
+                listBoxMaintenance.Items.Add(r.PrintDataShort());
+            }
         }
 
         private void listBoxData_SelectedIndexChanged(object sender, EventArgs e)
