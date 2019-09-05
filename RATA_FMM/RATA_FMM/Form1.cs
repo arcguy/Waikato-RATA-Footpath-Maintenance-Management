@@ -72,10 +72,7 @@ namespace RATA_FMM
                 "Map Desc 1".PadRight(30) + "Date Added".PadRight(15) + "Added By".PadRight(10) +
                 "Date Changed".PadRight(15) + "Changed By".PadRight(10));*/
 
-
-            listBoxData.Items.Add("Road Name".PadRight(35) + "Length".PadRight(10) + "Faults".PadRight(10) + "Condition Rating".PadRight(20) + "Footpath Rating".PadRight(15));
-
-            //initializeMaintenanceListBox();
+            initializeDataListBox();
 
             //reading file
             StreamReader reader;
@@ -250,12 +247,12 @@ namespace RATA_FMM
                 {
                     MessageBox.Show("Results have been updated on " + numFaults.ToString() + " defects.");
 
-                    initializeMaintenanceListBox();
+                    initializeDataListBox();
                     filteredFootpaths = filterResults(numFaults);
 
                     foreach (Road r in filteredFootpaths)
                     {
-                        listBoxMaintenance.Items.Add(r.PrintDataShort());
+                        listBoxData.Items.Add(r.PrintDataShort());
                     }
                 }
             }
@@ -264,12 +261,11 @@ namespace RATA_FMM
         /// <summary>
         /// Initializes maintenance list box
         /// </summary>
-        private void initializeMaintenanceListBox()
+        private void initializeDataListBox()
         {
-            listBoxMaintenance.Items.Clear();
+            listBoxData.Items.Clear();
 
-            listBoxMaintenance.Items.Add("Road Name".PadRight(35) + "Start".PadRight(10) + "End".PadRight(10) + "Length".PadRight(7) +
-                "Date Added".PadRight(15) + "Side".PadRight(7) + "Footpath Surface Material".PadRight(27) + "Faults".PadRight(10) + "Condition Rating".PadRight(20));
+            listBoxData.Items.Add("Road Name".PadRight(35) + "Length".PadRight(10) + "Faults".PadRight(10) + "Condition Rating".PadRight(20) + "Footpath Rating".PadRight(15));
         }
 
         /// <summary>
@@ -302,11 +298,11 @@ namespace RATA_FMM
         /// <param name="e"></param>
         private void ButtonShowAll_Click(object sender, EventArgs e)
         {
-            initializeMaintenanceListBox();
+            initializeDataListBox();
 
             foreach (Road r in roadList)
             {
-                listBoxMaintenance.Items.Add(r.PrintDataShort());
+                listBoxData.Items.Add(r.PrintDataShort());
             }
         }
 
