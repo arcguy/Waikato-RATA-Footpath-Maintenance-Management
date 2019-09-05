@@ -34,7 +34,7 @@
             this.buttonUpdateResults = new System.Windows.Forms.Button();
             this.pictureBoxFilter = new System.Windows.Forms.PictureBox();
             this.labelFilterResults = new System.Windows.Forms.Label();
-            this.textBoxFilterDefects = new System.Windows.Forms.TextBox();
+            this.textBoxFilterFaults = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -45,9 +45,15 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxFilterCondition = new System.Windows.Forms.TextBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFilter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // listBoxData
@@ -83,7 +89,7 @@
             // 
             // buttonUpdateResults
             // 
-            this.buttonUpdateResults.Location = new System.Drawing.Point(1295, 203);
+            this.buttonUpdateResults.Location = new System.Drawing.Point(1196, 199);
             this.buttonUpdateResults.Name = "buttonUpdateResults";
             this.buttonUpdateResults.Size = new System.Drawing.Size(75, 23);
             this.buttonUpdateResults.TabIndex = 7;
@@ -94,7 +100,7 @@
             // pictureBoxFilter
             // 
             this.pictureBoxFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxFilter.Location = new System.Drawing.Point(1222, 46);
+            this.pictureBoxFilter.Location = new System.Drawing.Point(1124, 46);
             this.pictureBoxFilter.Name = "pictureBoxFilter";
             this.pictureBoxFilter.Size = new System.Drawing.Size(219, 213);
             this.pictureBoxFilter.TabIndex = 8;
@@ -103,24 +109,24 @@
             // labelFilterResults
             // 
             this.labelFilterResults.AutoSize = true;
-            this.labelFilterResults.Location = new System.Drawing.Point(1219, 30);
+            this.labelFilterResults.Location = new System.Drawing.Point(1121, 30);
             this.labelFilterResults.Name = "labelFilterResults";
             this.labelFilterResults.Size = new System.Drawing.Size(67, 13);
             this.labelFilterResults.TabIndex = 9;
             this.labelFilterResults.Text = "Filter Results";
             // 
-            // textBoxFilterDefects
+            // textBoxFilterFaults
             // 
-            this.textBoxFilterDefects.Location = new System.Drawing.Point(1354, 73);
-            this.textBoxFilterDefects.Name = "textBoxFilterDefects";
-            this.textBoxFilterDefects.Size = new System.Drawing.Size(43, 20);
-            this.textBoxFilterDefects.TabIndex = 10;
-            this.textBoxFilterDefects.Text = "0";
+            this.textBoxFilterFaults.Location = new System.Drawing.Point(1266, 142);
+            this.textBoxFilterFaults.Name = "textBoxFilterFaults";
+            this.textBoxFilterFaults.Size = new System.Drawing.Size(43, 20);
+            this.textBoxFilterFaults.TabIndex = 10;
+            this.textBoxFilterFaults.Text = "0";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1242, 76);
+            this.label1.Location = new System.Drawing.Point(1154, 145);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 13);
             this.label1.TabIndex = 11;
@@ -129,16 +135,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1242, 98);
+            this.label2.Location = new System.Drawing.Point(1154, 170);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 13);
+            this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 12;
-            this.label2.Text = "or more defects.";
+            this.label2.Text = "or more faults.";
             // 
             // pictureBox1
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(1235, 62);
+            this.pictureBox1.Location = new System.Drawing.Point(1146, 135);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(170, 58);
             this.pictureBox1.TabIndex = 13;
@@ -146,7 +152,7 @@
             // 
             // buttonShowAll
             // 
-            this.buttonShowAll.Location = new System.Drawing.Point(1295, 232);
+            this.buttonShowAll.Location = new System.Drawing.Point(1196, 228);
             this.buttonShowAll.Name = "buttonShowAll";
             this.buttonShowAll.Size = new System.Drawing.Size(75, 23);
             this.buttonShowAll.TabIndex = 14;
@@ -197,9 +203,53 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1441, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1423, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(1154, 98);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(45, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "rating of";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(1154, 73);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(158, 13);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Show footpaths with a condition";
+            // 
+            // textBoxFilterCondition
+            // 
+            this.textBoxFilterCondition.Location = new System.Drawing.Point(1205, 95);
+            this.textBoxFilterCondition.Name = "textBoxFilterCondition";
+            this.textBoxFilterCondition.Size = new System.Drawing.Size(43, 20);
+            this.textBoxFilterCondition.TabIndex = 15;
+            this.textBoxFilterCondition.Text = "0";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox2.Location = new System.Drawing.Point(1146, 63);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(170, 58);
+            this.pictureBox2.TabIndex = 18;
+            this.pictureBox2.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(1254, 98);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 13);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "or greater.";
             // 
             // Form1
             // 
@@ -207,11 +257,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1370, 720);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBoxFilterCondition);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.listBoxDataLong);
             this.Controls.Add(this.buttonShowAll);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxFilterDefects);
+            this.Controls.Add(this.textBoxFilterFaults);
             this.Controls.Add(this.labelFilterResults);
             this.Controls.Add(this.buttonUpdateResults);
             this.Controls.Add(this.labelMap);
@@ -226,6 +281,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -239,7 +295,7 @@
         private System.Windows.Forms.Button buttonUpdateResults;
         private System.Windows.Forms.PictureBox pictureBoxFilter;
         private System.Windows.Forms.Label labelFilterResults;
-        private System.Windows.Forms.TextBox textBoxFilterDefects;
+        private System.Windows.Forms.TextBox textBoxFilterFaults;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -250,6 +306,11 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxFilterCondition;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label label5;
     }
 }
 

@@ -19,17 +19,14 @@ namespace RATA_FMM
     public partial class Form1 : Form
     {
         const string FILTER = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
-        List<Road> roadList = new List<Road>();
-        List<Road> filteredFootpaths = new List<Road>();
+        List<Road> roadList = new List<Road>(); //The list of all results
+        List<Road> filteredFootpaths = new List<Road>(); //The list of filtered results
         List<string[]> qgisData = new List<string[]>();
-
-        static string[] MAINTENANCE_CODES = { "a", "b", "c", "d", "e", "f" };
-        static string[] MAINTENANCE_FAULTS = { "Trip Hazard", "Vertical Displacement", "Horizontal Displacement", "Broken", "Hole", "Poor Previous Reinstatement" };
 
         int window_length = Screen.PrimaryScreen.Bounds.Width;
         int window_height = Screen.PrimaryScreen.Bounds.Height;
 
-        static bool dataProcessed = false;
+        static bool dataProcessed = false; //Stores whether the data has been processed yet
 
         public Form1()
         {
@@ -204,24 +201,20 @@ namespace RATA_FMM
             foreach (Road r in roadList)
             {
                 listBoxData.Items.Add(r.PrintDataShort());
-                //printToFile += r.GetRoadName() + ", " + r.GetStart().ToString() + ", " + r.GetEnd().ToString() + "\n";
-
             }
-            filteredFootpaths = new List<Road>(roadList);
+            filteredFootpaths = new List<Road>(roadList); //Until filters have been applied, the list of filtered footpaths is just all footpaths
         }
 
         /// <summary>
         /// Prints report to file
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string templateName = Directory.GetCurrentDirectory() + "\\" + "reportTemplate.dotx";
-            string saveAs = Directory.GetCurrentDirectory() + "\\" + "Report.docx";
-            WordPrint printer = new WordPrint(templateName, saveAs);
+            string templateName = Directory.GetCurrentDirectory() + "\\" + "reportTemplate.dotx"; //Get the directory of the report template
+            string saveAs = Directory.GetCurrentDirectory() + "\\" + "Report.docx"; //Set the loaction to save the file
+            WordPrint printer = new WordPrint(templateName, saveAs); 
 
-            printer.printFromTemplate(filteredFootpaths);
+            printer.printFromTemplate(filteredFootpaths); //Print to report using the list of filtered footpaths
         }
 
         /// <summary>
@@ -231,30 +224,41 @@ namespace RATA_FMM
         /// <param name="e"></param>
         private void ButtonUpdateResults_Click(object sender, EventArgs e)
         {
-            if (dataProcessed)
+            if (dataProcessed) //There is data to filter on
             {
                 int numFaults = 0;
+                int conditionRating = 0;
 
-                if (!int.TryParse(textBoxFilterDefects.Text, out numFaults))
+                if (!int.TryParse(textBoxFilterFaults.Text, out numFaults)) //Error handling - invalid input
                 {
-                    MessageBox.Show("Error: Please enter a valid number of defects to filter on");
+                    MessageBox.Show("Error: Please enter a valid number of faults to filter on");
+                    return;
                 }
-                else if (numFaults < 0)
+                else if (numFaults < 0) //Error handling - number of faults is less than 0
                 {
-                    MessageBox.Show("Error: Number of defects can not be less than 0");
+                    MessageBox.Show("Error: Number of faults cannot be less than 0");
+                    return;
                 }
-                else
-                {
-                    MessageBox.Show("Results have been updated on " + numFaults.ToString() + " defects.");
 
-                    initializeDataListBox();
-                    filteredFootpaths = filterResults(numFaults);
-
-                    foreach (Road r in filteredFootpaths)
-                    {
-                        listBoxData.Items.Add(r.PrintDataShort());
-                    }
+                if (!int.TryParse(textBoxFilterCondition.Text, out conditionRating)) //Error handling - invalid input
+                {
+                    MessageBox.Show("Error: Please enter a valid condition rating to filter on");
+                    return;
                 }
+                else if (conditionRating < 0) //Error handling - condition rating is less than 0
+                {
+                    MessageBox.Show("Error: Condition rating cannot be less than 0");
+                    return;
+                }
+
+                initializeDataListBox();
+                filteredFootpaths = filterResults(numFaults, conditionRating);
+
+                foreach (Road r in filteredFootpaths)
+                {
+                    listBoxData.Items.Add(r.PrintDataShort());
+                }
+
             }
         }
 
@@ -264,31 +268,72 @@ namespace RATA_FMM
         private void initializeDataListBox()
         {
             listBoxData.Items.Clear();
-
             listBoxData.Items.Add("Road Name".PadRight(35) + "Length".PadRight(10) + "Faults".PadRight(10) + "Condition Rating".PadRight(20) + "Footpath Rating".PadRight(15));
         }
 
         /// <summary>
         /// Applies filters to the whole road list
         /// </summary>
-        /// <param name="numDefects">The number of defects to filter on</param>
+        /// <param name="numFaults">The number of faults to filter on</param>
+        /// /// <param name="conditionRating">The condition rating to filter on</param>
         /// <returns>The new road list that conforms to the applied filters</returns>
-        private List<Road> filterResults (int numDefects)
+        private List<Road> filterResults (int numFaults, int conditionRating)
         {
-            List<Road> filteredFootpaths = new List<Road>();
+            bool filterOnFaults = numFaults != 0; //Check if the user specified a number of faults
+            bool filterOnCondition = conditionRating != 0; //Check if the user specified a condition rating
 
-            if (numDefects != -1)
+            List<Road> filteredFootpaths = new List<Road>(); //The list of filtered footpaths to be returned
+
+            List<Road> faultsList = new List<Road>();
+            if (filterOnFaults) //Filtering on number of faults
             {
                 foreach (Road r in roadList)
                 {
-                    if (r.GetNumFaults() >= numDefects)
+                    if (r.GetNumFaults() >= numFaults) //Find each road that matches the filter condition
                     {
-                        filteredFootpaths.Add(r);
+                        faultsList.Add(r); 
                     }
+                }
+                if (!filterOnCondition) //The user is filtering on only number of faults
+                {
+                    filteredFootpaths = new List<Road>(faultsList);
                 }
             }
 
-            return filteredFootpaths;
+            List<Road> conditionList = new List<Road>();
+            if (filterOnCondition) //Filtering on the condition rating
+            {  
+                foreach (Road r in roadList)
+                {
+                    if (r.GetConditionRating() >= numFaults) //Find each road that matches the filter condition
+                    {
+                        conditionList.Add(r);
+                    }
+                }
+                if (!filterOnFaults) //The user is filtering on only condition rating
+                {
+                    filteredFootpaths = new List<Road>(conditionList);
+                }
+            }
+
+            if (faultsList.Count > 0 && conditionList.Count > 0) //The user is filtering on both number of faults and condition rating
+            {
+                foreach (Road f in faultsList)
+                {
+                    foreach (Road c in conditionList)
+                    {
+                        if (f.GetFootpahthRatingID() == c.GetFootpahthRatingID()) //Find each road that matches both conditions
+                        {
+                            filteredFootpaths.Add(f);
+                        }
+                    }
+                }
+            }
+            //Clear the lists from memory
+            faultsList = null;
+            conditionList = null;
+
+            return filteredFootpaths; //Return the list that matches the required filter(s)
         }
 
         /// <summary>
@@ -298,12 +343,18 @@ namespace RATA_FMM
         /// <param name="e"></param>
         private void ButtonShowAll_Click(object sender, EventArgs e)
         {
-            initializeDataListBox();
+            initializeDataListBox(); //Clear the list box and show the headers
 
-            foreach (Road r in roadList)
+            foreach (Road r in roadList) //Add back each of the footpaths
             {
                 listBoxData.Items.Add(r.PrintDataShort());
             }
+
+            filteredFootpaths = new List<Road>(roadList); //Reset the list storing all the filtered results
+
+            //Set the text box values back to zero
+            textBoxFilterCondition.Text = "0"; 
+            textBoxFilterFaults.Text = "0";
         }
 
         private void listBoxData_SelectedIndexChanged(object sender, EventArgs e)
