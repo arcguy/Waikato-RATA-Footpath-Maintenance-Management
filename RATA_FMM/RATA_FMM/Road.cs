@@ -69,6 +69,7 @@ namespace RATA_FMM
         private int numFaults;
         private double conditionRating;
         private int footpathCondition;
+        private string[] parsedNotes;
 
         private string[] qgisData;
         //0 - road id
@@ -148,6 +149,7 @@ namespace RATA_FMM
             numFaults = CalcFaults();
             conditionRating = 0;
             footpathCondition = 0;
+            parsedNotes = CodeParser.Decode(notes);
         }
 
         //Returns every field in string format
@@ -196,9 +198,13 @@ namespace RATA_FMM
                 "Footpath Surface Material: ".PadRight(30) + footpathSurfaceMaterial,
                 "Number of Faults: ".PadRight(30) + numFaults.ToString(),
                 "Condition Rating: ".PadRight(30) + conditionRating.ToString(),
-                "Footpath Condition: ".PadRight(30) + footpathCondition.ToString(),
+                "Footpath Condition: ".PadRight(30) + footpathCondition.ToString(),                
             });
-
+            if (parsedNotes != null)
+            {
+                itemList.Add("Parsed Notes: ".PadRight(30) + GetParsedNotes());
+                Console.WriteLine("success");
+            }
             return itemList;
         }
 
@@ -492,10 +498,15 @@ namespace RATA_FMM
             return this.conditionRating;
         }
 
+        public int GetFootpathCondition()
+        {
+            return this.footpathCondition;
+        }
+
         public void SetQgisData(string[] data)
         {
             qgisData = data;
-            conditionRating = CalcConditionRating();
+            conditionRating = CalcConditionRating();           
         }
 
         public string[] GetQgisData()
@@ -579,6 +590,16 @@ namespace RATA_FMM
                 return length2;
             else
                 return length1;
+        }
+
+        public string GetParsedNotes()
+        {
+            string temp = "";
+            for (int i = 0; i < parsedNotes.Length; i++)
+            {
+                temp += parsedNotes[i] + ", ";
+            }
+            return temp;
         }
     }
 }

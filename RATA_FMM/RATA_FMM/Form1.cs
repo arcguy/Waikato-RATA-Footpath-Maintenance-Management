@@ -14,8 +14,6 @@ using System.Globalization;
 
 namespace RATA_FMM
 {
-
-
     public partial class Form1 : Form
     {
         const string FILTER = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
@@ -175,7 +173,7 @@ namespace RATA_FMM
 
                             if (r.GetStart() == startInt && r.GetEnd() == endInt)
                             {
-                                r.SetQgisData(data);                                
+                                r.SetQgisData(data);
                                 break;
                             }
                         }
