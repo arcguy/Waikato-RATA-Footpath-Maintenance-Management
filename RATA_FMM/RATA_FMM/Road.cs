@@ -203,7 +203,6 @@ namespace RATA_FMM
             if (parsedNotes != null)
             {
                 itemList.Add("Parsed Notes: ".PadRight(30) + GetParsedNotes());
-                Console.WriteLine("success");
             }
             return itemList;
         }

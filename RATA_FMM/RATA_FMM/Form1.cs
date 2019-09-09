@@ -39,15 +39,19 @@ namespace RATA_FMM
             listBoxDataLong.Height = window_height / 2 - 100;
             listBoxDataLong.Location = new System.Drawing.Point((window_length / 3 - 30), 30);
 
-            /*labelReplacement.Location = new System.Drawing.Point((window_length / 3 - 30), 30);
-            listBoxReplacement.Height = window_height / 2 - 90;
-            listBoxReplacement.Width = window_length / 3 - 50;
-            listBoxReplacement.Location = new System.Drawing.Point((window_length / 3 - 30), 45);
-
-            labelMaintenance.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2 - 45));
-            listBoxMaintenance.Height = window_height / 2 - 30;
-            listBoxMaintenance.Width = window_length / 3 - 50;
-            listBoxMaintenance.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2 - 30));*/
+            labelFilterResults.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2) - 70);
+            pictureBoxFilter.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2) - 50);
+            pictureBox2.Location = new System.Drawing.Point((window_length / 3 - 10), (window_height / 2) - 30);            
+            buttonUpdateResults.Location = new System.Drawing.Point((window_length / 3 + 35), (window_height / 2) + 105);
+            buttonShowAll.Location = new System.Drawing.Point((window_length / 3 + 35), (window_height / 2) + 135);
+            label4.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2) - 20);
+            label3.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2));
+            textBoxFilterCondition.Location = new System.Drawing.Point((window_length / 3 + 40), (window_height / 2) - 2);
+            label5.Location = new System.Drawing.Point((window_length / 3 + 90), (window_height / 2));
+            pictureBox1.Location = new System.Drawing.Point((window_length / 3 - 10), (window_height / 2) + 40);
+            label1.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2) + 50);
+            textBoxFilterFaults.Location = new System.Drawing.Point((window_length / 3 + 102), (window_height / 2) + 48);
+            label2.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2) + 70);
 
             //column headers for first listbox
             /*listBoxData.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) +
