@@ -41,9 +41,9 @@ namespace RATA_FMM
 
             labelFilterResults.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2) - 70);
             pictureBoxFilter.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2) - 50);
-            pictureBox2.Location = new System.Drawing.Point((window_length / 3 - 10), (window_height / 2) - 30);            
-            buttonUpdateResults.Location = new System.Drawing.Point((window_length / 3 + 35), (window_height / 2) + 105);
-            buttonShowAll.Location = new System.Drawing.Point((window_length / 3 + 35), (window_height / 2) + 135);
+            pictureBox2.Location = new System.Drawing.Point((window_length / 3 - 10), (window_height / 2) - 30);
+            pictureBox3.Location = new System.Drawing.Point((window_length / 3 - 10), (window_height / 2) + 110);
+
             label4.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2) - 20);
             label3.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2));
             textBoxFilterCondition.Location = new System.Drawing.Point((window_length / 3 + 40), (window_height / 2) - 2);
@@ -52,6 +52,21 @@ namespace RATA_FMM
             label1.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2) + 50);
             textBoxFilterFaults.Location = new System.Drawing.Point((window_length / 3 + 102), (window_height / 2) + 48);
             label2.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2) + 70);
+            label6.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2) + 115);
+            comboBoxTown.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2) + 135);
+
+            buttonUpdateResults.Location = new System.Drawing.Point((window_length / 3 + 35), (window_height / 2) + 175);
+            buttonShowAll.Location = new System.Drawing.Point((window_length / 3 + 35), (window_height / 2) + 200);
+
+            //addding items to combobox
+            comboBoxTown.Items.Add("Cambridge");
+            comboBoxTown.Items.Add("Hamilton");
+            comboBoxTown.Items.Add("Karapiro");
+            comboBoxTown.Items.Add("Kihikihi");
+            comboBoxTown.Items.Add("Ohaupo");
+            comboBoxTown.Items.Add("Pirongia");
+            comboBoxTown.Items.Add("Te Awamuta");
+            comboBoxTown.Items.Add("Other");
 
             //column headers for first listbox
             /*listBoxData.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) +
@@ -78,7 +93,7 @@ namespace RATA_FMM
             string line = "";
             string[] csvArray;
 
-            reader = File.OpenText("Zone Data (QGIS).csv");
+            reader = File.OpenText("Final QGIS DATA.csv");
             reader.ReadLine();
 
             while (!reader.EndOfStream)
