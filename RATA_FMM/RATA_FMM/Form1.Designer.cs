@@ -50,10 +50,14 @@
             this.textBoxFilterCondition = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboBoxTown = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFilter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // listBoxData
@@ -89,7 +93,7 @@
             // 
             // buttonUpdateResults
             // 
-            this.buttonUpdateResults.Location = new System.Drawing.Point(1196, 199);
+            this.buttonUpdateResults.Location = new System.Drawing.Point(587, 460);
             this.buttonUpdateResults.Name = "buttonUpdateResults";
             this.buttonUpdateResults.Size = new System.Drawing.Size(75, 23);
             this.buttonUpdateResults.TabIndex = 7;
@@ -100,16 +104,16 @@
             // pictureBoxFilter
             // 
             this.pictureBoxFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxFilter.Location = new System.Drawing.Point(1124, 46);
+            this.pictureBoxFilter.Location = new System.Drawing.Point(516, 236);
             this.pictureBoxFilter.Name = "pictureBoxFilter";
-            this.pictureBoxFilter.Size = new System.Drawing.Size(219, 213);
+            this.pictureBoxFilter.Size = new System.Drawing.Size(220, 285);
             this.pictureBoxFilter.TabIndex = 8;
             this.pictureBoxFilter.TabStop = false;
             // 
             // labelFilterResults
             // 
             this.labelFilterResults.AutoSize = true;
-            this.labelFilterResults.Location = new System.Drawing.Point(1121, 30);
+            this.labelFilterResults.Location = new System.Drawing.Point(513, 220);
             this.labelFilterResults.Name = "labelFilterResults";
             this.labelFilterResults.Size = new System.Drawing.Size(67, 13);
             this.labelFilterResults.TabIndex = 9;
@@ -117,7 +121,7 @@
             // 
             // textBoxFilterFaults
             // 
-            this.textBoxFilterFaults.Location = new System.Drawing.Point(1266, 142);
+            this.textBoxFilterFaults.Location = new System.Drawing.Point(658, 332);
             this.textBoxFilterFaults.Name = "textBoxFilterFaults";
             this.textBoxFilterFaults.Size = new System.Drawing.Size(43, 20);
             this.textBoxFilterFaults.TabIndex = 10;
@@ -126,7 +130,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1154, 145);
+            this.label1.Location = new System.Drawing.Point(546, 335);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 13);
             this.label1.TabIndex = 11;
@@ -135,7 +139,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1154, 170);
+            this.label2.Location = new System.Drawing.Point(546, 360);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 12;
@@ -144,15 +148,15 @@
             // pictureBox1
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(1146, 135);
+            this.pictureBox1.Location = new System.Drawing.Point(538, 325);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(170, 58);
+            this.pictureBox1.Size = new System.Drawing.Size(170, 60);
             this.pictureBox1.TabIndex = 13;
             this.pictureBox1.TabStop = false;
             // 
             // buttonShowAll
             // 
-            this.buttonShowAll.Location = new System.Drawing.Point(1196, 228);
+            this.buttonShowAll.Location = new System.Drawing.Point(587, 489);
             this.buttonShowAll.Name = "buttonShowAll";
             this.buttonShowAll.Size = new System.Drawing.Size(75, 23);
             this.buttonShowAll.TabIndex = 14;
@@ -210,7 +214,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1154, 98);
+            this.label3.Location = new System.Drawing.Point(546, 288);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 17;
@@ -219,7 +223,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1154, 73);
+            this.label4.Location = new System.Drawing.Point(546, 263);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(158, 13);
             this.label4.TabIndex = 16;
@@ -227,7 +231,7 @@
             // 
             // textBoxFilterCondition
             // 
-            this.textBoxFilterCondition.Location = new System.Drawing.Point(1205, 95);
+            this.textBoxFilterCondition.Location = new System.Drawing.Point(597, 285);
             this.textBoxFilterCondition.Name = "textBoxFilterCondition";
             this.textBoxFilterCondition.Size = new System.Drawing.Size(43, 20);
             this.textBoxFilterCondition.TabIndex = 15;
@@ -236,20 +240,46 @@
             // pictureBox2
             // 
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox2.Location = new System.Drawing.Point(1146, 63);
+            this.pictureBox2.Location = new System.Drawing.Point(538, 253);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(170, 58);
+            this.pictureBox2.Size = new System.Drawing.Size(170, 60);
             this.pictureBox2.TabIndex = 18;
             this.pictureBox2.TabStop = false;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1254, 98);
+            this.label5.Location = new System.Drawing.Point(646, 288);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 19;
             this.label5.Text = "or greater.";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox3.Location = new System.Drawing.Point(538, 391);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(170, 60);
+            this.pictureBox3.TabIndex = 20;
+            this.pictureBox3.TabStop = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(541, 394);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(104, 13);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Show footpaths from";
+            // 
+            // comboBoxTown
+            // 
+            this.comboBoxTown.FormattingEnabled = true;
+            this.comboBoxTown.Location = new System.Drawing.Point(544, 411);
+            this.comboBoxTown.Name = "comboBoxTown";
+            this.comboBoxTown.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxTown.TabIndex = 22;
             // 
             // Form1
             // 
@@ -257,6 +287,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1370, 720);
+            this.Controls.Add(this.comboBoxTown);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label4);
@@ -282,6 +315,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,6 +345,9 @@
         private System.Windows.Forms.TextBox textBoxFilterCondition;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboBoxTown;
     }
 }
 

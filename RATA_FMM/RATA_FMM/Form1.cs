@@ -14,8 +14,6 @@ using System.Globalization;
 
 namespace RATA_FMM
 {
-
-
     public partial class Form1 : Form
     {
         const string FILTER = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
@@ -41,15 +39,34 @@ namespace RATA_FMM
             listBoxDataLong.Height = window_height / 2 - 100;
             listBoxDataLong.Location = new System.Drawing.Point((window_length / 3 - 30), 30);
 
-            /*labelReplacement.Location = new System.Drawing.Point((window_length / 3 - 30), 30);
-            listBoxReplacement.Height = window_height / 2 - 90;
-            listBoxReplacement.Width = window_length / 3 - 50;
-            listBoxReplacement.Location = new System.Drawing.Point((window_length / 3 - 30), 45);
+            labelFilterResults.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2) - 70);
+            pictureBoxFilter.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2) - 50);
+            pictureBox2.Location = new System.Drawing.Point((window_length / 3 - 10), (window_height / 2) - 30);
+            pictureBox3.Location = new System.Drawing.Point((window_length / 3 - 10), (window_height / 2) + 110);
 
-            labelMaintenance.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2 - 45));
-            listBoxMaintenance.Height = window_height / 2 - 30;
-            listBoxMaintenance.Width = window_length / 3 - 50;
-            listBoxMaintenance.Location = new System.Drawing.Point((window_length / 3 - 30), (window_height / 2 - 30));*/
+            label4.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2) - 20);
+            label3.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2));
+            textBoxFilterCondition.Location = new System.Drawing.Point((window_length / 3 + 40), (window_height / 2) - 2);
+            label5.Location = new System.Drawing.Point((window_length / 3 + 90), (window_height / 2));
+            pictureBox1.Location = new System.Drawing.Point((window_length / 3 - 10), (window_height / 2) + 40);
+            label1.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2) + 50);
+            textBoxFilterFaults.Location = new System.Drawing.Point((window_length / 3 + 102), (window_height / 2) + 48);
+            label2.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2) + 70);
+            label6.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2) + 115);
+            comboBoxTown.Location = new System.Drawing.Point((window_length / 3 - 5), (window_height / 2) + 135);
+
+            buttonUpdateResults.Location = new System.Drawing.Point((window_length / 3 + 35), (window_height / 2) + 175);
+            buttonShowAll.Location = new System.Drawing.Point((window_length / 3 + 35), (window_height / 2) + 200);
+
+            //addding items to combobox
+            comboBoxTown.Items.Add("Cambridge");
+            comboBoxTown.Items.Add("Hamilton");
+            comboBoxTown.Items.Add("Karapiro");
+            comboBoxTown.Items.Add("Kihikihi");
+            comboBoxTown.Items.Add("Ohaupo");
+            comboBoxTown.Items.Add("Pirongia");
+            comboBoxTown.Items.Add("Te Awamuta");
+            comboBoxTown.Items.Add("Other");
 
             //column headers for first listbox
             /*listBoxData.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) +
@@ -76,7 +93,7 @@ namespace RATA_FMM
             string line = "";
             string[] csvArray;
 
-            reader = File.OpenText("Zone Data (QGIS).csv");
+            reader = File.OpenText("Final QGIS DATA.csv");
             reader.ReadLine();
 
             while (!reader.EndOfStream)
@@ -175,7 +192,7 @@ namespace RATA_FMM
 
                             if (r.GetStart() == startInt && r.GetEnd() == endInt)
                             {
-                                r.SetQgisData(data);                                
+                                r.SetQgisData(data);
                                 break;
                             }
                         }

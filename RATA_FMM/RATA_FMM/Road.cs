@@ -69,16 +69,24 @@ namespace RATA_FMM
         private int numFaults;
         private double conditionRating;
         private int footpathCondition;
+        private string[] parsedNotes;
 
         private string[] qgisData;
         //0 - road id
         //1 - start
         //2 - end
         //5 - length
-        //10 - age
-        //19 - service area
-        //21 - school area
-        //23 - health area
+        //35 - service % area
+        //19 - school % area
+        //21 - health % area
+        private string town;
+        //23 - cambridge % area
+        //25 - hamilton % area
+        //27 - karapiro % area
+        //29 - kihikihi % area
+        //31 - ohaupo % area
+        //33 - pirongia % area
+        //37 - te awamutu % area
 
         //contructor function
         public Road(string[] roadData)
@@ -148,6 +156,8 @@ namespace RATA_FMM
             numFaults = CalcFaults();
             conditionRating = 0;
             footpathCondition = 0;
+            parsedNotes = CodeParser.Decode(notes);
+            town = "Other";
         }
 
         //Returns every field in string format
@@ -197,8 +207,12 @@ namespace RATA_FMM
                 "Number of Faults: ".PadRight(30) + numFaults.ToString(),
                 "Condition Rating: ".PadRight(30) + conditionRating.ToString(),
                 "Footpath Condition: ".PadRight(30) + footpathCondition.ToString(),
+                "Town: ".PadRight(30) + town,
             });
-
+            if (parsedNotes != null)
+            {
+                itemList.Add("Fault Information: ".PadRight(30) + GetParsedNotes());
+            }
             return itemList;
         }
 
@@ -492,6 +506,11 @@ namespace RATA_FMM
             return this.conditionRating;
         }
 
+        public int GetFootpathCondition()
+        {
+            return this.footpathCondition;
+        }
+
         public void SetQgisData(string[] data)
         {
             qgisData = data;
@@ -531,7 +550,7 @@ namespace RATA_FMM
 
             rating += CalcZoneRating();
             rating += CalcFootpathRating();
-
+            town = CalcTown();
             return Math.Round(rating, 2);
         }
 
@@ -542,25 +561,49 @@ namespace RATA_FMM
             {
                 if (qgisData != null)
                 {
-                    if (double.Parse(qgisData[19]) > 0) //service
+                    if (double.Parse(qgisData[35]) > 0) //service
                     {
                         rating += 10 + ((double.Parse(qgisData[19]) / 100) * 15);
                     }
-                    if (double.Parse(qgisData[21]) > 0) //school
+                    if (double.Parse(qgisData[19]) > 0) //school
                     {
                         rating += 15 + ((double.Parse(qgisData[21]) / 100) * 15);
                     }
-                    if (double.Parse(qgisData[23]) > 0) //health
+                    if (double.Parse(qgisData[21]) > 0) //health
                     {
                         rating += 30 + ((double.Parse(qgisData[23]) / 100) * 10);
                     }
-                }
+                }                
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
             return Math.Round(rating, 2);
+        }
+
+        private string CalcTown()
+        {
+            string temp = "";
+
+            if (double.Parse(qgisData[23]) > 0)
+                temp = "Cambridge";
+            else if (double.Parse(qgisData[25]) > 0)
+                temp = "Hammilton";
+            else if (double.Parse(qgisData[27]) > 0)
+                temp = "Karapiro";
+            else if (double.Parse(qgisData[29]) > 0)
+                temp = "Kihikihi";
+            else if (double.Parse(qgisData[31]) > 0)
+                temp = "Ohaupo";
+            else if (double.Parse(qgisData[33]) > 0)
+                temp = "Pirongia";
+            else if (double.Parse(qgisData[37]) > 0)
+                temp = "Te Awamutu";
+            else
+                temp = "Other";
+            Console.WriteLine("Town: " + temp);
+            return temp;
         }
 
         private double CalcFootpathRating()
@@ -579,6 +622,21 @@ namespace RATA_FMM
                 return length2;
             else
                 return length1;
+        }
+
+        public string GetParsedNotes()
+        {
+            string temp = "";
+            for (int i = 0; i < parsedNotes.Length; i++)
+            {
+                temp += parsedNotes[i] + ", ";
+            }
+            return temp;
+        }
+
+        public string GetTown()
+        {
+            return this.town;
         }
     }
 }
