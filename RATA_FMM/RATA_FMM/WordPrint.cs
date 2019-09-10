@@ -124,10 +124,11 @@ namespace RATA_FMM
                 table.Rows.Add(); //Add a new row to the table
 
                 //Print desired information in each cell of the current row
-                table.Cell(i, 1).Range.Text = r.GetRoadName();
-                table.Cell(i, 2).Range.Text = r.GetStart().ToString();
-                table.Cell(i, 3).Range.Text = r.GetEnd().ToString();
-                table.Cell(i, 4).Range.Text = r.GetNumFaults().ToString();
+                table.Cell(i, 1).Range.Text = r.GetRoadName(); //Name
+                table.Cell(i, 2).Range.Text = r.GetStart().ToString(); //Start of the footpath
+                table.Cell(i, 3).Range.Text = r.GetEnd().ToString(); //End of the footpath
+                table.Cell(i, 4).Range.Text = r.GetConditionRating().ToString(); //Calculated condition rating
+                table.Cell(i, 5).Range.Text = r.GetTown().ToString(); //Town name
             }
 
             Marshal.ReleaseComObject(table); //Release the table

@@ -550,7 +550,7 @@ namespace RATA_FMM
 
             rating += CalcZoneRating();
             rating += CalcFootpathRating();
-            town = CalcTown();
+            this.town = CalcTown();
             return Math.Round(rating, 2);
         }
 
@@ -589,7 +589,7 @@ namespace RATA_FMM
             if (double.Parse(qgisData[23]) > 0)
                 temp = "Cambridge";
             else if (double.Parse(qgisData[25]) > 0)
-                temp = "Hammilton";
+                temp = "Hamilton";
             else if (double.Parse(qgisData[27]) > 0)
                 temp = "Karapiro";
             else if (double.Parse(qgisData[29]) > 0)

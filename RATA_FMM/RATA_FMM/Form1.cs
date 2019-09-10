@@ -65,7 +65,7 @@ namespace RATA_FMM
             comboBoxTown.Items.Add("Kihikihi");
             comboBoxTown.Items.Add("Ohaupo");
             comboBoxTown.Items.Add("Pirongia");
-            comboBoxTown.Items.Add("Te Awamuta");
+            comboBoxTown.Items.Add("Te Awamutu");
             comboBoxTown.Items.Add("Other");
 
             //column headers for first listbox
@@ -249,22 +249,26 @@ namespace RATA_FMM
                 if (!int.TryParse(textBoxFilterFaults.Text, out numFaults)) //Error handling - invalid input
                 {
                     MessageBox.Show("Error: Please enter a valid number of faults to filter on");
+                    textBoxFilterFaults.Text = "0";
                     return;
                 }
                 else if (numFaults < 0) //Error handling - number of faults is less than 0
                 {
                     MessageBox.Show("Error: Number of faults cannot be less than 0");
+                    textBoxFilterFaults.Text = "0";
                     return;
                 }
 
                 if (!int.TryParse(textBoxFilterCondition.Text, out conditionRating)) //Error handling - invalid input
                 {
                     MessageBox.Show("Error: Please enter a valid condition rating to filter on");
+                    textBoxFilterCondition.Text = "0";
                     return;
                 }
                 else if (conditionRating < 0) //Error handling - condition rating is less than 0
                 {
                     MessageBox.Show("Error: Condition rating cannot be less than 0");
+                    textBoxFilterCondition.Text = "0";
                     return;
                 }
 
@@ -299,56 +303,58 @@ namespace RATA_FMM
             bool filterOnFaults = numFaults != 0; //Check if the user specified a number of faults
             bool filterOnCondition = conditionRating != 0; //Check if the user specified a condition rating
 
-            List<Road> filteredFootpaths = new List<Road>(); //The list of filtered footpaths to be returned
+            List<Road> filteredFootpaths = new List<Road>(roadList); //The list of filtered footpaths to be returned
+            List<Road> temporaryList; //Temporary list which allows for cumulative processing
 
-            List<Road> faultsList = new List<Road>();
-            if (filterOnFaults) //Filtering on number of faults
+            if (numFaults > 0) //The user has specified a filter for the number of faults
             {
-                foreach (Road r in roadList)
+                temporaryList = new List<Road>();
+
+                foreach (Road checkFaultFilter in filteredFootpaths)
                 {
-                    if (r.GetNumFaults() >= numFaults) //Find each road that matches the filter condition
+                    if (checkFaultFilter.GetNumFaults() >= numFaults) //The current footpath exceeds or meets the number of faults
                     {
-                        faultsList.Add(r); 
+                        temporaryList.Add(checkFaultFilter); 
                     }
                 }
-                if (!filterOnCondition) //The user is filtering on only number of faults
-                {
-                    filteredFootpaths = new List<Road>(faultsList);
-                }
-            }
 
-            List<Road> conditionList = new List<Road>();
-            if (filterOnCondition) //Filtering on the condition rating
-            {  
-                foreach (Road r in roadList)
-                {
-                    if (r.GetConditionRating() >= numFaults) //Find each road that matches the filter condition
-                    {
-                        conditionList.Add(r);
-                    }
-                }
-                if (!filterOnFaults) //The user is filtering on only condition rating
-                {
-                    filteredFootpaths = new List<Road>(conditionList);
-                }
+                filteredFootpaths = new List<Road>(temporaryList); //Set the new filtered list to the list of footpaths meeting the current condition
+                temporaryList = null; //Set the temporary list to null
             }
-
-            if (faultsList.Count > 0 && conditionList.Count > 0) //The user is filtering on both number of faults and condition rating
+            
+            if (conditionRating > 0) //The user has specified a filter for the condition rating
             {
-                foreach (Road f in faultsList)
-                {
-                    foreach (Road c in conditionList)
+                temporaryList = new List<Road>();
+
+                foreach (Road checkConditionFilter in filteredFootpaths)
+                {  
+                    if (checkConditionFilter.GetConditionRating() >= conditionRating) //The current footpath exceeds or meets the condition rating
                     {
-                        if (f.GetFootpahthRatingID() == c.GetFootpahthRatingID()) //Find each road that matches both conditions
-                        {
-                            filteredFootpaths.Add(f);
-                        }
+                        temporaryList.Add(checkConditionFilter);
                     }
                 }
+
+                filteredFootpaths = new List<Road>(temporaryList); //Set the new filtered list to the list of footpaths meeting the current condition
+                temporaryList = null; //Set the temporary list to null
             }
-            //Clear the lists from memory
-            faultsList = null;
-            conditionList = null;
+
+            if (comboBoxTown.Text != "") //The user has specified a filter for the town name
+            {
+                temporaryList = new List<Road>();
+
+                foreach (Road checkTown in filteredFootpaths)
+                {
+                    string town = checkTown.GetTown();
+                    
+                    if (checkTown.GetTown().Equals(comboBoxTown.Text))  //The current footpath matches the selected town name
+                    {
+                        temporaryList.Add(checkTown);
+                    }
+                }
+
+                filteredFootpaths = new List<Road>(temporaryList); //Set the new filtered list to the list of footpaths meeting the current condition
+                temporaryList = null; //Set the temporary list to null
+            }
 
             return filteredFootpaths; //Return the list that matches the required filter(s)
         }
@@ -372,6 +378,7 @@ namespace RATA_FMM
             //Set the text box values back to zero
             textBoxFilterCondition.Text = "0"; 
             textBoxFilterFaults.Text = "0";
+            comboBoxTown.Text = "";
         }
 
         private void listBoxData_SelectedIndexChanged(object sender, EventArgs e)
@@ -379,7 +386,7 @@ namespace RATA_FMM
             int index = listBoxData.SelectedIndex;
             if (index > 0)
             {
-                listBoxDataLong.DataSource = roadList[index - 1].GetRoadDataAsList();
+                listBoxDataLong.DataSource = filteredFootpaths[index - 1].GetRoadDataAsList();
             }
         }
     }
