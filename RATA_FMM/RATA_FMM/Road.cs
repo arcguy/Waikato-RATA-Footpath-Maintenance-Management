@@ -87,6 +87,9 @@ namespace RATA_FMM
         //31 - ohaupo % area
         //33 - pirongia % area
         //37 - te awamutu % area
+        private bool healthZone;
+        private bool schoolZone;
+        private bool serviceZone;
 
         //contructor function
         public Road(string[] roadData)
@@ -158,6 +161,10 @@ namespace RATA_FMM
             footpathCondition = 0;
             parsedNotes = CodeParser.Decode(notes);
             town = "Other";
+
+            healthZone = false;
+            schoolZone = false;
+            serviceZone = false;
         }
 
         //Returns every field in string format
@@ -208,7 +215,13 @@ namespace RATA_FMM
                 "Condition Rating: ".PadRight(30) + conditionRating.ToString(),
                 "Footpath Condition: ".PadRight(30) + footpathCondition.ToString(),
                 "Town: ".PadRight(30) + town,
-            });
+            });            
+            if (healthZone)
+                itemList.Add("Health Zone");
+            if (schoolZone)
+                itemList.Add("School Zone");
+            if (serviceZone)
+                itemList.Add("Service Zone");
             if (parsedNotes != null)
             {
                 itemList.Add("Fault Information: ".PadRight(30) + GetParsedNotes());
@@ -564,14 +577,17 @@ namespace RATA_FMM
                     if (double.Parse(qgisData[35]) > 0) //service
                     {
                         rating += 10 + ((double.Parse(qgisData[19]) / 100) * 15);
+                        serviceZone = true;
                     }
                     if (double.Parse(qgisData[19]) > 0) //school
                     {
                         rating += 15 + ((double.Parse(qgisData[21]) / 100) * 15);
+                        schoolZone = true;
                     }
                     if (double.Parse(qgisData[21]) > 0) //health
                     {
                         rating += 30 + ((double.Parse(qgisData[23]) / 100) * 10);
+                        healthZone = true;
                     }
                 }                
             }
@@ -637,6 +653,21 @@ namespace RATA_FMM
         public string GetTown()
         {
             return this.town;
+        }
+
+        public bool IsHealthZone()
+        {
+            return this.healthZone;
+        }
+
+        public bool IsSchoolZone()
+        {
+            return this.schoolZone;
+        }
+
+        public bool IsServiceZone()
+        {
+            return this.serviceZone;
         }
     }
 }
