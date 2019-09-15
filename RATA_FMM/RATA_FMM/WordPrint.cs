@@ -62,9 +62,11 @@ namespace RATA_FMM
                 object isVisible = false;
                 wordApp.Visible = false;
 
-                doc = wordApp.Documents.Open(ref this.templateName, ref missing, ref missing,
-                    ref readOnly, ref missing, ref missing, ref missing, ref missing,
-                    ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing); //Open word template
+                doc = wordApp.Documents.Open(ref this.templateName, ref missing, ref readOnly,
+                                            ref missing, ref missing, ref missing,
+                                            ref missing, ref missing, ref missing,
+                                            ref missing, ref missing, ref missing,
+                                            ref missing, ref missing, ref missing, ref missing); //Open word template
 
                 doc.Activate(); //Activate the word document
                 insertDataIntoWordTemplate(doc); //Insert the required data into the word template
@@ -72,13 +74,15 @@ namespace RATA_FMM
             else //The template does not exist
             {
                 //Error
-                MessageBox.Show("Error: Template path does not exist");
+                MessageBox.Show("Error: Template does not exist");
                 return;
             }
 
-            doc.SaveAs2(ref this.saveAs, ref missing, ref missing, ref missing, ref missing,
-                ref missing, ref missing, ref missing, ref missing, ref missing, ref missing,
-                ref missing, ref missing, ref missing, ref missing, ref missing); //Save the word document in the specified location
+            doc.SaveAs2(ref saveAs, ref missing, ref missing, ref missing,
+                    ref missing, ref missing, ref missing,
+                    ref missing, ref missing, ref missing,
+                    ref missing, ref missing, ref missing,
+                    ref missing, ref missing, ref missing); //Save the word document in the specified location
 
             MessageBox.Show("Document created");
             List<int> processesAfterGen = getRunningProcesses(); //Get Word processes after word document in created
@@ -125,10 +129,10 @@ namespace RATA_FMM
 
                 //Print desired information in each cell of the current row
                 table.Cell(i, 1).Range.Text = r.GetRoadName(); //Name
-                table.Cell(i, 2).Range.Text = r.GetStart().ToString(); //Start of the footpath
-                table.Cell(i, 3).Range.Text = r.GetEnd().ToString(); //End of the footpath
+                table.Cell(i, 2).Range.Text = r.GetLongLength().ToString(); //Length
+                table.Cell(i, 3).Range.Text = r.GetFootpathSurfaceMaterial(); //Surface material
                 table.Cell(i, 4).Range.Text = r.GetConditionRating().ToString(); //Calculated condition rating
-                table.Cell(i, 5).Range.Text = r.GetTown().ToString(); //Town name
+                table.Cell(i, 5).Range.Text = r.GetZonesString(); //Relevant zone information
             }
 
             Marshal.ReleaseComObject(table); //Release the table
@@ -145,9 +149,7 @@ namespace RATA_FMM
             foreach (Process clsProcess in Process.GetProcesses()) //For each running process
             {
                 if (Process.GetCurrentProcess().Id == clsProcess.Id)
-                {
                     continue;
-                }
                 if (clsProcess.ProcessName.Contains("WINWORD")) //The current process is a Word process
                 {
                     processIDs.Add(clsProcess.Id); //Add the Word process to the process ID list

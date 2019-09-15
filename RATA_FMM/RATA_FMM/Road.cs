@@ -669,5 +669,32 @@ namespace RATA_FMM
         {
             return this.serviceZone;
         }
+
+        public string GetZonesString()
+        {
+            string zones = "";
+
+            if (IsHealthZone() || IsSchoolZone() || IsServiceZone())
+            {         
+                zones = "Falls within ";
+                if (IsHealthZone())
+                {
+                    zones = zones + "health, ";
+                }
+                if (IsSchoolZone())
+                {
+                    zones += "school, ";
+                }
+                if (IsServiceZone())
+                {
+                    zones += "service, ";
+                }
+
+                zones = zones.Substring(0, zones.Length - 2);
+                zones += " zones(s)";
+            }
+
+            return zones;
+        }
     }
 }
