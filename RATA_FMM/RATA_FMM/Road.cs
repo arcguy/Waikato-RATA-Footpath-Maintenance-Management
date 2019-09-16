@@ -69,7 +69,9 @@ namespace RATA_FMM
         private int numFaults;
         private double conditionRating;
         private int footpathCondition;
-        private string[] parsedNotes;
+        private List<string[]> parsedNotes;
+
+        private double faultToLengthRatio;
 
         private string[] qgisData;
         //0 - road id
@@ -159,7 +161,14 @@ namespace RATA_FMM
             numFaults = CalcFaults();
             conditionRating = 0;
             footpathCondition = 0;
-            parsedNotes = CodeParser.Decode(notes);
+            try
+            {
+                parsedNotes = CodeParser.Decode(notes);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
             town = "Other";
 
             healthZone = false;
@@ -215,6 +224,8 @@ namespace RATA_FMM
                 "Condition Rating: ".PadRight(30) + conditionRating.ToString(),
                 "Footpath Condition: ".PadRight(30) + footpathCondition.ToString(),
                 "Town: ".PadRight(30) + town,
+                //"Fault to Length Ratio:".PadRight(30) + faultToLengthRatio.ToString(),
+                "Fault to Length Ratio:".PadRight(30) + Math.Round(faultToLengthRatio, 3).ToString(), 
             });            
             if (healthZone)
                 itemList.Add("Health Zone");
@@ -222,7 +233,7 @@ namespace RATA_FMM
                 itemList.Add("School Zone");
             if (serviceZone)
                 itemList.Add("Service Zone");
-            if (parsedNotes != null)
+            if (parsedNotes.Count > 0)
             {
                 itemList.Add("Fault Information: ".PadRight(30) + GetParsedNotes());
             }
@@ -528,6 +539,7 @@ namespace RATA_FMM
         {
             qgisData = data;
             conditionRating = CalcConditionRating();
+            faultToLengthRatio = CalcFaultLengthRatio();
         }
 
         public string[] GetQgisData()
@@ -563,8 +575,11 @@ namespace RATA_FMM
 
             rating += CalcZoneRating();
             rating += CalcFootpathRating();
+            if (faultToLengthRatio > 0)
+                rating *= faultToLengthRatio++;
             this.town = CalcTown();
-            return Math.Round(rating, 2);
+            rating /= 1.55;
+            return Math.Round(rating, 3);
         }
 
         private double CalcZoneRating()
@@ -598,6 +613,53 @@ namespace RATA_FMM
             return Math.Round(rating, 2);
         }
 
+        private double CalcFootpathRating()
+        {
+            double rating = 0;
+            
+            if (parsedNotes.Count > 0)
+            {
+                if (parsedNotes[0][0] == "2")
+                {
+                    footpathCondition = int.Parse(parsedNotes[0][2]);
+                    if (footpathCondition == 1)
+                    {
+                        rating += 5;
+                    }
+                    if (footpathCondition == 2)
+                    {
+                        rating += 15;
+                    }
+                    if (footpathCondition == 3)
+                    {
+                        rating += 30;
+                    }
+                    if (footpathCondition == 4)
+                    {
+                        rating += 45;
+                    }
+                    if (footpathCondition == 5)
+                    {
+                        rating += 60;
+                    }
+                }
+            }
+            return rating;
+        }
+
+        private double CalcFaultLengthRatio()
+        {
+            double rating = 0;
+            double faultCount = CalcFaults();
+            double length = GetLongLength();
+
+            if (CalcFaults() > 0 && GetLongLength() > 0)
+            {                
+                rating = faultCount / length;
+            }
+            return Math.Round(rating, 3);
+        }
+
         private string CalcTown()
         {
             string temp = "";
@@ -622,14 +684,6 @@ namespace RATA_FMM
             return temp;
         }
 
-        private double CalcFootpathRating()
-        {
-            double rating = 0;
-
-
-            return rating;
-        }
-
         public int GetLongLength()
         {
             if (length1 > length2)
@@ -642,12 +696,26 @@ namespace RATA_FMM
 
         public string GetParsedNotes()
         {
-            string temp = "";
-            for (int i = 0; i < parsedNotes.Length; i++)
-            {
-                temp += parsedNotes[i] + ", ";
+            string tempString = "";
+            try
+            {                
+                if (parsedNotes.Count > 0)
+                {
+                    for (int i = 0; i < parsedNotes.Count; i++)
+                    {
+                        string[] tempArray = parsedNotes[i];
+                        for (int j = 1; j < tempArray.Length; j++)
+                        {
+                            tempString += tempArray[j].ToString() + ", ";
+                        }
+                    }
+                }
             }
-            return temp;
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return tempString;
         }
 
         public string GetTown()
@@ -695,6 +763,11 @@ namespace RATA_FMM
             }
 
             return zones;
+        }
+
+        private double GetFaultLengthRatio()
+        {
+            return this.faultToLengthRatio;
         }
     }
 }
