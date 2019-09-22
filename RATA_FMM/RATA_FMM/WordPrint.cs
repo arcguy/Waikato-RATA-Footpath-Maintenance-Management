@@ -86,7 +86,10 @@ namespace RATA_FMM
                     ref missing, ref missing, ref missing,
                     ref missing, ref missing, ref missing,
                     ref missing, ref missing, ref missing); //Save the word document in the specified location
-            doc.PrintOut();
+
+            object background = true;
+            
+            doc.PrintOut(ref background);
             MessageBox.Show("Document created");
             doc.Close(ref missing, ref missing, ref missing); //Close the document
 
