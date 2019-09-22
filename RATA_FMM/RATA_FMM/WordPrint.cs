@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace RATA_FMM
 {
@@ -57,6 +58,8 @@ namespace RATA_FMM
 
             if (File.Exists((string)this.templateName)) //The template exists
             {
+                DateTime today = DateTime.Now;
+
                 //Set document properties
                 object readOnly = false;
                 object isVisible = false;
@@ -83,8 +86,10 @@ namespace RATA_FMM
                     ref missing, ref missing, ref missing,
                     ref missing, ref missing, ref missing,
                     ref missing, ref missing, ref missing); //Save the word document in the specified location
-
+            doc.PrintOut();
             MessageBox.Show("Document created");
+            doc.Close(ref missing, ref missing, ref missing); //Close the document
+
             List<int> processesAfterGen = getRunningProcesses(); //Get Word processes after word document in created
             killProcesses(processesBeforeGen, processesAfterGen); //Kill all word processess so as not to corrupt the template or report
         }
