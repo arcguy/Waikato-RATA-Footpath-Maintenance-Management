@@ -110,7 +110,10 @@ namespace RATA_FMM
             end = int.Parse(roadData[6]);
             footpath1 = int.Parse(roadData[7]);
             footpath2 = char.Parse(roadData[8]);
-            footpathSurfaceMaterial = roadData[9];
+            if (roadData[9] != "-1")
+                footpathSurfaceMaterial = roadData[9];
+            else
+                footpathSurfaceMaterial = "N/A";
             inspection = roadData[10];
             surveyDescription = roadData[11];
             length1 = int.Parse(roadData[12]);
@@ -179,7 +182,7 @@ namespace RATA_FMM
         //Returns every field in string format
         public override string ToString()
         {
-            /*return road.ToString().PadRight(10) + roadName.PadRight(35) + start.ToString().PadRight(10) +
+            return road.ToString().PadRight(10) + roadName.PadRight(35) + start.ToString().PadRight(10) +
             localityName.PadRight(35) + localityID.ToString().PadRight(15) + displacement.PadRight(15) +
             end.ToString().PadRight(10) + footpath1.ToString().PadRight(12) + footpath2.ToString().PadRight(12) + footpathSurfaceMaterial.PadRight(27) +
             inspection.PadRight(15) + surveyDescription.PadRight(20) + length1.ToString().PadRight(7) + length2.ToString().PadRight(7) +
@@ -194,12 +197,7 @@ namespace RATA_FMM
             footpathSurfaceMaterial3.PadRight(27) + notes.PadRight(150) + rater.PadRight(7) +
             surveyMethod.PadRight(15) + surveyMethod2.PadRight(15) + editSurveyData.ToString().PadRight(20) + editSurveyData2.PadRight(35) +
             mapDesc1.PadRight(30) + dateAdded.ToShortDateString().PadRight(15) + addedBy.PadRight(10) +
-            dateChanged.ToString().PadRight(20) + changedBy.PadRight(10);*/
-
-            return roadName.PadRight(35) + start.ToString().PadRight(10) + end.ToString().PadRight(10) +
-            GetLongLength().ToString().PadRight(10) + dateAdded.ToShortDateString().PadRight(15)
-            + side.PadRight(7) + footpathSurfaceMaterial.PadRight(27) + numFaults.ToString().PadRight(10) 
-            + conditionRating.ToString().PadRight(20) + footpathCondition.ToString().PadRight(20);
+            dateChanged.ToString().PadRight(20) + changedBy.PadRight(10);
         }
 
         public string PrintDataShort()
@@ -226,17 +224,17 @@ namespace RATA_FMM
                 "Town: ".PadRight(30) + town,
                 //"Fault to Length Ratio:".PadRight(30) + faultToLengthRatio.ToString(),
                 "Fault to Length Ratio:".PadRight(30) + Math.Round(faultToLengthRatio, 3).ToString(), 
-            });            
+            });
+            if (parsedNotes.Count > 0)
+            {
+                itemList.Add("Fault Information: ".PadRight(30) + GetParsedNotes());
+            }
             if (healthZone)
                 itemList.Add("Health Zone");
             if (schoolZone)
                 itemList.Add("School Zone");
             if (serviceZone)
                 itemList.Add("Service Zone");
-            if (parsedNotes.Count > 0)
-            {
-                itemList.Add("Fault Information: ".PadRight(30) + GetParsedNotes());
-            }
             return itemList;
         }
 
@@ -538,7 +536,9 @@ namespace RATA_FMM
         public void SetQgisData(string[] data)
         {
             qgisData = data;
-            conditionRating = CalcConditionRating();
+            //conditionRating = CalcConditionRating();
+            this.town = CalcTown();
+            CalcConditionRating(30, 40, 15, 30, 10, 25, 5, 15, 30, 45, 60);
             faultToLengthRatio = CalcFaultLengthRatio();
         }
 
@@ -569,20 +569,33 @@ namespace RATA_FMM
             return faults;
         }
 
-        private double CalcConditionRating()
+        /*private double CalcConditionRating()
         {
             double rating = 0;
 
-            rating += CalcZoneRating();
-            rating += CalcFootpathRating();
+            rating += CalcZoneRating(30, 40, 15, 30, 10, 25);
+            rating += CalcFootpathRating(5, 15, 30, 45, 60);
             if (faultToLengthRatio > 0)
                 rating *= faultToLengthRatio++;
             this.town = CalcTown();
             rating /= 1.55;
             return Math.Round(rating, 3);
+        }*/
+
+        public void CalcConditionRating(int healthMin, int healthMax, int schoolMin, int schoolMax, int serviceMin, int ServiceMax, int rating1, int rating2, int rating3, int rating4, int rating5)
+        {
+            double rating = 0;
+            double maxRating = healthMax + schoolMax + ServiceMax + rating5;
+
+            rating += CalcZoneRating(healthMin, healthMax, schoolMin, schoolMax, serviceMin, ServiceMax);
+            rating += CalcFootpathRating(rating1, rating2, rating3, rating4, rating5);
+            if (faultToLengthRatio > 0)
+                rating *= faultToLengthRatio++;            
+            rating /= (maxRating / 100);
+            this.conditionRating = Math.Round(rating, 3);
         }
 
-        private double CalcZoneRating()
+        private double CalcZoneRating(int healthMin, int healthMax, int schoolMin, int schoolMax, int serviceMin, int ServiceMax)
         {
             double rating = 0;
             try
@@ -613,7 +626,7 @@ namespace RATA_FMM
             return Math.Round(rating, 2);
         }
 
-        private double CalcFootpathRating()
+        private double CalcFootpathRating(int rating1, int rating2, int rating3, int rating4, int rating5)
         {
             double rating = 0;
             
@@ -706,8 +719,9 @@ namespace RATA_FMM
                         string[] tempArray = parsedNotes[i];
                         for (int j = 1; j < tempArray.Length; j++)
                         {
-                            tempString += tempArray[j].ToString() + ", ";
+                            tempString += tempArray[j].ToString() + " ";
                         }
+                        tempString += ", ";
                     }
                 }
             }
@@ -765,7 +779,7 @@ namespace RATA_FMM
             return zones;
         }
 
-        private double GetFaultLengthRatio()
+        public double GetFaultLengthRatio()
         {
             return this.faultToLengthRatio;
         }

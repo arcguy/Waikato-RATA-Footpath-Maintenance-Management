@@ -31,32 +31,70 @@ namespace RATA_FMM
             InitializeComponent();
 
             //setting sizes and positions of listboxes
-            listBoxData.Width = window_length / 3 - 50;
+            listBoxData.Width = window_length / 3 + 50;
             listBoxData.Height = window_height - 100;
             listBoxData.Location = new Point(10, 30);
 
             listBoxDataLong.Width = window_length / 3 - 50;
             listBoxDataLong.Height = window_height / 2 - 100;
-            listBoxDataLong.Location = new Point(window_length / 3 - 30, 30);
+            listBoxDataLong.Location = new Point(window_length / 3 + 70, 30);
 
-            labelFilterResults.Location = new Point(window_length / 3 - 30, (window_height / 2) - 70);
-            pictureBoxFilter.Location = new Point(window_length / 3 - 30, (window_height / 2) - 50);
-            pictureBox2.Location = new Point(window_length / 3 - 10, (window_height / 2) - 30);
-            pictureBox3.Location = new Point(window_length / 3 - 10, (window_height / 2) + 110);
+            //setting locations of filter window components
+            labelFilterResults.Location = new Point(window_length / 3 * 2 + 50, 35);
+            pictureBoxFilter.Location = new Point(window_length / 3 * 2 + 30, 30);
+            pictureBoxFaults.Location = new Point((window_length / 3 * 2) + 50, 55);
+            pictureBoxCondition.Location = new Point(window_length / 3 * 2 + 50, 135);
+            pictureBoxTown.Location = new Point(window_length / 3 * 2 + 50, 215);
 
-            label4.Location = new Point(window_length / 3 - 5, (window_height / 2) - 20);
-            label3.Location = new Point(window_length / 3 - 5, (window_height / 2));
-            textBoxFilterCondition.Location = new Point(window_length / 3 + 40, (window_height / 2) - 2);
-            label5.Location = new Point(window_length / 3 + 90, (window_height / 2));
-            pictureBox1.Location = new Point(window_length / 3 - 10, (window_height / 2) + 40);
-            label1.Location = new Point(window_length / 3 - 5, (window_height / 2) + 50);
-            textBoxFilterFaults.Location = new Point(window_length / 3 + 102, (window_height / 2) + 48);
-            label2.Location = new Point(window_length / 3 - 5, (window_height / 2) + 70);
-            label6.Location = new Point(window_length / 3 - 5, (window_height / 2) + 115);
-            comboBoxTown.Location = new Point(window_length / 3 - 5, (window_height / 2) + 135);
+            filterLabel1.Location = new Point(window_length / 3 * 2 + 55, 60);
+            filterLabel2.Location = new Point(window_length / 3 * 2 + 55, 80);
+            textBoxFilterCondition.Location = new Point(window_length / 3 * 2 + 105, 77);
+            filterLabel3.Location = new Point(window_length / 3 * 2 + 150, 80);            
+            filterLabel4.Location = new Point(window_length / 3 * 2 + 55, 140);
+            textBoxFilterFaults.Location = new Point(window_length / 3 * 2 + 162, 139);
+            filterLabel5.Location = new Point(window_length / 3 * 2 + 55, 160);
+            filterLabel6.Location = new Point(window_length / 3 * 2 + 55, 220);
+            comboBoxTown.Location = new Point(window_length / 3 * 2 + 60, 240);
 
-            buttonUpdateResults.Location = new Point(window_length / 3 + 35, (window_height / 2) + 175);
-            buttonShowAll.Location = new Point(window_length / 3 + 35, (window_height / 2) + 200);
+            buttonUpdateResults.Location = new Point(window_length / 3 * 2 + 50, 280);
+            buttonShowAll.Location = new Point(window_length / 3  * 2 + 135, 280);
+
+            //setting location of algorithm weighting components
+            pictureBoxSort.Location = new Point(window_length / 3 + 70, window_height / 2 - 70);
+            pictureBoxZones.Location = new Point(window_length / 3 + 78, window_height /2 - 45);
+            pictureBoxPathRatings.Location = new Point(window_length / 3 + 145, window_height / 2 + 80);
+
+            labelAlgorithm.Location = new Point(window_length / 3 + 235, window_height / 2 - 65);
+            labelZones.Location = new Point(window_length / 3 + 270, window_height / 2 - 42);
+            labelHealthMin.Location = new Point(window_length / 3 + 85, window_height / 2 - 25);
+            labelSchoolMin.Location = new Point(window_length / 3 + 85, window_height / 2 + 5);
+            labelServiceMin.Location = new Point(window_length / 3 + 85, window_height / 2 + 35);
+            labelHealthMax.Location = new Point(window_length / 3 + 295, window_height / 2 - 25);
+            labelSchoolMax.Location = new Point(window_length / 3 + 295, window_height / 2 + 5);
+            labelServiceMax.Location = new Point(window_length / 3 + 295, window_height / 2 + 35);
+
+            textBoxHealthMin.Location = new Point(window_length / 3 + 200, window_height / 2 - 27);
+            textBoxSchoolMin.Location = new Point(window_length / 3 + 200, window_height / 2 + 3);
+            textBoxServiceMin.Location = new Point(window_length / 3 + 200, window_height / 2 + 33);
+            textBoxHealthMax.Location = new Point(window_length / 3 + 415, window_height / 2 - 27);
+            textBoxSchoolMax.Location = new Point(window_length / 3 + 415, window_height / 2 + 3);
+            textBoxServiceMax.Location = new Point(window_length / 3 + 415, window_height / 2 + 33);
+
+            labelPathRatings.Location = new Point(window_length / 3 + 235, window_height / 2 + 85);
+            labelRating1.Location = new Point(window_length / 3 + 155, window_height / 2 + 105);
+            labelRating2.Location = new Point(window_length / 3 + 235, window_height / 2 + 105);
+            labelRating3.Location = new Point(window_length / 3 + 315, window_height / 2 + 105);
+            labelRating4.Location = new Point(window_length / 3 + 200, window_height / 2 + 135);
+            labelRating5.Location = new Point(window_length / 3 + 280, window_height / 2 + 135);
+
+            textBoxRating1.Location = new Point(window_length / 3 + 170, window_height / 2 + 103);
+            textBoxRating2.Location = new Point(window_length / 3 + 250, window_height / 2 + 103);
+            textBoxRating3.Location = new Point(window_length / 3 + 330, window_height / 2 + 103);
+            textBoxRating4.Location = new Point(window_length / 3 + 215, window_height / 2 + 133);
+            textBoxRating5.Location = new Point(window_length / 3 + 295, window_height / 2 + 133);
+
+            buttonUpdateAlgorithm.Location = new Point(window_length / 3 + 218, window_height / 2 + 175);
+            buttonReset.Location = new Point(window_length / 3 + 298, window_height / 2 + 175);
 
             //addding items to combobox
             comboBoxTown.Items.Add("Cambridge");
@@ -206,14 +244,15 @@ namespace RATA_FMM
         }
 
         private void DisplayData()
-        {         
-            roadList.Sort((x, y) => 
+        {
+            /*roadList.Sort((x, y) => 
             {
                 var ret = y.GetConditionRating().CompareTo(x.GetConditionRating());
                 if (ret == 0)
                     ret = y.GetFootpathCondition().CompareTo(x.GetFootpathCondition());
                 return ret;
-            });
+            });*/
+            SortList();
             //displaying in first listbox
             foreach (Road r in roadList)
             {
@@ -400,6 +439,45 @@ namespace RATA_FMM
             {
                 listBoxDataLong.DataSource = filteredFootpaths[index - 1].GetRoadDataAsList();
             }
+        }
+
+        private void buttonUpdateAlgorithm_Click(object sender, EventArgs e)
+        {
+            int healthMin = int.Parse(textBoxHealthMin.Text);
+            int healthMax = int.Parse(textBoxHealthMax.Text);
+            int schoolMin = int.Parse(textBoxSchoolMin.Text);
+            int schoolMax = int.Parse(textBoxSchoolMax.Text);
+            int serviceMin = int.Parse(textBoxServiceMin.Text);
+            int serviceMax = int.Parse(textBoxServiceMax.Text);
+            int rating1 = int.Parse(textBoxRating1.Text);
+            int rating2 = int.Parse(textBoxRating2.Text);
+            int rating3 = int.Parse(textBoxRating3.Text);
+            int rating4 = int.Parse(textBoxRating4.Text);
+            int rating5 = int.Parse(textBoxRating5.Text);
+
+            initializeDataListBox();
+            listBoxData.ClearSelected();
+            foreach (Road r in roadList)
+                r.CalcConditionRating(healthMin, healthMax, schoolMin, schoolMax, serviceMin, serviceMax, rating1, rating2, rating3, rating4, rating5);                               
+            SortList();
+            foreach(Road r in roadList)
+                listBoxData.Items.Add(r.PrintDataShort());
+        }
+
+        private void buttonReset_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void SortList()
+        {
+            roadList.Sort((x, y) =>
+            {
+                var ret = y.GetConditionRating().CompareTo(x.GetConditionRating());
+                if (ret == 0)
+                    ret = y.GetFootpathCondition().CompareTo(x.GetFootpathCondition());
+                return ret;
+            });
         }
     }
 }

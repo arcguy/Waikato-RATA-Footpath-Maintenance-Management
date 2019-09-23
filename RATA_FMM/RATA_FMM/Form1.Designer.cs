@@ -29,15 +29,14 @@
         private void InitializeComponent()
         {
             this.listBoxData = new System.Windows.Forms.ListBox();
-            this.labelMap = new System.Windows.Forms.Label();
             this.listBoxDataLong = new System.Windows.Forms.ListBox();
             this.buttonUpdateResults = new System.Windows.Forms.Button();
             this.pictureBoxFilter = new System.Windows.Forms.PictureBox();
             this.labelFilterResults = new System.Windows.Forms.Label();
             this.textBoxFilterFaults = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.filterLabel4 = new System.Windows.Forms.Label();
+            this.filterLabel5 = new System.Windows.Forms.Label();
+            this.pictureBoxFaults = new System.Windows.Forms.PictureBox();
             this.buttonShowAll = new System.Windows.Forms.Button();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,19 +44,52 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.filterLabel2 = new System.Windows.Forms.Label();
+            this.filterLabel1 = new System.Windows.Forms.Label();
             this.textBoxFilterCondition = new System.Windows.Forms.TextBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.pictureBoxCondition = new System.Windows.Forms.PictureBox();
+            this.filterLabel3 = new System.Windows.Forms.Label();
+            this.pictureBoxTown = new System.Windows.Forms.PictureBox();
+            this.filterLabel6 = new System.Windows.Forms.Label();
             this.comboBoxTown = new System.Windows.Forms.ComboBox();
+            this.pictureBoxSort = new System.Windows.Forms.PictureBox();
+            this.labelAlgorithm = new System.Windows.Forms.Label();
+            this.labelHealthMin = new System.Windows.Forms.Label();
+            this.labelHealthMax = new System.Windows.Forms.Label();
+            this.textBoxHealthMin = new System.Windows.Forms.TextBox();
+            this.textBoxHealthMax = new System.Windows.Forms.TextBox();
+            this.textBoxSchoolMax = new System.Windows.Forms.TextBox();
+            this.textBoxSchoolMin = new System.Windows.Forms.TextBox();
+            this.labelSchoolMax = new System.Windows.Forms.Label();
+            this.labelSchoolMin = new System.Windows.Forms.Label();
+            this.textBoxServiceMax = new System.Windows.Forms.TextBox();
+            this.textBoxServiceMin = new System.Windows.Forms.TextBox();
+            this.labelServiceMax = new System.Windows.Forms.Label();
+            this.labelServiceMin = new System.Windows.Forms.Label();
+            this.labelZones = new System.Windows.Forms.Label();
+            this.labelPathRatings = new System.Windows.Forms.Label();
+            this.labelRating1 = new System.Windows.Forms.Label();
+            this.textBoxRating1 = new System.Windows.Forms.TextBox();
+            this.textBoxRating2 = new System.Windows.Forms.TextBox();
+            this.labelRating2 = new System.Windows.Forms.Label();
+            this.textBoxRating3 = new System.Windows.Forms.TextBox();
+            this.labelRating3 = new System.Windows.Forms.Label();
+            this.textBoxRating4 = new System.Windows.Forms.TextBox();
+            this.labelRating4 = new System.Windows.Forms.Label();
+            this.textBoxRating5 = new System.Windows.Forms.TextBox();
+            this.labelRating5 = new System.Windows.Forms.Label();
+            this.buttonUpdateAlgorithm = new System.Windows.Forms.Button();
+            this.pictureBoxZones = new System.Windows.Forms.PictureBox();
+            this.pictureBoxPathRatings = new System.Windows.Forms.PictureBox();
+            this.buttonReset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFilter)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFaults)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCondition)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSort)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxZones)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPathRatings)).BeginInit();
             this.SuspendLayout();
             // 
             // listBoxData
@@ -71,15 +103,6 @@
             this.listBoxData.TabIndex = 1;
             this.listBoxData.SelectedIndexChanged += new System.EventHandler(this.listBoxData_SelectedIndexChanged);
             // 
-            // labelMap
-            // 
-            this.labelMap.AutoSize = true;
-            this.labelMap.Location = new System.Drawing.Point(1343, 438);
-            this.labelMap.Name = "labelMap";
-            this.labelMap.Size = new System.Drawing.Size(80, 13);
-            this.labelMap.TabIndex = 4;
-            this.labelMap.Text = "Insert map here";
-            // 
             // listBoxDataLong
             // 
             this.listBoxDataLong.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -88,14 +111,14 @@
             this.listBoxDataLong.Location = new System.Drawing.Point(516, 30);
             this.listBoxDataLong.Name = "listBoxDataLong";
             this.listBoxDataLong.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBoxDataLong.Size = new System.Drawing.Size(602, 186);
+            this.listBoxDataLong.Size = new System.Drawing.Size(602, 342);
             this.listBoxDataLong.TabIndex = 5;
             // 
             // buttonUpdateResults
             // 
-            this.buttonUpdateResults.Location = new System.Drawing.Point(587, 460);
+            this.buttonUpdateResults.Location = new System.Drawing.Point(1146, 254);
             this.buttonUpdateResults.Name = "buttonUpdateResults";
-            this.buttonUpdateResults.Size = new System.Drawing.Size(75, 23);
+            this.buttonUpdateResults.Size = new System.Drawing.Size(85, 23);
             this.buttonUpdateResults.TabIndex = 7;
             this.buttonUpdateResults.Text = "Update";
             this.buttonUpdateResults.UseVisualStyleBackColor = true;
@@ -104,7 +127,7 @@
             // pictureBoxFilter
             // 
             this.pictureBoxFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxFilter.Location = new System.Drawing.Point(516, 236);
+            this.pictureBoxFilter.Location = new System.Drawing.Point(1124, 30);
             this.pictureBoxFilter.Name = "pictureBoxFilter";
             this.pictureBoxFilter.Size = new System.Drawing.Size(220, 285);
             this.pictureBoxFilter.TabIndex = 8;
@@ -113,7 +136,7 @@
             // labelFilterResults
             // 
             this.labelFilterResults.AutoSize = true;
-            this.labelFilterResults.Location = new System.Drawing.Point(513, 220);
+            this.labelFilterResults.Location = new System.Drawing.Point(1143, 31);
             this.labelFilterResults.Name = "labelFilterResults";
             this.labelFilterResults.Size = new System.Drawing.Size(67, 13);
             this.labelFilterResults.TabIndex = 9;
@@ -121,44 +144,44 @@
             // 
             // textBoxFilterFaults
             // 
-            this.textBoxFilterFaults.Location = new System.Drawing.Point(658, 332);
+            this.textBoxFilterFaults.Location = new System.Drawing.Point(1266, 126);
             this.textBoxFilterFaults.Name = "textBoxFilterFaults";
             this.textBoxFilterFaults.Size = new System.Drawing.Size(43, 20);
             this.textBoxFilterFaults.TabIndex = 10;
             this.textBoxFilterFaults.Text = "0";
             // 
-            // label1
+            // filterLabel4
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(546, 335);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Show footpaths with ";
+            this.filterLabel4.AutoSize = true;
+            this.filterLabel4.Location = new System.Drawing.Point(1154, 129);
+            this.filterLabel4.Name = "filterLabel4";
+            this.filterLabel4.Size = new System.Drawing.Size(106, 13);
+            this.filterLabel4.TabIndex = 11;
+            this.filterLabel4.Text = "Show footpaths with ";
             // 
-            // label2
+            // filterLabel5
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(546, 360);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 13);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "or more faults.";
+            this.filterLabel5.AutoSize = true;
+            this.filterLabel5.Location = new System.Drawing.Point(1154, 154);
+            this.filterLabel5.Name = "filterLabel5";
+            this.filterLabel5.Size = new System.Drawing.Size(73, 13);
+            this.filterLabel5.TabIndex = 12;
+            this.filterLabel5.Text = "or more faults.";
             // 
-            // pictureBox1
+            // pictureBoxFaults
             // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(538, 325);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(170, 60);
-            this.pictureBox1.TabIndex = 13;
-            this.pictureBox1.TabStop = false;
+            this.pictureBoxFaults.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxFaults.Location = new System.Drawing.Point(1146, 119);
+            this.pictureBoxFaults.Name = "pictureBoxFaults";
+            this.pictureBoxFaults.Size = new System.Drawing.Size(170, 60);
+            this.pictureBoxFaults.TabIndex = 13;
+            this.pictureBoxFaults.TabStop = false;
             // 
             // buttonShowAll
             // 
-            this.buttonShowAll.Location = new System.Drawing.Point(587, 489);
+            this.buttonShowAll.Location = new System.Drawing.Point(1237, 254);
             this.buttonShowAll.Name = "buttonShowAll";
-            this.buttonShowAll.Size = new System.Drawing.Size(75, 23);
+            this.buttonShowAll.Size = new System.Drawing.Size(85, 23);
             this.buttonShowAll.TabIndex = 14;
             this.buttonShowAll.Text = "Show All";
             this.buttonShowAll.UseVisualStyleBackColor = true;
@@ -178,26 +201,26 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // printToolStripMenuItem
             // 
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.printToolStripMenuItem.Text = "Print";
             this.printToolStripMenuItem.Click += new System.EventHandler(this.PrintToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(100, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -207,79 +230,329 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1423, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1370, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // label3
+            // filterLabel2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(546, 288);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "rating of";
+            this.filterLabel2.AutoSize = true;
+            this.filterLabel2.Location = new System.Drawing.Point(1154, 82);
+            this.filterLabel2.Name = "filterLabel2";
+            this.filterLabel2.Size = new System.Drawing.Size(45, 13);
+            this.filterLabel2.TabIndex = 17;
+            this.filterLabel2.Text = "rating of";
             // 
-            // label4
+            // filterLabel1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(546, 263);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(158, 13);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "Show footpaths with a condition";
+            this.filterLabel1.AutoSize = true;
+            this.filterLabel1.Location = new System.Drawing.Point(1154, 57);
+            this.filterLabel1.Name = "filterLabel1";
+            this.filterLabel1.Size = new System.Drawing.Size(158, 13);
+            this.filterLabel1.TabIndex = 16;
+            this.filterLabel1.Text = "Show footpaths with a condition";
             // 
             // textBoxFilterCondition
             // 
-            this.textBoxFilterCondition.Location = new System.Drawing.Point(597, 285);
+            this.textBoxFilterCondition.Location = new System.Drawing.Point(1205, 79);
             this.textBoxFilterCondition.Name = "textBoxFilterCondition";
             this.textBoxFilterCondition.Size = new System.Drawing.Size(43, 20);
             this.textBoxFilterCondition.TabIndex = 15;
             this.textBoxFilterCondition.Text = "0";
             // 
-            // pictureBox2
+            // pictureBoxCondition
             // 
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox2.Location = new System.Drawing.Point(538, 253);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(170, 60);
-            this.pictureBox2.TabIndex = 18;
-            this.pictureBox2.TabStop = false;
+            this.pictureBoxCondition.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxCondition.Location = new System.Drawing.Point(1146, 47);
+            this.pictureBoxCondition.Name = "pictureBoxCondition";
+            this.pictureBoxCondition.Size = new System.Drawing.Size(170, 60);
+            this.pictureBoxCondition.TabIndex = 18;
+            this.pictureBoxCondition.TabStop = false;
             // 
-            // label5
+            // filterLabel3
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(646, 288);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 13);
-            this.label5.TabIndex = 19;
-            this.label5.Text = "or greater.";
+            this.filterLabel3.AutoSize = true;
+            this.filterLabel3.Location = new System.Drawing.Point(1254, 82);
+            this.filterLabel3.Name = "filterLabel3";
+            this.filterLabel3.Size = new System.Drawing.Size(55, 13);
+            this.filterLabel3.TabIndex = 19;
+            this.filterLabel3.Text = "or greater.";
             // 
-            // pictureBox3
+            // pictureBoxTown
             // 
-            this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox3.Location = new System.Drawing.Point(538, 391);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(170, 60);
-            this.pictureBox3.TabIndex = 20;
-            this.pictureBox3.TabStop = false;
+            this.pictureBoxTown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxTown.Location = new System.Drawing.Point(1146, 185);
+            this.pictureBoxTown.Name = "pictureBoxTown";
+            this.pictureBoxTown.Size = new System.Drawing.Size(170, 60);
+            this.pictureBoxTown.TabIndex = 20;
+            this.pictureBoxTown.TabStop = false;
             // 
-            // label6
+            // filterLabel6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(541, 394);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(104, 13);
-            this.label6.TabIndex = 21;
-            this.label6.Text = "Show footpaths from";
+            this.filterLabel6.AutoSize = true;
+            this.filterLabel6.Location = new System.Drawing.Point(1149, 188);
+            this.filterLabel6.Name = "filterLabel6";
+            this.filterLabel6.Size = new System.Drawing.Size(104, 13);
+            this.filterLabel6.TabIndex = 21;
+            this.filterLabel6.Text = "Show footpaths from";
             // 
             // comboBoxTown
             // 
             this.comboBoxTown.FormattingEnabled = true;
-            this.comboBoxTown.Location = new System.Drawing.Point(544, 411);
+            this.comboBoxTown.Location = new System.Drawing.Point(1152, 205);
             this.comboBoxTown.Name = "comboBoxTown";
             this.comboBoxTown.Size = new System.Drawing.Size(121, 21);
             this.comboBoxTown.TabIndex = 22;
+            // 
+            // pictureBoxSort
+            // 
+            this.pictureBoxSort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxSort.Location = new System.Drawing.Point(516, 378);
+            this.pictureBoxSort.Name = "pictureBoxSort";
+            this.pictureBoxSort.Size = new System.Drawing.Size(440, 275);
+            this.pictureBoxSort.TabIndex = 23;
+            this.pictureBoxSort.TabStop = false;
+            // 
+            // labelAlgorithm
+            // 
+            this.labelAlgorithm.AutoSize = true;
+            this.labelAlgorithm.Location = new System.Drawing.Point(657, 381);
+            this.labelAlgorithm.Name = "labelAlgorithm";
+            this.labelAlgorithm.Size = new System.Drawing.Size(135, 13);
+            this.labelAlgorithm.TabIndex = 24;
+            this.labelAlgorithm.Text = "Modify Algorithm Weighting";
+            // 
+            // labelHealthMin
+            // 
+            this.labelHealthMin.AutoSize = true;
+            this.labelHealthMin.Location = new System.Drawing.Point(533, 432);
+            this.labelHealthMin.Name = "labelHealthMin";
+            this.labelHealthMin.Size = new System.Drawing.Size(110, 13);
+            this.labelHealthMin.TabIndex = 25;
+            this.labelHealthMin.Text = "Health Zone Minimum";
+            // 
+            // labelHealthMax
+            // 
+            this.labelHealthMax.AutoSize = true;
+            this.labelHealthMax.Location = new System.Drawing.Point(735, 432);
+            this.labelHealthMax.Name = "labelHealthMax";
+            this.labelHealthMax.Size = new System.Drawing.Size(113, 13);
+            this.labelHealthMax.TabIndex = 26;
+            this.labelHealthMax.Text = "Health Zone Maximum";
+            // 
+            // textBoxHealthMin
+            // 
+            this.textBoxHealthMin.Location = new System.Drawing.Point(649, 429);
+            this.textBoxHealthMin.Name = "textBoxHealthMin";
+            this.textBoxHealthMin.Size = new System.Drawing.Size(80, 20);
+            this.textBoxHealthMin.TabIndex = 27;
+            // 
+            // textBoxHealthMax
+            // 
+            this.textBoxHealthMax.Location = new System.Drawing.Point(854, 429);
+            this.textBoxHealthMax.Name = "textBoxHealthMax";
+            this.textBoxHealthMax.Size = new System.Drawing.Size(80, 20);
+            this.textBoxHealthMax.TabIndex = 28;
+            // 
+            // textBoxSchoolMax
+            // 
+            this.textBoxSchoolMax.Location = new System.Drawing.Point(854, 455);
+            this.textBoxSchoolMax.Name = "textBoxSchoolMax";
+            this.textBoxSchoolMax.Size = new System.Drawing.Size(80, 20);
+            this.textBoxSchoolMax.TabIndex = 32;
+            // 
+            // textBoxSchoolMin
+            // 
+            this.textBoxSchoolMin.Location = new System.Drawing.Point(649, 455);
+            this.textBoxSchoolMin.Name = "textBoxSchoolMin";
+            this.textBoxSchoolMin.Size = new System.Drawing.Size(80, 20);
+            this.textBoxSchoolMin.TabIndex = 31;
+            // 
+            // labelSchoolMax
+            // 
+            this.labelSchoolMax.AutoSize = true;
+            this.labelSchoolMax.Location = new System.Drawing.Point(735, 458);
+            this.labelSchoolMax.Name = "labelSchoolMax";
+            this.labelSchoolMax.Size = new System.Drawing.Size(115, 13);
+            this.labelSchoolMax.TabIndex = 30;
+            this.labelSchoolMax.Text = "School Zone Maximum";
+            // 
+            // labelSchoolMin
+            // 
+            this.labelSchoolMin.AutoSize = true;
+            this.labelSchoolMin.Location = new System.Drawing.Point(533, 458);
+            this.labelSchoolMin.Name = "labelSchoolMin";
+            this.labelSchoolMin.Size = new System.Drawing.Size(112, 13);
+            this.labelSchoolMin.TabIndex = 29;
+            this.labelSchoolMin.Text = "School Zone Minimum";
+            // 
+            // textBoxServiceMax
+            // 
+            this.textBoxServiceMax.Location = new System.Drawing.Point(854, 481);
+            this.textBoxServiceMax.Name = "textBoxServiceMax";
+            this.textBoxServiceMax.Size = new System.Drawing.Size(80, 20);
+            this.textBoxServiceMax.TabIndex = 36;
+            // 
+            // textBoxServiceMin
+            // 
+            this.textBoxServiceMin.Location = new System.Drawing.Point(649, 481);
+            this.textBoxServiceMin.Name = "textBoxServiceMin";
+            this.textBoxServiceMin.Size = new System.Drawing.Size(80, 20);
+            this.textBoxServiceMin.TabIndex = 35;
+            // 
+            // labelServiceMax
+            // 
+            this.labelServiceMax.AutoSize = true;
+            this.labelServiceMax.Location = new System.Drawing.Point(735, 484);
+            this.labelServiceMax.Name = "labelServiceMax";
+            this.labelServiceMax.Size = new System.Drawing.Size(118, 13);
+            this.labelServiceMax.TabIndex = 34;
+            this.labelServiceMax.Text = "Service Zone Maximum";
+            // 
+            // labelServiceMin
+            // 
+            this.labelServiceMin.AutoSize = true;
+            this.labelServiceMin.Location = new System.Drawing.Point(533, 484);
+            this.labelServiceMin.Name = "labelServiceMin";
+            this.labelServiceMin.Size = new System.Drawing.Size(115, 13);
+            this.labelServiceMin.TabIndex = 33;
+            this.labelServiceMin.Text = "Service Zone Minimum";
+            // 
+            // labelZones
+            // 
+            this.labelZones.AutoSize = true;
+            this.labelZones.Location = new System.Drawing.Point(704, 405);
+            this.labelZones.Name = "labelZones";
+            this.labelZones.Size = new System.Drawing.Size(37, 13);
+            this.labelZones.TabIndex = 37;
+            this.labelZones.Text = "Zones";
+            // 
+            // labelPathRatings
+            // 
+            this.labelPathRatings.AutoSize = true;
+            this.labelPathRatings.Location = new System.Drawing.Point(689, 529);
+            this.labelPathRatings.Name = "labelPathRatings";
+            this.labelPathRatings.Size = new System.Drawing.Size(88, 13);
+            this.labelPathRatings.TabIndex = 38;
+            this.labelPathRatings.Text = "Footpath Ratings";
+            // 
+            // labelRating1
+            // 
+            this.labelRating1.AutoSize = true;
+            this.labelRating1.Location = new System.Drawing.Point(595, 560);
+            this.labelRating1.Name = "labelRating1";
+            this.labelRating1.Size = new System.Drawing.Size(13, 13);
+            this.labelRating1.TabIndex = 39;
+            this.labelRating1.Text = "1";
+            // 
+            // textBoxRating1
+            // 
+            this.textBoxRating1.Location = new System.Drawing.Point(615, 557);
+            this.textBoxRating1.Name = "textBoxRating1";
+            this.textBoxRating1.Size = new System.Drawing.Size(60, 20);
+            this.textBoxRating1.TabIndex = 40;
+            // 
+            // textBoxRating2
+            // 
+            this.textBoxRating2.Location = new System.Drawing.Point(704, 557);
+            this.textBoxRating2.Name = "textBoxRating2";
+            this.textBoxRating2.Size = new System.Drawing.Size(60, 20);
+            this.textBoxRating2.TabIndex = 42;
+            // 
+            // labelRating2
+            // 
+            this.labelRating2.AutoSize = true;
+            this.labelRating2.Location = new System.Drawing.Point(685, 560);
+            this.labelRating2.Name = "labelRating2";
+            this.labelRating2.Size = new System.Drawing.Size(13, 13);
+            this.labelRating2.TabIndex = 41;
+            this.labelRating2.Text = "2";
+            // 
+            // textBoxRating3
+            // 
+            this.textBoxRating3.Location = new System.Drawing.Point(790, 557);
+            this.textBoxRating3.Name = "textBoxRating3";
+            this.textBoxRating3.Size = new System.Drawing.Size(60, 20);
+            this.textBoxRating3.TabIndex = 44;
+            // 
+            // labelRating3
+            // 
+            this.labelRating3.AutoSize = true;
+            this.labelRating3.Location = new System.Drawing.Point(771, 560);
+            this.labelRating3.Name = "labelRating3";
+            this.labelRating3.Size = new System.Drawing.Size(13, 13);
+            this.labelRating3.TabIndex = 43;
+            this.labelRating3.Text = "3";
+            // 
+            // textBoxRating4
+            // 
+            this.textBoxRating4.Location = new System.Drawing.Point(662, 583);
+            this.textBoxRating4.Name = "textBoxRating4";
+            this.textBoxRating4.Size = new System.Drawing.Size(60, 20);
+            this.textBoxRating4.TabIndex = 46;
+            // 
+            // labelRating4
+            // 
+            this.labelRating4.AutoSize = true;
+            this.labelRating4.Location = new System.Drawing.Point(643, 586);
+            this.labelRating4.Name = "labelRating4";
+            this.labelRating4.Size = new System.Drawing.Size(13, 13);
+            this.labelRating4.TabIndex = 45;
+            this.labelRating4.Text = "4";
+            // 
+            // textBoxRating5
+            // 
+            this.textBoxRating5.Location = new System.Drawing.Point(747, 583);
+            this.textBoxRating5.Name = "textBoxRating5";
+            this.textBoxRating5.Size = new System.Drawing.Size(60, 20);
+            this.textBoxRating5.TabIndex = 48;
+            // 
+            // labelRating5
+            // 
+            this.labelRating5.AutoSize = true;
+            this.labelRating5.Location = new System.Drawing.Point(728, 586);
+            this.labelRating5.Name = "labelRating5";
+            this.labelRating5.Size = new System.Drawing.Size(13, 13);
+            this.labelRating5.TabIndex = 47;
+            this.labelRating5.Text = "5";
+            // 
+            // buttonUpdateAlgorithm
+            // 
+            this.buttonUpdateAlgorithm.Location = new System.Drawing.Point(662, 622);
+            this.buttonUpdateAlgorithm.Name = "buttonUpdateAlgorithm";
+            this.buttonUpdateAlgorithm.Size = new System.Drawing.Size(75, 23);
+            this.buttonUpdateAlgorithm.TabIndex = 49;
+            this.buttonUpdateAlgorithm.Text = "Update";
+            this.buttonUpdateAlgorithm.UseVisualStyleBackColor = true;
+            this.buttonUpdateAlgorithm.Click += new System.EventHandler(this.buttonUpdateAlgorithm_Click);
+            // 
+            // pictureBoxZones
+            // 
+            this.pictureBoxZones.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxZones.Location = new System.Drawing.Point(523, 401);
+            this.pictureBoxZones.Name = "pictureBoxZones";
+            this.pictureBoxZones.Size = new System.Drawing.Size(424, 119);
+            this.pictureBoxZones.TabIndex = 50;
+            this.pictureBoxZones.TabStop = false;
+            // 
+            // pictureBoxPathRatings
+            // 
+            this.pictureBoxPathRatings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxPathRatings.Location = new System.Drawing.Point(589, 526);
+            this.pictureBoxPathRatings.Name = "pictureBoxPathRatings";
+            this.pictureBoxPathRatings.Size = new System.Drawing.Size(275, 90);
+            this.pictureBoxPathRatings.TabIndex = 51;
+            this.pictureBoxPathRatings.TabStop = false;
+            // 
+            // buttonReset
+            // 
+            this.buttonReset.Location = new System.Drawing.Point(747, 622);
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.Size = new System.Drawing.Size(75, 23);
+            this.buttonReset.TabIndex = 52;
+            this.buttonReset.Text = "Reset";
+            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
             // Form1
             // 
@@ -287,35 +560,67 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1370, 720);
+            this.Controls.Add(this.buttonReset);
+            this.Controls.Add(this.textBoxRating5);
+            this.Controls.Add(this.labelRating5);
+            this.Controls.Add(this.textBoxRating4);
+            this.Controls.Add(this.labelRating4);
+            this.Controls.Add(this.textBoxRating3);
+            this.Controls.Add(this.labelRating3);
+            this.Controls.Add(this.textBoxRating2);
+            this.Controls.Add(this.labelRating2);
+            this.Controls.Add(this.textBoxRating1);
+            this.Controls.Add(this.labelRating1);
+            this.Controls.Add(this.labelPathRatings);
+            this.Controls.Add(this.pictureBoxPathRatings);
+            this.Controls.Add(this.buttonUpdateAlgorithm);
+            this.Controls.Add(this.labelZones);
+            this.Controls.Add(this.textBoxServiceMax);
+            this.Controls.Add(this.textBoxServiceMin);
+            this.Controls.Add(this.labelServiceMax);
+            this.Controls.Add(this.labelServiceMin);
+            this.Controls.Add(this.textBoxSchoolMax);
+            this.Controls.Add(this.textBoxSchoolMin);
+            this.Controls.Add(this.labelSchoolMax);
+            this.Controls.Add(this.labelSchoolMin);
+            this.Controls.Add(this.textBoxHealthMax);
+            this.Controls.Add(this.textBoxHealthMin);
+            this.Controls.Add(this.labelHealthMax);
+            this.Controls.Add(this.labelHealthMin);
+            this.Controls.Add(this.labelAlgorithm);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.comboBoxTown);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.filterLabel6);
+            this.Controls.Add(this.filterLabel3);
+            this.Controls.Add(this.filterLabel2);
+            this.Controls.Add(this.filterLabel1);
             this.Controls.Add(this.textBoxFilterCondition);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.listBoxDataLong);
             this.Controls.Add(this.buttonShowAll);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.filterLabel5);
+            this.Controls.Add(this.filterLabel4);
             this.Controls.Add(this.textBoxFilterFaults);
             this.Controls.Add(this.labelFilterResults);
             this.Controls.Add(this.buttonUpdateResults);
-            this.Controls.Add(this.labelMap);
-            this.Controls.Add(this.listBoxData);
-            this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBoxTown);
+            this.Controls.Add(this.pictureBoxCondition);
+            this.Controls.Add(this.pictureBoxFaults);
             this.Controls.Add(this.pictureBoxFilter);
+            this.Controls.Add(this.pictureBoxZones);
+            this.Controls.Add(this.pictureBoxSort);
+            this.Controls.Add(this.listBoxData);
+            this.Controls.Add(this.listBoxDataLong);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Waikato RATA Footpath Maintenance Management";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFilter)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFaults)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCondition)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSort)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxZones)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPathRatings)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -323,16 +628,15 @@
 
         #endregion
         private System.Windows.Forms.ListBox listBoxData;
-        private System.Windows.Forms.Label labelMap;
 
         private System.Windows.Forms.ListBox listBoxDataLong;
         private System.Windows.Forms.Button buttonUpdateResults;
         private System.Windows.Forms.PictureBox pictureBoxFilter;
         private System.Windows.Forms.Label labelFilterResults;
         private System.Windows.Forms.TextBox textBoxFilterFaults;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label filterLabel4;
+        private System.Windows.Forms.Label filterLabel5;
+        private System.Windows.Forms.PictureBox pictureBoxFaults;
         private System.Windows.Forms.Button buttonShowAll;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
@@ -340,14 +644,44 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label filterLabel2;
+        private System.Windows.Forms.Label filterLabel1;
         private System.Windows.Forms.TextBox textBoxFilterCondition;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.PictureBox pictureBoxCondition;
+        private System.Windows.Forms.Label filterLabel3;
+        private System.Windows.Forms.PictureBox pictureBoxTown;
+        private System.Windows.Forms.Label filterLabel6;
         private System.Windows.Forms.ComboBox comboBoxTown;
+        private System.Windows.Forms.PictureBox pictureBoxSort;
+        private System.Windows.Forms.Label labelAlgorithm;
+        private System.Windows.Forms.Label labelHealthMin;
+        private System.Windows.Forms.Label labelHealthMax;
+        private System.Windows.Forms.TextBox textBoxHealthMin;
+        private System.Windows.Forms.TextBox textBoxHealthMax;
+        private System.Windows.Forms.TextBox textBoxSchoolMax;
+        private System.Windows.Forms.TextBox textBoxSchoolMin;
+        private System.Windows.Forms.Label labelSchoolMax;
+        private System.Windows.Forms.Label labelSchoolMin;
+        private System.Windows.Forms.TextBox textBoxServiceMax;
+        private System.Windows.Forms.TextBox textBoxServiceMin;
+        private System.Windows.Forms.Label labelServiceMax;
+        private System.Windows.Forms.Label labelServiceMin;
+        private System.Windows.Forms.Label labelZones;
+        private System.Windows.Forms.Label labelPathRatings;
+        private System.Windows.Forms.Label labelRating1;
+        private System.Windows.Forms.TextBox textBoxRating1;
+        private System.Windows.Forms.TextBox textBoxRating2;
+        private System.Windows.Forms.Label labelRating2;
+        private System.Windows.Forms.TextBox textBoxRating3;
+        private System.Windows.Forms.Label labelRating3;
+        private System.Windows.Forms.TextBox textBoxRating4;
+        private System.Windows.Forms.Label labelRating4;
+        private System.Windows.Forms.TextBox textBoxRating5;
+        private System.Windows.Forms.Label labelRating5;
+        private System.Windows.Forms.Button buttonUpdateAlgorithm;
+        private System.Windows.Forms.PictureBox pictureBoxZones;
+        private System.Windows.Forms.PictureBox pictureBoxPathRatings;
+        private System.Windows.Forms.Button buttonReset;
     }
 }
 
