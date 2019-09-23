@@ -228,22 +228,22 @@ namespace RATA_FMM
         private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string templateName = Directory.GetCurrentDirectory() + "\\" + "reportTemplate.dotx"; //Get the directory of the report template
+            string saveAs = Directory.GetCurrentDirectory() + "\\" + "report.docx";
+            //SaveFileDialog savePrintedDocument = new SaveFileDialog();
+            //savePrintedDocument.Title = "Save report";
+            //savePrintedDocument.Filter = "Word Document|*.docx";
 
-            SaveFileDialog savePrintedDocument = new SaveFileDialog();
-            savePrintedDocument.Title = "Save report";
-            savePrintedDocument.Filter = "Word Document|*.docx";
+            //if (savePrintedDocument.ShowDialog() == DialogResult.OK)
+            //{
+            //    string saveAs = savePrintedDocument.FileName;
 
-            if (savePrintedDocument.ShowDialog() == DialogResult.OK)
-            {
-                string saveAs = savePrintedDocument.FileName;
-
-                WordPrint printer = new WordPrint(templateName, saveAs);
-                printer.printFromTemplate(filteredFootpaths); //Print to report using the list of filtered footpaths
-            }
-            else
-            {
-                MessageBox.Show("Error: Invalid file selected");
-            }
+            WordPrint printer = new WordPrint(templateName, saveAs);
+            printer.printFromTemplate(filteredFootpaths); //Print to report using the list of filtered footpaths
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Error: Invalid file selected");
+            //}
         }
 
         /// <summary>
