@@ -462,11 +462,19 @@ namespace RATA_FMM
             SortList();
             foreach(Road r in roadList)
                 listBoxData.Items.Add(r.PrintDataShort());
+            ClearTextBoxes();
         }
 
         private void buttonReset_Click(object sender, EventArgs e)
         {
-
+            initializeDataListBox();
+            listBoxData.ClearSelected();
+            foreach (Road r in roadList)
+                r.CalcConditionRating(30, 40, 15, 30, 10, 25, 5, 15, 30, 45, 60);
+            SortList();
+            foreach (Road r in roadList)
+                listBoxData.Items.Add(r.PrintDataShort());
+            ClearTextBoxes();
         }
 
         public void SortList()
@@ -478,6 +486,21 @@ namespace RATA_FMM
                     ret = y.GetFootpathCondition().CompareTo(x.GetFootpathCondition());
                 return ret;
             });
+        }
+
+        public void ClearTextBoxes()
+        {
+            textBoxHealthMin.Clear();
+            textBoxHealthMax.Clear();
+            textBoxSchoolMin.Clear();
+            textBoxSchoolMax.Clear();
+            textBoxServiceMin.Clear();
+            textBoxServiceMax.Clear();
+            textBoxRating1.Clear();
+            textBoxRating2.Clear();
+            textBoxRating3.Clear();
+            textBoxRating4.Clear();
+            textBoxRating5.Clear();
         }
     }
 }

@@ -569,33 +569,34 @@ namespace RATA_FMM
             return faults;
         }
 
-        /*private double CalcConditionRating()
+        /*public void CalcConditionRating()
         {
             double rating = 0;
 
             rating += CalcZoneRating(30, 40, 15, 30, 10, 25);
             rating += CalcFootpathRating(5, 15, 30, 45, 60);
             if (faultToLengthRatio > 0)
-                rating *= faultToLengthRatio++;
-            this.town = CalcTown();
+                rating *= faultToLengthRatio++;            
             rating /= 1.55;
-            return Math.Round(rating, 3);
+            this.conditionRating = Math.Round(rating, 3);
         }*/
 
         public void CalcConditionRating(int healthMin, int healthMax, int schoolMin, int schoolMax, int serviceMin, int ServiceMax, int rating1, int rating2, int rating3, int rating4, int rating5)
         {
+            this.conditionRating = 0;
             double rating = 0;
-            double maxRating = healthMax + schoolMax + ServiceMax + rating5;
+            double maxRating = (healthMax + schoolMax + ServiceMax + rating5) * (CalcFaultLengthRatio() + 1);
 
             rating += CalcZoneRating(healthMin, healthMax, schoolMin, schoolMax, serviceMin, ServiceMax);
             rating += CalcFootpathRating(rating1, rating2, rating3, rating4, rating5);
-            if (faultToLengthRatio > 0)
-                rating *= faultToLengthRatio++;            
+            
+            if (CalcFaultLengthRatio() > 0)
+                rating *= (CalcFaultLengthRatio());
             rating /= (maxRating / 100);
             this.conditionRating = Math.Round(rating, 3);
         }
 
-        private double CalcZoneRating(int healthMin, int healthMax, int schoolMin, int schoolMax, int serviceMin, int ServiceMax)
+        private double CalcZoneRating(int healthMin, int healthMax, int schoolMin, int schoolMax, int serviceMin, int serviceMax)
         {
             double rating = 0;
             try
@@ -604,17 +605,17 @@ namespace RATA_FMM
                 {
                     if (double.Parse(qgisData[35]) > 0) //service
                     {
-                        rating += 10 + ((double.Parse(qgisData[19]) / 100) * 15);
+                        rating += serviceMin + ((double.Parse(qgisData[19]) / 100) * (serviceMax - serviceMin));
                         serviceZone = true;
                     }
                     if (double.Parse(qgisData[19]) > 0) //school
                     {
-                        rating += 15 + ((double.Parse(qgisData[21]) / 100) * 15);
+                        rating += schoolMin + ((double.Parse(qgisData[21]) / 100) * (schoolMax - schoolMin));
                         schoolZone = true;
                     }
                     if (double.Parse(qgisData[21]) > 0) //health
                     {
-                        rating += 30 + ((double.Parse(qgisData[23]) / 100) * 10);
+                        rating += healthMin + ((double.Parse(qgisData[23]) / 100) * (healthMax - healthMin));
                         healthZone = true;
                     }
                 }                
