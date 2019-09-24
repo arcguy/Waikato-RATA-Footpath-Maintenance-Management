@@ -228,7 +228,9 @@ namespace RATA_FMM
         private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string templateName = Directory.GetCurrentDirectory() + "\\" + "reportTemplate.dotx"; //Get the directory of the report template
-            string saveAs = Directory.GetCurrentDirectory() + "\\" + "report.docx";
+            //string saveAs = Directory.GetCurrentDirectory() + "\\" + "report.docx";
+
+            string saveAs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + "report.docx";
             //SaveFileDialog savePrintedDocument = new SaveFileDialog();
             //savePrintedDocument.Title = "Save report";
             //savePrintedDocument.Filter = "Word Document|*.docx";

@@ -3,7 +3,7 @@
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:Setup"
+"ProjectName" = "8:RATA Footpath Maintenance Management"
 "LanguageId" = "3:1033"
 "CodePage" = "3:1252"
 "UILanguageId" = "3:1033"
@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_183C2FFDE4454F5C88336270E38B77F5"
+        "MsmKey" = "8:_143849B191BD4CA0ABC1D07616F3AD84"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -33,12 +33,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_53502D93DE03D4512D6B90DB9C07701D"
-        "OwnerKey" = "8:_661346133B9E45D7B618064DC818D1D6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_661346133B9E45D7B618064DC818D1D6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -51,26 +45,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_A55AF7C2CE75F5CE4587EABB39B69202"
-        "OwnerKey" = "8:_FBC2BB627716104077719EF72359F170"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BF40722C0F736101D2A485AA30D56DFB"
-        "OwnerKey" = "8:_183C2FFDE4454F5C88336270E38B77F5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FBC2BB627716104077719EF72359F170"
-        "OwnerKey" = "8:_BF40722C0F736101D2A485AA30D56DFB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FBC2BB627716104077719EF72359F170"
-        "OwnerKey" = "8:_183C2FFDE4454F5C88336270E38B77F5"
+        "MsmKey" = "8:_B5A2AAF243E2C6205E57130830DCB79A"
+        "OwnerKey" = "8:_661346133B9E45D7B618064DC818D1D6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -82,31 +58,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_183C2FFDE4454F5C88336270E38B77F5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BF40722C0F736101D2A485AA30D56DFB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FBC2BB627716104077719EF72359F170"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A55AF7C2CE75F5CE4587EABB39B69202"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_53502D93DE03D4512D6B90DB9C07701D"
+        "OwnerKey" = "8:_B5A2AAF243E2C6205E57130830DCB79A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -140,6 +92,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
         "Release"
@@ -147,7 +107,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\Setup.msi"
+        "OutputFilename" = "8:Release\\RATA Footpath Maintenance Management.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -202,21 +162,10 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_183C2FFDE4454F5C88336270E38B77F5"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_143849B191BD4CA0ABC1D07616F3AD84"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_183C2FFDE4454F5C88336270E38B77F5"
-                    {
-                    "Name" = "8:Microsoft.Office.Interop.Word.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\RATA_FMM\\bin\\Release\\Microsoft.Office.Interop.Word.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:RATA_Icon.ico"
+            "TargetName" = "8:RATA_Icon.ico"
             "Tag" = "8:"
             "Folder" = "8:_056169ED3BAB4AFBB6650B869A4B9A00"
             "Condition" = "8:"
@@ -273,37 +222,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_53502D93DE03D4512D6B90DB9C07701D"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Aspose.Cells, Version=19.9.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_53502D93DE03D4512D6B90DB9C07701D"
-                    {
-                    "Name" = "8:Aspose.Cells.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Aspose.Cells.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_056169ED3BAB4AFBB6650B869A4B9A00"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_90896549E1EC79EE2A240D8553CD0128"
             {
             "AssemblyRegister" = "3:1"
@@ -335,82 +253,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A55AF7C2CE75F5CE4587EABB39B69202"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B5A2AAF243E2C6205E57130830DCB79A"
             {
             "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:TRUE"
-            "AssemblyAsmDisplayName" = "8:stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Aspose.Cells, Version=19.9.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_A55AF7C2CE75F5CE4587EABB39B69202"
+                    "_B5A2AAF243E2C6205E57130830DCB79A"
                     {
-                    "Name" = "8:stdole.dll"
+                    "Name" = "8:Aspose.Cells.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:stdole.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_056169ED3BAB4AFBB6650B869A4B9A00"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BF40722C0F736101D2A485AA30D56DFB"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:TRUE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.Vbe.Interop, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_BF40722C0F736101D2A485AA30D56DFB"
-                    {
-                    "Name" = "8:Microsoft.Vbe.Interop.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Microsoft.Vbe.Interop.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_056169ED3BAB4AFBB6650B869A4B9A00"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FBC2BB627716104077719EF72359F170"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:TRUE"
-            "AssemblyAsmDisplayName" = "8:office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_FBC2BB627716104077719EF72359F170"
-                    {
-                    "Name" = "8:office.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:office.dll"
+            "SourcePath" = "8:Aspose.Cells.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_056169ED3BAB4AFBB6650B869A4B9A00"
@@ -436,7 +292,7 @@
         {
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_056169ED3BAB4AFBB6650B869A4B9A00"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFilesFolder]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -483,9 +339,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:Setup"
+        "ProductName" = "8:RATA Footpath Maintenance Management"
         "ProductCode" = "8:{BE2EAD4F-AFF0-4FE2-A5DB-4E032E604723}"
-        "PackageCode" = "8:{5EC4641C-1DA6-4EF9-970A-C79E12879643}"
+        "PackageCode" = "8:{FE4B8489-A6BA-4997-8B39-3061D129F8BB}"
         "UpgradeCode" = "8:{C016EB34-BA36-4F15-A1BA-C4B53E9368AC}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -493,12 +349,12 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Blake"
+        "Manufacturer" = "8:Team W"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:Setup"
+        "Title" = "8:RATA Footpath Maintenance Management"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Blake"
+        "ARPCONTACT" = "8:Team W"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
@@ -605,6 +461,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_259F070891A54A6FAE0761BA9CA9B8DB"
+            {
+            "Name" = "8:RATA Footpath Maintenance Management"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_661346133B9E45D7B618064DC818D1D6"
+            "Folder" = "8:_FEA154D7143041F88DC1BDDA7890A5EC"
+            "WorkingFolder" = "8:_056169ED3BAB4AFBB6650B869A4B9A00"
+            "Icon" = "8:_143849B191BD4CA0ABC1D07616F3AD84"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
