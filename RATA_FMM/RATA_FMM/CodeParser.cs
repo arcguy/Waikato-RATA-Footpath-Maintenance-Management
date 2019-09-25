@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RATA_FMM
 {
-    class CodeParser
+    public class CodeParser
     {
         
         //fault letters and corresponding fault type (Parallel Arrays), could consider having these in a config file
