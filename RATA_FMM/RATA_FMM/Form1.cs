@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Aspose.Cells;
 using System.IO;
 using System.Globalization;
+using GMap.NET;
 
 namespace RATA_FMM
 {
@@ -95,6 +96,11 @@ namespace RATA_FMM
 
             buttonUpdateAlgorithm.Location = new Point(window_length / 3 + 218, window_height / 2 + 175);
             buttonReset.Location = new Point(window_length / 3 + 298, window_height / 2 + 175);
+
+            //setting size and position of map control
+            gMapControl1.Width = window_length - pictureBoxSort.Width - listBoxData.Width - 50;
+            gMapControl1.Height = window_height / 2;
+            gMapControl1.Location = new Point(window_length / 3 + 85 + pictureBoxSort.Width, window_height / 2 - 70);
 
             //addding items to combobox
             comboBoxTown.Items.Add("Cambridge");
