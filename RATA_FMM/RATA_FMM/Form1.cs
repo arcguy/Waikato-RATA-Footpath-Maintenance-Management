@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Aspose.Cells;
 using System.IO;
 using System.Globalization;
+using GMap.NET;
 
 namespace RATA_FMM
 {
@@ -31,32 +32,75 @@ namespace RATA_FMM
             InitializeComponent();
 
             //setting sizes and positions of listboxes
-            listBoxData.Width = window_length / 3 - 50;
+            listBoxData.Width = window_length / 3 + 50;
             listBoxData.Height = window_height - 100;
             listBoxData.Location = new Point(10, 30);
 
             listBoxDataLong.Width = window_length / 3 - 50;
             listBoxDataLong.Height = window_height / 2 - 100;
-            listBoxDataLong.Location = new Point(window_length / 3 - 30, 30);
+            listBoxDataLong.Location = new Point(window_length / 3 + 70, 30);
 
-            labelFilterResults.Location = new Point(window_length / 3 - 30, (window_height / 2) - 70);
-            pictureBoxFilter.Location = new Point(window_length / 3 - 30, (window_height / 2) - 50);
-            pictureBox2.Location = new Point(window_length / 3 - 10, (window_height / 2) - 30);
-            pictureBox3.Location = new Point(window_length / 3 - 10, (window_height / 2) + 110);
+            //setting locations of filter window components
+            labelFilterResults.Location = new Point(window_length / 3 * 2 + 50, 35);
+            pictureBoxFilter.Location = new Point(window_length / 3 * 2 + 30, 30);
+            pictureBoxFaults.Location = new Point((window_length / 3 * 2) + 50, 55);
+            pictureBoxCondition.Location = new Point(window_length / 3 * 2 + 50, 135);
+            pictureBoxTown.Location = new Point(window_length / 3 * 2 + 50, 215);
 
-            label4.Location = new Point(window_length / 3 - 5, (window_height / 2) - 20);
-            label3.Location = new Point(window_length / 3 - 5, (window_height / 2));
-            textBoxFilterCondition.Location = new Point(window_length / 3 + 40, (window_height / 2) - 2);
-            label5.Location = new Point(window_length / 3 + 90, (window_height / 2));
-            pictureBox1.Location = new Point(window_length / 3 - 10, (window_height / 2) + 40);
-            label1.Location = new Point(window_length / 3 - 5, (window_height / 2) + 50);
-            textBoxFilterFaults.Location = new Point(window_length / 3 + 102, (window_height / 2) + 48);
-            label2.Location = new Point(window_length / 3 - 5, (window_height / 2) + 70);
-            label6.Location = new Point(window_length / 3 - 5, (window_height / 2) + 115);
-            comboBoxTown.Location = new Point(window_length / 3 - 5, (window_height / 2) + 135);
+            filterLabel1.Location = new Point(window_length / 3 * 2 + 55, 60);
+            filterLabel2.Location = new Point(window_length / 3 * 2 + 55, 80);
+            textBoxFilterCondition.Location = new Point(window_length / 3 * 2 + 105, 77);
+            filterLabel3.Location = new Point(window_length / 3 * 2 + 150, 80);            
+            filterLabel4.Location = new Point(window_length / 3 * 2 + 55, 140);
+            textBoxFilterFaults.Location = new Point(window_length / 3 * 2 + 162, 139);
+            filterLabel5.Location = new Point(window_length / 3 * 2 + 55, 160);
+            filterLabel6.Location = new Point(window_length / 3 * 2 + 55, 220);
+            comboBoxTown.Location = new Point(window_length / 3 * 2 + 60, 240);
 
-            buttonUpdateResults.Location = new Point(window_length / 3 + 35, (window_height / 2) + 175);
-            buttonShowAll.Location = new Point(window_length / 3 + 35, (window_height / 2) + 200);
+            buttonUpdateResults.Location = new Point(window_length / 3 * 2 + 50, 280);
+            buttonShowAll.Location = new Point(window_length / 3  * 2 + 135, 280);
+
+            //setting location of algorithm weighting components
+            pictureBoxSort.Location = new Point(window_length / 3 + 70, window_height / 2 - 70);
+            pictureBoxZones.Location = new Point(window_length / 3 + 78, window_height /2 - 45);
+            pictureBoxPathRatings.Location = new Point(window_length / 3 + 145, window_height / 2 + 80);
+
+            labelAlgorithm.Location = new Point(window_length / 3 + 235, window_height / 2 - 65);
+            labelZones.Location = new Point(window_length / 3 + 270, window_height / 2 - 42);
+            labelHealthMin.Location = new Point(window_length / 3 + 85, window_height / 2 - 25);
+            labelSchoolMin.Location = new Point(window_length / 3 + 85, window_height / 2 + 5);
+            labelServiceMin.Location = new Point(window_length / 3 + 85, window_height / 2 + 35);
+            labelHealthMax.Location = new Point(window_length / 3 + 295, window_height / 2 - 25);
+            labelSchoolMax.Location = new Point(window_length / 3 + 295, window_height / 2 + 5);
+            labelServiceMax.Location = new Point(window_length / 3 + 295, window_height / 2 + 35);
+
+            textBoxHealthMin.Location = new Point(window_length / 3 + 200, window_height / 2 - 27);
+            textBoxSchoolMin.Location = new Point(window_length / 3 + 200, window_height / 2 + 3);
+            textBoxServiceMin.Location = new Point(window_length / 3 + 200, window_height / 2 + 33);
+            textBoxHealthMax.Location = new Point(window_length / 3 + 415, window_height / 2 - 27);
+            textBoxSchoolMax.Location = new Point(window_length / 3 + 415, window_height / 2 + 3);
+            textBoxServiceMax.Location = new Point(window_length / 3 + 415, window_height / 2 + 33);
+
+            labelPathRatings.Location = new Point(window_length / 3 + 235, window_height / 2 + 85);
+            labelRating1.Location = new Point(window_length / 3 + 155, window_height / 2 + 105);
+            labelRating2.Location = new Point(window_length / 3 + 235, window_height / 2 + 105);
+            labelRating3.Location = new Point(window_length / 3 + 315, window_height / 2 + 105);
+            labelRating4.Location = new Point(window_length / 3 + 200, window_height / 2 + 135);
+            labelRating5.Location = new Point(window_length / 3 + 280, window_height / 2 + 135);
+
+            textBoxRating1.Location = new Point(window_length / 3 + 170, window_height / 2 + 103);
+            textBoxRating2.Location = new Point(window_length / 3 + 250, window_height / 2 + 103);
+            textBoxRating3.Location = new Point(window_length / 3 + 330, window_height / 2 + 103);
+            textBoxRating4.Location = new Point(window_length / 3 + 215, window_height / 2 + 133);
+            textBoxRating5.Location = new Point(window_length / 3 + 295, window_height / 2 + 133);
+
+            buttonUpdateAlgorithm.Location = new Point(window_length / 3 + 218, window_height / 2 + 175);
+            buttonReset.Location = new Point(window_length / 3 + 298, window_height / 2 + 175);
+
+            //setting size and position of map control
+            gMapControl1.Width = window_length - pictureBoxSort.Width - listBoxData.Width - 50;
+            gMapControl1.Height = window_height / 2;
+            gMapControl1.Location = new Point(window_length / 3 + 85 + pictureBoxSort.Width, window_height / 2 - 70);
 
             //addding items to combobox
             comboBoxTown.Items.Add("Cambridge");
@@ -67,24 +111,6 @@ namespace RATA_FMM
             comboBoxTown.Items.Add("Pirongia");
             comboBoxTown.Items.Add("Te Awamutu");
             comboBoxTown.Items.Add("Other");
-
-            //column headers for first listbox
-            /*listBoxData.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) +
-                "Locality Name".PadRight(35) + "Locality ID".PadRight(15) + "Displacement".PadRight(15) +
-                "End".PadRight(10) + "Footpath".PadRight(12) + "Footpath".PadRight(12) + "Footpath Surface Material".PadRight(27) +
-                "Inspection".PadRight(15) + "Survey Description".PadRight(20) + "Length".PadRight(7) + "Length".PadRight(7) +
-                "Side".PadRight(7) + "Survey".PadRight(25) + "Date".PadRight(15) + "Settlement".PadRight(12) +
-                "Bumps".PadRight(7) + "Depressions".PadRight(13) + "Cracked".PadRight(10) + "Scabbing".PadRight(10) +
-                "Patches".PadRight(9) + "Potholes".PadRight(9) + "Extra1".PadRight(8) + "Extra2".PadRight(8) +
-                "Extra3".PadRight(8) + "Extra4".PadRight(8) + "Extra5".PadRight(8) + "Extra6".PadRight(8) +
-                "Footpath Rating ID".PadRight(20) + "Calculated Priority".PadRight(20) + "Entered Priority".PadRight(20) +
-                "Calculated Cost".PadRight(20) + "Entered Cost".PadRight(20) + "Warning".PadRight(30) +
-                "Priority Notes".PadRight(20) + "Inspection Start".PadRight(20) + "Inspection End".PadRight(20) +
-                "Survey".PadRight(10) + "Latest".PadRight(10) + "Latest".PadRight(10) + "Side".PadRight(5) +
-                "Footpath Surface Material".PadRight(27) + "Notes".PadRight(150) + "Rater".PadRight(7) +
-                "Survey Method".PadRight(15) + "Survey Method".PadRight(15) + "Edit Survey Data".PadRight(20) + "Edit Survey Data".PadRight(35) +
-                "Map Desc 1".PadRight(30) + "Date Added".PadRight(15) + "Added By".PadRight(10) +
-                "Date Changed".PadRight(15) + "Changed By".PadRight(10));*/
 
             initializeDataListBox();
 
@@ -113,6 +139,11 @@ namespace RATA_FMM
             reader.Close();
         }
 
+        /// <summary>
+        /// brings up an open file dialog screen to allow the user to select which excel file to open
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -138,6 +169,10 @@ namespace RATA_FMM
             this.Close();
         }
 
+        /// <summary>
+        /// opens an excel file and creates a road object with the footpath data from each row
+        /// </summary>
+        /// <param name="filename"></param>
         private void OpenExcelFile(string filename)
         {
             try
@@ -175,7 +210,6 @@ namespace RATA_FMM
                     roadList.Add(r);
 
                     //find matching data in qgis data
-                    //potentially add date check
                     for (int k = 0; k <= qgisData.Count - 1; k++)
                     {
                         string[] data = qgisData[k];
@@ -205,16 +239,12 @@ namespace RATA_FMM
             }
         }
 
+        /// <summary>
+        /// Sorts the list and then displays a condensed version of the data in the first listbox
+        /// </summary>
         private void DisplayData()
-        {         
-            roadList.Sort((x, y) => 
-            {
-                var ret = y.GetConditionRating().CompareTo(x.GetConditionRating());
-                if (ret == 0)
-                    ret = y.GetFootpathCondition().CompareTo(x.GetFootpathCondition());
-                return ret;
-            });
-            //displaying in first listbox
+        {
+            SortList();
             foreach (Road r in roadList)
             {
                 listBoxData.Items.Add(r.PrintDataShort());
@@ -381,6 +411,11 @@ namespace RATA_FMM
             comboBoxTown.Text = "";
         }
 
+        /// <summary>
+        /// Implementation of cascading lists to show more detailed information of a footpath in second listbox when one is selected in first listbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listBoxData_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = listBoxData.SelectedIndex;
@@ -388,6 +423,110 @@ namespace RATA_FMM
             {
                 listBoxDataLong.DataSource = filteredFootpaths[index - 1].GetRoadDataAsList();
             }
+        }
+
+        /// <summary>
+        /// Recalculates the condition rating for each footpath using the custom weighting specified by user on the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonUpdateAlgorithm_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string errorMessage = "";
+
+                int healthMin = int.Parse(textBoxHealthMin.Text);
+                int healthMax = int.Parse(textBoxHealthMax.Text);
+                int schoolMin = int.Parse(textBoxSchoolMin.Text);
+                int schoolMax = int.Parse(textBoxSchoolMax.Text);
+                int serviceMin = int.Parse(textBoxServiceMin.Text);
+                int serviceMax = int.Parse(textBoxServiceMax.Text);
+                int rating1 = int.Parse(textBoxRating1.Text);
+                int rating2 = int.Parse(textBoxRating2.Text);
+                int rating3 = int.Parse(textBoxRating3.Text);
+                int rating4 = int.Parse(textBoxRating4.Text);
+                int rating5 = int.Parse(textBoxRating5.Text);
+
+                if (healthMin >= healthMax)
+                    errorMessage += "Health minimum cannot be greater than Health max. \n";
+                if (schoolMin >= schoolMax)
+                    errorMessage += "School minimum cannot be greater than School max. \n";
+                if (serviceMin >= serviceMax)
+                    errorMessage += "Service minimum cannot be greater than Service max. \n";
+
+                if (errorMessage == "")
+                {
+                    initializeDataListBox();
+                    listBoxData.ClearSelected();
+                    foreach (Road r in roadList)
+                        r.CalcConditionRating(healthMin, healthMax, schoolMin, schoolMax, serviceMin, serviceMax, rating1, rating2, rating3, rating4, rating5);
+                    SortList();
+                    foreach (Road r in roadList)
+                        listBoxData.Items.Add(r.PrintDataShort());
+                }
+                else
+                {
+                    MessageBox.Show(errorMessage);
+                }
+            }            
+            catch(FormatException) //if a textbox is empty or contains non numerical values
+            {
+                MessageBox.Show("Please ensure each textbox contains a numerical value");
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.Message);
+            }
+        }
+
+        /// <summary>
+        /// Recalculates the condition rating of each footpath with the default values
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonReset_Click(object sender, EventArgs e)
+        {
+            initializeDataListBox();
+            listBoxData.ClearSelected();
+            foreach (Road r in roadList)
+                r.CalcConditionRating(30, 40, 15, 30, 10, 25, 5, 15, 30, 45, 60);
+            SortList();
+            foreach (Road r in roadList)
+                listBoxData.Items.Add(r.PrintDataShort());
+            ClearAlgorithmTextBoxes();
+        }
+
+        /// <summary>
+        /// sorts the list on condition rating, then footpath condition
+        /// </summary>
+        public void SortList()
+        {
+            roadList.Sort((x, y) =>
+            {
+                var ret = y.GetConditionRating().CompareTo(x.GetConditionRating());
+                if (ret == 0)
+                    ret = y.GetFootpathCondition().CompareTo(x.GetFootpathCondition());
+                return ret;
+            });
+        }
+
+        /// <summary>
+        /// clears contents of all textboxes in the custom algorithm weighting section of the form
+        /// </summary>
+        public void ClearAlgorithmTextBoxes()
+        {
+            textBoxHealthMin.Clear();
+            textBoxHealthMax.Clear();
+            textBoxSchoolMin.Clear();
+            textBoxSchoolMax.Clear();
+            textBoxServiceMin.Clear();
+            textBoxServiceMax.Clear();
+            textBoxRating1.Clear();
+            textBoxRating2.Clear();
+            textBoxRating3.Clear();
+            textBoxRating4.Clear();
+            textBoxRating5.Clear();
         }
     }
 }
