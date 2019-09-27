@@ -93,93 +93,97 @@ namespace RATA_FMM
         private bool schoolZone;
         private bool serviceZone;
 
-        //contructor function
         public Road(string[] roadData)
         {
-            //removing null values to avoid errors
-            for (int i = 0; i < roadData.Length; i++)
-                if (roadData[i] == null)
-                    roadData[i] = "-1";
-
-            road = int.Parse(roadData[0]);
-            roadName = roadData[1];
-            start = int.Parse(roadData[2]);
-            localityName = roadData[3];
-            localityID = int.Parse(roadData[4]);
-            displacement = roadData[5];
-            end = int.Parse(roadData[6]);
-            footpath1 = int.Parse(roadData[7]);
-            footpath2 = char.Parse(roadData[8]);
-            if (roadData[9] != "-1")
-                footpathSurfaceMaterial = roadData[9];
-            else
-                footpathSurfaceMaterial = "N/A";
-            inspection = roadData[10];
-            surveyDescription = roadData[11];
-            length1 = int.Parse(roadData[12]);
-            length2 = int.Parse(roadData[13]);
-            side = roadData[14];
-            survey = roadData[15];
-            date = DateTime.Parse(roadData[16]);
-            footpathSurfaceMaterial2 = roadData[17];
-            settlement = int.Parse(roadData[18]);
-            bumps = int.Parse(roadData[19]);
-            depressions = int.Parse(roadData[20]);
-            cracked = int.Parse(roadData[21]);
-            scabbing = int.Parse(roadData[22]);
-            patches = int.Parse(roadData[23]);
-            potholes = int.Parse(roadData[24]);
-            extra1 = int.Parse(roadData[25]);
-            extra2 = int.Parse(roadData[26]);
-            extra3 = int.Parse(roadData[27]);
-            extra4 = int.Parse(roadData[28]);
-            extra5 = int.Parse(roadData[29]);
-            extra6 = int.Parse(roadData[30]);
-            footpathRatingID = int.Parse(roadData[31]);
-            calculatedPriority = int.Parse(roadData[32]);
-            enteredPriority = int.Parse(roadData[33]);
-            calculatedCost = float.Parse(roadData[34]);
-            enteredCost = float.Parse(roadData[35]);
-            warning = roadData[36];
-            priorityNotes = roadData[37];
-            inspectionStart = int.Parse(roadData[38]);
-            inspectionEnd = int.Parse(roadData[39]);
-            survey2 = int.Parse(roadData[40]);
-            latest = char.Parse(roadData[41]);
-            latest2 = roadData[42];
-            side2 = char.Parse(roadData[43]);
-            footpathSurfaceMaterial3 = roadData[44];
-            notes = roadData[45];
-            rater = roadData[46];
-            surveyMethod = roadData[47];
-            surveyMethod2 = roadData[48];
-            editSurveyData = char.Parse(roadData[49]);
-            editSurveyData2 = roadData[50];
-            mapDesc1 = roadData[51];
-            dateAdded = DateTime.Parse(roadData[52]);
-            addedBy = roadData[53];
-            dateChanged = roadData[54];//string to avoid errors when no date entered
-            changedBy = roadData[55];
-
-            numFaults = CalcFaults();
-            conditionRating = 0;
-            footpathCondition = 0;
             try
             {
+                //removing null values to avoid errors
+                for (int i = 0; i < roadData.Length; i++)
+                    if (roadData[i] == null)
+                        roadData[i] = "-1";
+
+                road = int.Parse(roadData[0]);
+                roadName = roadData[1];
+                start = int.Parse(roadData[2]);
+                localityName = roadData[3];
+                localityID = int.Parse(roadData[4]);
+                displacement = roadData[5];
+                end = int.Parse(roadData[6]);
+                footpath1 = int.Parse(roadData[7]);
+                footpath2 = char.Parse(roadData[8]);
+                if (roadData[9] != "-1") //if data is missing store it as something that makes more sense to read
+                    footpathSurfaceMaterial = roadData[9];
+                else
+                    footpathSurfaceMaterial = "N/A";
+                inspection = roadData[10];
+                surveyDescription = roadData[11];
+                length1 = int.Parse(roadData[12]);
+                length2 = int.Parse(roadData[13]);
+                side = roadData[14];
+                survey = roadData[15];
+                date = DateTime.Parse(roadData[16]);
+                footpathSurfaceMaterial2 = roadData[17];
+                settlement = int.Parse(roadData[18]);
+                bumps = int.Parse(roadData[19]);
+                depressions = int.Parse(roadData[20]);
+                cracked = int.Parse(roadData[21]);
+                scabbing = int.Parse(roadData[22]);
+                patches = int.Parse(roadData[23]);
+                potholes = int.Parse(roadData[24]);
+                extra1 = int.Parse(roadData[25]);
+                extra2 = int.Parse(roadData[26]);
+                extra3 = int.Parse(roadData[27]);
+                extra4 = int.Parse(roadData[28]);
+                extra5 = int.Parse(roadData[29]);
+                extra6 = int.Parse(roadData[30]);
+                footpathRatingID = int.Parse(roadData[31]);
+                calculatedPriority = int.Parse(roadData[32]);
+                enteredPriority = int.Parse(roadData[33]);
+                calculatedCost = float.Parse(roadData[34]);
+                enteredCost = float.Parse(roadData[35]);
+                warning = roadData[36];
+                priorityNotes = roadData[37];
+                inspectionStart = int.Parse(roadData[38]);
+                inspectionEnd = int.Parse(roadData[39]);
+                survey2 = int.Parse(roadData[40]);
+                latest = char.Parse(roadData[41]);
+                latest2 = roadData[42];
+                side2 = char.Parse(roadData[43]);
+                footpathSurfaceMaterial3 = roadData[44];
+                notes = roadData[45];
+                rater = roadData[46];
+                surveyMethod = roadData[47];
+                surveyMethod2 = roadData[48];
+                editSurveyData = char.Parse(roadData[49]);
+                editSurveyData2 = roadData[50];
+                mapDesc1 = roadData[51];
+                dateAdded = DateTime.Parse(roadData[52]);
+                addedBy = roadData[53];
+                dateChanged = roadData[54];//string to avoid errors when no date entered
+                changedBy = roadData[55];
+
+                numFaults = CalcFaults();
+                conditionRating = 0;
+                footpathCondition = 0;
+
                 parsedNotes = CodeParser.Decode(notes);
+
+                town = "Other";
+
+                healthZone = false;
+                schoolZone = false;
+                serviceZone = false;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-            town = "Other";
-
-            healthZone = false;
-            schoolZone = false;
-            serviceZone = false;
         }
 
-        //Returns every field in string format
+        /// <summary>
+        /// Returns every field in string format
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return road.ToString().PadRight(10) + roadName.PadRight(35) + start.ToString().PadRight(10) +
@@ -200,11 +204,19 @@ namespace RATA_FMM
             dateChanged.ToString().PadRight(20) + changedBy.PadRight(10);
         }
 
+        /// <summary>
+        /// Returns a string containing a condensed version of the data
+        /// </summary>
+        /// <returns></returns>
         public string PrintDataShort()
         {            
             return roadName.PadRight(35) + GetLongLength().ToString().PadRight(10) + numFaults.ToString().PadRight(10) + conditionRating.ToString().PadRight(20) + footpathCondition.ToString().PadRight(15);
         }
 
+        /// <summary>
+        /// Creates a list containing more detailed information of the footpath data to be displayed in second listbox
+        /// </summary>
+        /// <returns>A list containing a more detailed version of the data</returns>
         public List<string> GetRoadDataAsList()
         {
             List<string> itemList = new List<string>();
@@ -222,12 +234,15 @@ namespace RATA_FMM
                 "Condition Rating: ".PadRight(30) + conditionRating.ToString(),
                 "Footpath Condition: ".PadRight(30) + footpathCondition.ToString(),
                 "Town: ".PadRight(30) + town,
-                //"Fault to Length Ratio:".PadRight(30) + faultToLengthRatio.ToString(),
                 "Fault to Length Ratio:".PadRight(30) + Math.Round(faultToLengthRatio, 3).ToString(), 
             });
             if (parsedNotes.Count > 0)
             {
                 itemList.Add("Fault Information: ".PadRight(30) + GetParsedNotes());
+            }
+            else
+            {
+                itemList.Add("No recorded fault information to show");
             }
             if (healthZone)
                 itemList.Add("Health Zone");
@@ -236,6 +251,234 @@ namespace RATA_FMM
             if (serviceZone)
                 itemList.Add("Service Zone");
             return itemList;
+        }
+
+        /// <summary>
+        /// calculates the number of faults recorded in a footpath
+        /// </summary>
+        /// <returns>number of faults</returns>
+        private int CalcFaults()
+        {
+            int faults = 0;
+
+            if (bumps == -1)
+                bumps = 0;
+            if (depressions == -1)
+                depressions = 0;
+            if (potholes == -1)
+                potholes = 0;
+            if (cracked == -1)
+                cracked = 0;
+            if (scabbing == -1)
+                scabbing = 0;
+            if (patches == -1)
+                patches = 0;
+
+            faults = bumps + depressions + potholes + cracked + scabbing + patches;
+
+            return faults;
+        }
+
+        /// <summary>
+        /// Calculates the total condition rating of a footpath
+        /// </summary>
+        /// <param name="healthMin">Minimum rating for a footpath in a health zone</param>
+        /// <param name="healthMax">Maximum rating for a footpath in a health zone</param>
+        /// <param name="schoolMin">Minimum rating for a footpath in a school zone</param>
+        /// <param name="schoolMax">Maximum rating for a footpath in a school zone</param>
+        /// <param name="serviceMin">Minimum rating for a footpath in a service zone</param>
+        /// <param name="ServiceMax">Maximum rating for a footpath in a service zone</param>
+        /// <param name="rating1">Value to be added if footpath has rating of 1</param>
+        /// <param name="rating2">Value to be added if footpath has rating of 2</param>
+        /// <param name="rating3">Value to be added if footpath has rating of 3</param>
+        /// <param name="rating4">Value to be added if footpath has rating of 4</param>
+        /// <param name="rating5">Value to be added if footpath has rating of 5</param>
+        public void CalcConditionRating(int healthMin, int healthMax, int schoolMin, int schoolMax, int serviceMin, int ServiceMax, int rating1, int rating2, int rating3, int rating4, int rating5)
+        {
+            this.conditionRating = 0;
+            double rating = 0;
+            double maxRating = (healthMax + schoolMax + ServiceMax + rating5) * (CalcFaultLengthRatio() + 1);
+
+            rating += CalcZoneRating(healthMin, healthMax, schoolMin, schoolMax, serviceMin, ServiceMax);
+            rating += CalcFootpathRating(rating1, rating2, rating3, rating4, rating5);
+
+            //uses fault to length ratio as a multiplier to condition rating
+            if (CalcFaultLengthRatio() > 0)
+                rating *= (CalcFaultLengthRatio());
+            rating /= (maxRating / 100);
+            this.conditionRating = Math.Round(rating, 3);
+        }
+
+        /// <summary>
+        /// Calculates a value to be added to the total condition rating based on the location of a footpath within the different zones (health, school, service).
+        /// </summary>
+        /// <param name="healthMin">Minimum rating for a footpath in a health zone</param>
+        /// <param name="healthMax">Maximum rating for a footpath in a health zone</param>
+        /// <param name="schoolMin">Minimum rating for a footpath in a school zone</param>
+        /// <param name="schoolMax">Maximum rating for a footpath in a school zone</param>
+        /// <param name="serviceMin">Minimum rating for a footpath in a service zone</param>
+        /// <param name="serviceMax">Maximum rating for a footpath in a service zone</param>
+        /// <returns></returns>
+        private double CalcZoneRating(int healthMin, int healthMax, int schoolMin, int schoolMax, int serviceMin, int serviceMax)
+        {
+            double rating = 0;
+            try
+            {
+                if (qgisData != null)
+                {
+                    if (double.Parse(qgisData[35]) > 0) //service zone
+                    {
+                        rating += serviceMin + ((double.Parse(qgisData[19]) / 100) * (serviceMax - serviceMin));
+                        serviceZone = true;
+                    }
+                    if (double.Parse(qgisData[19]) > 0) //school zone
+                    {
+                        rating += schoolMin + ((double.Parse(qgisData[21]) / 100) * (schoolMax - schoolMin));
+                        schoolZone = true;
+                    }
+                    if (double.Parse(qgisData[21]) > 0) //health zone
+                    {
+                        rating += healthMin + ((double.Parse(qgisData[23]) / 100) * (healthMax - healthMin));
+                        healthZone = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return Math.Round(rating, 2);
+        }
+
+        /// <summary>
+        /// Calculates a value to be added to the total condition rating based on the rating of the footpath from the fault codes
+        /// </summary>
+        /// <param name="rating1">Value to be added if footpath has rating of 1</param>
+        /// <param name="rating2">Value to be added if footpath has rating of 2</param>
+        /// <param name="rating3">Value to be added if footpath has rating of 3</param>
+        /// <param name="rating4">Value to be added if footpath has rating of 4</param>
+        /// <param name="rating5">Value to be added if footpath has rating of 5</param>
+        /// <returns></returns>
+        private double CalcFootpathRating(int rating1, int rating2, int rating3, int rating4, int rating5)
+        {
+            double rating = 0;
+
+            if (parsedNotes.Count > 0)
+            {
+                if (parsedNotes[0][0] == "2")
+                {
+                    footpathCondition = int.Parse(parsedNotes[0][2]);
+                    if (footpathCondition == 1)
+                    {
+                        rating += 5;
+                    }
+                    if (footpathCondition == 2)
+                    {
+                        rating += 15;
+                    }
+                    if (footpathCondition == 3)
+                    {
+                        rating += 30;
+                    }
+                    if (footpathCondition == 4)
+                    {
+                        rating += 45;
+                    }
+                    if (footpathCondition == 5)
+                    {
+                        rating += 60;
+                    }
+                }
+            }
+            return rating;
+        }
+
+        /// <summary>
+        /// Calculates a ratio of faults to length
+        /// </summary>
+        /// <returns>Number of faults divided by length of footpath</returns>
+        private double CalcFaultLengthRatio()
+        {
+            double rating = 0;
+            double faultCount = CalcFaults();
+            double length = GetLongLength();
+
+            if (CalcFaults() > 0 && GetLongLength() > 0)
+            {
+                rating = faultCount / length;
+            }
+            return Math.Round(rating, 3);
+        }
+
+        /// <summary>
+        /// Uses the qgis data to determine what town a footpath is located in
+        /// </summary>
+        /// <returns></returns>
+        private string CalcTown()
+        {
+            string temp = "";
+
+            if (double.Parse(qgisData[23]) > 0)
+                temp = "Cambridge";
+            else if (double.Parse(qgisData[25]) > 0)
+                temp = "Hamilton";
+            else if (double.Parse(qgisData[27]) > 0)
+                temp = "Karapiro";
+            else if (double.Parse(qgisData[29]) > 0)
+                temp = "Kihikihi";
+            else if (double.Parse(qgisData[31]) > 0)
+                temp = "Ohaupo";
+            else if (double.Parse(qgisData[33]) > 0)
+                temp = "Pirongia";
+            else if (double.Parse(qgisData[37]) > 0)
+                temp = "Te Awamutu";
+            else
+                temp = "Other";
+            Console.WriteLine("Town: " + temp);
+            return temp;
+        }
+
+        /// <summary>
+        /// determines which of the 2 length fields has a larger value and returns it
+        /// </summary>
+        /// <returns></returns>
+        public int GetLongLength()
+        {
+            if (length1 > length2)
+                return length1;
+            else if (length2 > length1)
+                return length2;
+            else
+                return length1;
+        }
+
+        /// <summary>
+        /// returns the parsed fault codes in a more readable format
+        /// </summary>
+        /// <returns></returns>
+        public string GetParsedNotes()
+        {
+            string tempString = "";
+            try
+            {
+                if (parsedNotes.Count > 0)
+                {
+                    for (int i = 0; i < parsedNotes.Count; i++)
+                    {
+                        string[] tempArray = parsedNotes[i];
+                        for (int j = 1; j < tempArray.Length; j++)
+                        {
+                            tempString += tempArray[j].ToString() + " ";
+                        }
+                        tempString += ", ";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return tempString;
         }
 
         public int GetRoad()
@@ -533,10 +776,13 @@ namespace RATA_FMM
             return this.footpathCondition;
         }
 
+        /// <summary>
+        /// Uses the data exported from qgis that is used to calculate condition rating and town.
+        /// </summary>
+        /// <param name="data">string array containing the data exported from qgis about the footpath</param>
         public void SetQgisData(string[] data)
         {
             qgisData = data;
-            //conditionRating = CalcConditionRating();
             this.town = CalcTown();
             CalcConditionRating(30, 40, 15, 30, 10, 25, 5, 15, 30, 45, 60);
             faultToLengthRatio = CalcFaultLengthRatio();
@@ -545,193 +791,7 @@ namespace RATA_FMM
         public string[] GetQgisData()
         {
             return this.qgisData;
-        }
-
-        private int CalcFaults()
-        {
-            int faults = 0;
-
-            if (bumps == -1)
-                bumps = 0;
-            if (depressions == -1)
-                depressions = 0;
-            if (potholes == -1)
-                potholes = 0;
-            if (cracked == -1)
-                cracked = 0;
-            if (scabbing == -1)
-                scabbing = 0;
-            if (patches == -1)
-                patches = 0;
-
-            faults = bumps + depressions + potholes + cracked + scabbing + patches;
-
-            return faults;
-        }
-
-        /*public void CalcConditionRating()
-        {
-            double rating = 0;
-
-            rating += CalcZoneRating(30, 40, 15, 30, 10, 25);
-            rating += CalcFootpathRating(5, 15, 30, 45, 60);
-            if (faultToLengthRatio > 0)
-                rating *= faultToLengthRatio++;            
-            rating /= 1.55;
-            this.conditionRating = Math.Round(rating, 3);
-        }*/
-
-        public void CalcConditionRating(int healthMin, int healthMax, int schoolMin, int schoolMax, int serviceMin, int ServiceMax, int rating1, int rating2, int rating3, int rating4, int rating5)
-        {
-            this.conditionRating = 0;
-            double rating = 0;
-            double maxRating = (healthMax + schoolMax + ServiceMax + rating5) * (CalcFaultLengthRatio() + 1);
-
-            rating += CalcZoneRating(healthMin, healthMax, schoolMin, schoolMax, serviceMin, ServiceMax);
-            rating += CalcFootpathRating(rating1, rating2, rating3, rating4, rating5);
-            
-            if (CalcFaultLengthRatio() > 0)
-                rating *= (CalcFaultLengthRatio());
-            rating /= (maxRating / 100);
-            this.conditionRating = Math.Round(rating, 3);
-        }
-
-        private double CalcZoneRating(int healthMin, int healthMax, int schoolMin, int schoolMax, int serviceMin, int serviceMax)
-        {
-            double rating = 0;
-            try
-            {
-                if (qgisData != null)
-                {
-                    if (double.Parse(qgisData[35]) > 0) //service
-                    {
-                        rating += serviceMin + ((double.Parse(qgisData[19]) / 100) * (serviceMax - serviceMin));
-                        serviceZone = true;
-                    }
-                    if (double.Parse(qgisData[19]) > 0) //school
-                    {
-                        rating += schoolMin + ((double.Parse(qgisData[21]) / 100) * (schoolMax - schoolMin));
-                        schoolZone = true;
-                    }
-                    if (double.Parse(qgisData[21]) > 0) //health
-                    {
-                        rating += healthMin + ((double.Parse(qgisData[23]) / 100) * (healthMax - healthMin));
-                        healthZone = true;
-                    }
-                }                
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            return Math.Round(rating, 2);
-        }
-
-        private double CalcFootpathRating(int rating1, int rating2, int rating3, int rating4, int rating5)
-        {
-            double rating = 0;
-            
-            if (parsedNotes.Count > 0)
-            {
-                if (parsedNotes[0][0] == "2")
-                {
-                    footpathCondition = int.Parse(parsedNotes[0][2]);
-                    if (footpathCondition == 1)
-                    {
-                        rating += 5;
-                    }
-                    if (footpathCondition == 2)
-                    {
-                        rating += 15;
-                    }
-                    if (footpathCondition == 3)
-                    {
-                        rating += 30;
-                    }
-                    if (footpathCondition == 4)
-                    {
-                        rating += 45;
-                    }
-                    if (footpathCondition == 5)
-                    {
-                        rating += 60;
-                    }
-                }
-            }
-            return rating;
-        }
-
-        private double CalcFaultLengthRatio()
-        {
-            double rating = 0;
-            double faultCount = CalcFaults();
-            double length = GetLongLength();
-
-            if (CalcFaults() > 0 && GetLongLength() > 0)
-            {                
-                rating = faultCount / length;
-            }
-            return Math.Round(rating, 3);
-        }
-
-        private string CalcTown()
-        {
-            string temp = "";
-
-            if (double.Parse(qgisData[23]) > 0)
-                temp = "Cambridge";
-            else if (double.Parse(qgisData[25]) > 0)
-                temp = "Hamilton";
-            else if (double.Parse(qgisData[27]) > 0)
-                temp = "Karapiro";
-            else if (double.Parse(qgisData[29]) > 0)
-                temp = "Kihikihi";
-            else if (double.Parse(qgisData[31]) > 0)
-                temp = "Ohaupo";
-            else if (double.Parse(qgisData[33]) > 0)
-                temp = "Pirongia";
-            else if (double.Parse(qgisData[37]) > 0)
-                temp = "Te Awamutu";
-            else
-                temp = "Other";
-            Console.WriteLine("Town: " + temp);
-            return temp;
-        }
-
-        public int GetLongLength()
-        {
-            if (length1 > length2)
-                return length1;
-            else if (length2 > length1)
-                return length2;
-            else
-                return length1;
-        }
-
-        public string GetParsedNotes()
-        {
-            string tempString = "";
-            try
-            {                
-                if (parsedNotes.Count > 0)
-                {
-                    for (int i = 0; i < parsedNotes.Count; i++)
-                    {
-                        string[] tempArray = parsedNotes[i];
-                        for (int j = 1; j < tempArray.Length; j++)
-                        {
-                            tempString += tempArray[j].ToString() + " ";
-                        }
-                        tempString += ", ";
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            return tempString;
-        }
+        }        
 
         public string GetTown()
         {
@@ -753,6 +813,10 @@ namespace RATA_FMM
             return this.serviceZone;
         }
 
+        /// <summary>
+        /// returns a string displaying what zones(health, school, service) a footpath is in
+        /// </summary>
+        /// <returns></returns>
         public string GetZonesString()
         {
             string zones = "";

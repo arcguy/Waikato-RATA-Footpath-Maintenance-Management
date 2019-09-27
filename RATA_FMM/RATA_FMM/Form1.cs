@@ -106,24 +106,6 @@ namespace RATA_FMM
             comboBoxTown.Items.Add("Te Awamutu");
             comboBoxTown.Items.Add("Other");
 
-            //column headers for first listbox
-            /*listBoxData.Items.Add("Road".PadRight(10) + "Road Name".PadRight(35) + "Start".PadRight(10) +
-                "Locality Name".PadRight(35) + "Locality ID".PadRight(15) + "Displacement".PadRight(15) +
-                "End".PadRight(10) + "Footpath".PadRight(12) + "Footpath".PadRight(12) + "Footpath Surface Material".PadRight(27) +
-                "Inspection".PadRight(15) + "Survey Description".PadRight(20) + "Length".PadRight(7) + "Length".PadRight(7) +
-                "Side".PadRight(7) + "Survey".PadRight(25) + "Date".PadRight(15) + "Settlement".PadRight(12) +
-                "Bumps".PadRight(7) + "Depressions".PadRight(13) + "Cracked".PadRight(10) + "Scabbing".PadRight(10) +
-                "Patches".PadRight(9) + "Potholes".PadRight(9) + "Extra1".PadRight(8) + "Extra2".PadRight(8) +
-                "Extra3".PadRight(8) + "Extra4".PadRight(8) + "Extra5".PadRight(8) + "Extra6".PadRight(8) +
-                "Footpath Rating ID".PadRight(20) + "Calculated Priority".PadRight(20) + "Entered Priority".PadRight(20) +
-                "Calculated Cost".PadRight(20) + "Entered Cost".PadRight(20) + "Warning".PadRight(30) +
-                "Priority Notes".PadRight(20) + "Inspection Start".PadRight(20) + "Inspection End".PadRight(20) +
-                "Survey".PadRight(10) + "Latest".PadRight(10) + "Latest".PadRight(10) + "Side".PadRight(5) +
-                "Footpath Surface Material".PadRight(27) + "Notes".PadRight(150) + "Rater".PadRight(7) +
-                "Survey Method".PadRight(15) + "Survey Method".PadRight(15) + "Edit Survey Data".PadRight(20) + "Edit Survey Data".PadRight(35) +
-                "Map Desc 1".PadRight(30) + "Date Added".PadRight(15) + "Added By".PadRight(10) +
-                "Date Changed".PadRight(15) + "Changed By".PadRight(10));*/
-
             initializeDataListBox();
 
             //reading file
@@ -151,6 +133,11 @@ namespace RATA_FMM
             reader.Close();
         }
 
+        /// <summary>
+        /// brings up an open file dialog screen to allow the user to select which excel file to open
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -176,6 +163,10 @@ namespace RATA_FMM
             this.Close();
         }
 
+        /// <summary>
+        /// opens an excel file and creates a road object with the footpath data from each row
+        /// </summary>
+        /// <param name="filename"></param>
         private void OpenExcelFile(string filename)
         {
             try
@@ -213,7 +204,6 @@ namespace RATA_FMM
                     roadList.Add(r);
 
                     //find matching data in qgis data
-                    //potentially add date check
                     for (int k = 0; k <= qgisData.Count - 1; k++)
                     {
                         string[] data = qgisData[k];
@@ -243,17 +233,12 @@ namespace RATA_FMM
             }
         }
 
+        /// <summary>
+        /// Sorts the list and then displays a condensed version of the data in the first listbox
+        /// </summary>
         private void DisplayData()
         {
-            /*roadList.Sort((x, y) => 
-            {
-                var ret = y.GetConditionRating().CompareTo(x.GetConditionRating());
-                if (ret == 0)
-                    ret = y.GetFootpathCondition().CompareTo(x.GetFootpathCondition());
-                return ret;
-            });*/
             SortList();
-            //displaying in first listbox
             foreach (Road r in roadList)
             {
                 listBoxData.Items.Add(r.PrintDataShort());
@@ -432,6 +417,11 @@ namespace RATA_FMM
             comboBoxTown.Text = "";
         }
 
+        /// <summary>
+        /// Implementation of cascading lists to show more detailed information of a footpath in second listbox when one is selected in first listbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listBoxData_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = listBoxData.SelectedIndex;
@@ -441,30 +431,66 @@ namespace RATA_FMM
             }
         }
 
+        /// <summary>
+        /// Recalculates the condition rating for each footpath using the custom weighting specified by user on the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonUpdateAlgorithm_Click(object sender, EventArgs e)
         {
-            int healthMin = int.Parse(textBoxHealthMin.Text);
-            int healthMax = int.Parse(textBoxHealthMax.Text);
-            int schoolMin = int.Parse(textBoxSchoolMin.Text);
-            int schoolMax = int.Parse(textBoxSchoolMax.Text);
-            int serviceMin = int.Parse(textBoxServiceMin.Text);
-            int serviceMax = int.Parse(textBoxServiceMax.Text);
-            int rating1 = int.Parse(textBoxRating1.Text);
-            int rating2 = int.Parse(textBoxRating2.Text);
-            int rating3 = int.Parse(textBoxRating3.Text);
-            int rating4 = int.Parse(textBoxRating4.Text);
-            int rating5 = int.Parse(textBoxRating5.Text);
+            try
+            {
+                string errorMessage = "";
 
-            initializeDataListBox();
-            listBoxData.ClearSelected();
-            foreach (Road r in roadList)
-                r.CalcConditionRating(healthMin, healthMax, schoolMin, schoolMax, serviceMin, serviceMax, rating1, rating2, rating3, rating4, rating5);                               
-            SortList();
-            foreach(Road r in roadList)
-                listBoxData.Items.Add(r.PrintDataShort());
-            ClearTextBoxes();
+                int healthMin = int.Parse(textBoxHealthMin.Text);
+                int healthMax = int.Parse(textBoxHealthMax.Text);
+                int schoolMin = int.Parse(textBoxSchoolMin.Text);
+                int schoolMax = int.Parse(textBoxSchoolMax.Text);
+                int serviceMin = int.Parse(textBoxServiceMin.Text);
+                int serviceMax = int.Parse(textBoxServiceMax.Text);
+                int rating1 = int.Parse(textBoxRating1.Text);
+                int rating2 = int.Parse(textBoxRating2.Text);
+                int rating3 = int.Parse(textBoxRating3.Text);
+                int rating4 = int.Parse(textBoxRating4.Text);
+                int rating5 = int.Parse(textBoxRating5.Text);
+
+                if (healthMin >= healthMax)
+                    errorMessage += "Health minimum cannot be greater than Health max. \n";
+                if (schoolMin >= schoolMax)
+                    errorMessage += "School minimum cannot be greater than School max. \n";
+                if (serviceMin >= serviceMax)
+                    errorMessage += "Service minimum cannot be greater than Service max. \n";
+
+                if (errorMessage == "")
+                {
+                    initializeDataListBox();
+                    listBoxData.ClearSelected();
+                    foreach (Road r in roadList)
+                        r.CalcConditionRating(healthMin, healthMax, schoolMin, schoolMax, serviceMin, serviceMax, rating1, rating2, rating3, rating4, rating5);
+                    SortList();
+                    foreach (Road r in roadList)
+                        listBoxData.Items.Add(r.PrintDataShort());
+                }
+                else
+                {
+                    MessageBox.Show(errorMessage);
+                }
+            }            
+            catch(FormatException) //if a textbox is empty or contains non numerical values
+            {
+                MessageBox.Show("Please ensure each textbox contains a numerical value");
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.Message);
+            }
         }
 
+        /// <summary>
+        /// Recalculates the condition rating of each footpath with the default values
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonReset_Click(object sender, EventArgs e)
         {
             initializeDataListBox();
@@ -474,9 +500,12 @@ namespace RATA_FMM
             SortList();
             foreach (Road r in roadList)
                 listBoxData.Items.Add(r.PrintDataShort());
-            ClearTextBoxes();
+            ClearAlgorithmTextBoxes();
         }
 
+        /// <summary>
+        /// sorts the list on condition rating, then footpath condition
+        /// </summary>
         public void SortList()
         {
             roadList.Sort((x, y) =>
@@ -488,7 +517,10 @@ namespace RATA_FMM
             });
         }
 
-        public void ClearTextBoxes()
+        /// <summary>
+        /// clears contents of all textboxes in the custom algorithm weighting section of the form
+        /// </summary>
+        public void ClearAlgorithmTextBoxes()
         {
             textBoxHealthMin.Clear();
             textBoxHealthMax.Clear();
