@@ -93,7 +93,7 @@ namespace RATA_FMM
             MessageBox.Show("Document created");
             doc.Close(ref missing, ref missing, ref missing); //Close the document
 
-            List<int> processesAfterGen = getRunningProcesses(); //Get Word processes after word document in created
+            List<int> processesAfterGen = getRunningProcesses(); //Get Word processes after word document is created
             killProcesses(processesBeforeGen, processesAfterGen); //Kill all word processess so as not to corrupt the template or report
         }
 

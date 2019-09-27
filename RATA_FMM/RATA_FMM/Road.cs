@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RATA_FMM
 {
-    class Road
+    public class Road
     {
         //instance variables
         private int road;
