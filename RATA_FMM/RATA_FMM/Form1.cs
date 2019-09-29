@@ -12,6 +12,8 @@ using Aspose.Cells;
 using System.IO;
 using System.Globalization;
 using GMap.NET;
+using MetroFramework;
+using MetroFramework.Forms;
 
 namespace RATA_FMM
 {
@@ -30,7 +32,7 @@ namespace RATA_FMM
         public Form1()
         {
             InitializeComponent();
-
+            
             //setting sizes and positions of listboxes
             listBoxData.Width = window_length / 3 + 50;
             listBoxData.Height = window_height - 100;
@@ -243,11 +245,13 @@ namespace RATA_FMM
         /// Sorts the list and then displays a condensed version of the data in the first listbox
         /// </summary>
         private void DisplayData()
-        {
+        {                       
             SortList();
+
             foreach (Road r in roadList)
             {
                 listBoxData.Items.Add(r.PrintDataShort());
+
             }
             filteredFootpaths = new List<Road>(roadList); //Until filters have been applied, the list of filtered footpaths is just all footpaths
         }
