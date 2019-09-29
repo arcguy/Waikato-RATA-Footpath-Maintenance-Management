@@ -223,22 +223,24 @@ namespace RATA_FMM
 
             itemList.AddRange(new List<string>
             {
-                "Road Name: ".PadRight(30) + roadName,
-                "Start: ".PadRight(30) + start.ToString(),
-                "End: ".PadRight(30) + end.ToString(),
-                "Length: ".PadRight(30) + GetLongLength().ToString(),
-                "Date Added: ".PadRight(30) + dateAdded.ToShortDateString(),
-                "Side: ".PadRight(30) + side,
-                "Footpath Surface Material: ".PadRight(30) + footpathSurfaceMaterial,
-                "Number of Faults: ".PadRight(30) + numFaults.ToString(),
-                "Condition Rating: ".PadRight(30) + conditionRating.ToString(),
-                "Footpath Condition: ".PadRight(30) + footpathCondition.ToString(),
-                "Town: ".PadRight(30) + town,
-                "Fault to Length Ratio:".PadRight(30) + Math.Round(faultToLengthRatio, 3).ToString(), 
-            });
+                roadName,
+                start.ToString(),
+                end.ToString(),
+                GetLongLength().ToString(),
+                dateAdded.ToShortDateString(),
+                side,
+                footpathSurfaceMaterial,
+                numFaults.ToString(),
+                conditionRating.ToString(),
+                footpathCondition.ToString(),
+                town });
+            if (faultToLengthRatio > 0)
+                itemList.Add(Math.Round(faultToLengthRatio, 3).ToString());
+            else
+                itemList.Add("Not Available");
             if (parsedNotes.Count > 0)
             {
-                itemList.Add("Fault Information: ".PadRight(30) + GetParsedNotes());
+                itemList.Add(GetParsedNotes());
             }
             else
             {
