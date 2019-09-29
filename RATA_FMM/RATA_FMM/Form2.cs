@@ -14,6 +14,14 @@ using System.Globalization;
 using GMap.NET;
 using MetroFramework;
 using MetroFramework.Forms;
+using NetTopologySuite.Geometries;
+using NetTopologySuite.IO;
+using Point = System.Drawing.Point;
+using NetTopologySuite.Features;
+using System.Collections;
+using GMap.NET.WindowsForms;
+using GMap.NET.MapProviders;
+using Geometry = NetTopologySuite.Geometries.Geometry;
 
 namespace RATA_FMM
 {
@@ -63,10 +71,19 @@ namespace RATA_FMM
             metroButtonUpdateAlgorithm.Location = new Point((metroPanelSort.Width / 2) - 100, metroPanelSort.Height - metroButtonUpdateAlgorithm.Height - 25);
             metroButtonReset.Location = new Point((metroPanelSort.Width / 2) - 75 + metroButtonReset.Width, metroPanelSort.Height - metroButtonUpdateAlgorithm.Height - 25);
 
-            //setting size and position of map control
+            //setting size and position of map control and intial settings
             gMapControl1.Width = window_length - metroPanelSort.Width - metroListViewData.Width - 50;
             gMapControl1.Height = window_height / 2;
             gMapControl1.Location = new Point(metroPanelSort.Right + 10, metroListViewDataLong.Bottom + 10);
+            gMapControl1.SetPositionByKeywords("Hamilton, New Zealand");
+            gMapControl1.ShowCenter = false;
+            gMapControl1.CanDragMap = true;
+            gMapControl1.MouseWheelZoomEnabled = true;
+            gMapControl1.MinZoom = 0;
+            gMapControl1.MaxZoom = 50;
+            gMapControl1.MapProvider = GMapProviders.GoogleMap;
+            gMapControl1.Zoom = 10;
+            gMapControl1.Refresh();
 
             //addding items to combobox
             metroComboBoxTown.Items.Add("Cambridge");
@@ -103,6 +120,14 @@ namespace RATA_FMM
                 qgisData.Add(csvArray);
             }
             reader.Close();
+
+            //reading shapefile
+            ArrayList feats = ReadSHP("Footpath_Polygon.shp", new GeometryFactory());
+            AddOverlay(feats);
+
+             
+
+
         }
 
         private void metroButtonOpen_Click(object sender, EventArgs e)
@@ -279,6 +304,7 @@ namespace RATA_FMM
                         else
                         {
                             dataArray[j] = cellContents;
+                            Console.WriteLine(dataArray[j]);
                         }
                     }
                     Road r = new Road(dataArray);
@@ -480,6 +506,119 @@ namespace RATA_FMM
             metroTextBoxRating3.Clear();
             metroTextBoxRating4.Clear();
             metroTextBoxRating5.Clear();
+        }
+        /// <summary>
+        /// Reads a shapefile into a arraylist of features that need converting from x,y coordinates to Long and Lat coordinates
+        /// </summary>
+        /// <param name="filename">name of the shapefile (the file that has all the polygons for the footpaths)</param>
+        /// <param name="fact">the class that generates the structure of the points</param>
+        /// <returns></returns>
+        public ArrayList ReadSHP(string filename,GeometryFactory fact)
+        {
+            ArrayList features = new ArrayList(); //Array list for all the coordinates from the shapefile
+
+            ShapefileDataReader sfDataReader = new ShapefileDataReader(filename, fact);
+            ShapefileHeader shpHeader = sfDataReader.ShapeHeader;
+            DbaseFileHeader DHeader = sfDataReader.DbaseHeader;
+
+            while (sfDataReader.Read() == true)
+            {
+                Feature feature = new Feature();
+                AttributesTable atTable = new AttributesTable();
+                string[] keys = new string[DHeader.NumFields];
+                Geometry geometry = sfDataReader.Geometry;
+                for (int i = 0; i < DHeader.NumFields; i++)
+                {
+                    DbaseFieldDescriptor fldDescriptor = DHeader.Fields[i];
+                    keys[i] = fldDescriptor.Name;
+                    atTable.Add(fldDescriptor.Name, sfDataReader.GetValue(i));
+                }
+                feature.Geometry = geometry;
+                feature.Attributes = atTable;
+                features.Add(feature);
+            }
+            sfDataReader.Close();
+            sfDataReader.Dispose();
+            return features;
+        }
+        public void AddOverlay(ArrayList features)
+        {
+            for (int i = 0; i < features.Count; i++)
+            {
+                Feature feat = (Feature)features[i];
+                Geometry Geo = feat.Geometry;
+                GMapOverlay polygons = new GMapOverlay("Polygons");
+                List<PointLatLng> PLL = new List<PointLatLng>();
+
+                for (int k = 0; k < Geo.Coordinates.Length; k++)
+                {
+                    List<double> LatLong = new List<double>();
+                    LatLong = LongLatCalculation(Geo.Coordinates[k].X, Geo.Coordinates[k].Y);
+                    PLL.Add(new PointLatLng(LatLong[0], LatLong[1]));
+                }
+                GMapPolygon poly = new GMapPolygon(PLL, "Polygon");
+                poly.Fill = new SolidBrush(Color.Orange);
+                poly.Stroke = new Pen(Color.Black);
+                polygons.Polygons.Add(poly);
+                gMapControl1.Overlays.Add(polygons);
+                gMapControl1.Refresh();
+            }
+        }
+        /// <summary>
+        /// Converts the x,y coordinates of the shapefile to Long and Lat coordinates using the ESPG2913 area offsets
+        /// </summary>
+        /// <param name="E">Easting coordinate</param>
+        /// <param name="N">Northing coordinate</param>
+        /// <returns></returns>
+        public List<double> LongLatCalculation(double E, double N)
+        {
+            List<double> coordList = new List<double>();
+            //Common variables for NZTM2000 / ESPG2913
+            double a = 6378137;
+            double f = 1 / 298.257222101;
+            double lambdazero = 173;
+            double Nzero = 10000000;
+            double Ezero = 1600000;
+            double kzero = 0.9996;
+
+            //Calculation: From NZTM to lat/Long
+
+            double b = a * (1 - f);
+            double esq = 2 * f - Math.Pow(f, 2);
+            double Z0 = 1 - esq / 4 - 3 * Math.Pow(esq, 2) / 64 - 5 * Math.Pow(esq, 3) / 256;
+            double A2 = 0.375 * (esq + Math.Pow(esq, 2) / 4 + 15 * Math.Pow(esq, 3) / 128);
+            double A4 = 15 * (Math.Pow(esq, 2) + 3 * Math.Pow(esq, 3) / 4) / 256;
+            double A6 = 35 * Math.Pow(esq, 3) / 3072;
+
+            double Nprime = N - Nzero;
+            double mprime = Nprime / kzero;
+            double smn = (a - b) / (a + b);
+            double G = a * (1 - smn) * (1 - Math.Pow(smn, 2)) * (1 + 9 * Math.Pow(smn, 2) / 4 + 225 * Math.Pow(smn, 4) / 64) * Math.PI / 180.0;
+            double sigma = mprime * Math.PI / (180 * G);
+            double phiprime = sigma + (3 * smn / 2 - 27 * Math.Pow(smn, 3) / 32) * Math.Sin(2 * sigma) + (21 * Math.Pow(smn, 2) / 16 - 55 * Math.Pow(smn, 4) / 32) * Math.Sin(4 * sigma) + (151 * Math.Pow(smn, 3) / 96) * Math.Sin(6 * sigma) + (1097 * Math.Pow(smn, 4) / 512) * Math.Sin(8 * sigma);
+            double rhoprime = a * (1 - esq) / Math.Pow((1 - esq * Math.Pow((Math.Sin(phiprime)), 2)), 1.5);
+            double upsilonprime = a / Math.Sqrt(1 - esq * Math.Pow((Math.Sin(phiprime)), 2));
+
+            double psiprime = upsilonprime / rhoprime;
+            double tprime = Math.Tan(phiprime);
+            double Eprime = E - Ezero;
+            double chi = Eprime / (kzero * upsilonprime);
+            double term_1 = tprime * Eprime * chi / (kzero * rhoprime * 2);
+            double term_2 = term_1 * Math.Pow(chi, 2) / 12 * (-4 * Math.Pow(psiprime, 2) + 9 * psiprime * (1 - Math.Pow(tprime, 2)) + 12 * Math.Pow(tprime, 2));
+            double term_3 = tprime * Eprime * Math.Pow(chi, 5) / (kzero * rhoprime * 720) * (8 * Math.Pow(psiprime, 4) * (11 - 24 * Math.Pow(tprime, 2)) - 12 * Math.Pow(psiprime, 3) * (21 - 71 * Math.Pow(tprime, 2)) + 15 * Math.Pow(psiprime, 2) * (15 - 98 * Math.Pow(tprime, 2) + 15 * Math.Pow(tprime, 4)) + 180 * psiprime * (5 * Math.Pow(tprime, 2) - 3 * Math.Pow(tprime, 4)) + 360 * Math.Pow(tprime, 4));
+            double term_4 = tprime * Eprime * Math.Pow(chi, 7) / (kzero * rhoprime * 40320) * (1385 + 3633 * Math.Pow(tprime, 2) + 4095 * Math.Pow(tprime, 4) + 1575 * Math.Pow(tprime, 6));
+            double term1 = chi * (1 / Math.Cos(phiprime));
+            double term2 = Math.Pow(chi, 3) * (1 / Math.Cos(phiprime)) / 6 * (psiprime + 2 * Math.Pow(tprime, 2));
+            double term3 = Math.Pow(chi, 5) * (1 / Math.Cos(phiprime)) / 120 * (-4 * Math.Pow(psiprime, 3) * (1 - 6 * Math.Pow(tprime, 2)) + Math.Pow(psiprime, 2) * (9 - 68 * Math.Pow(tprime, 2)) + 72 * psiprime * Math.Pow(tprime, 2) + 24 * Math.Pow(tprime, 4));
+            double term4 = Math.Pow(chi, 7) * (1 / Math.Cos(phiprime)) / 5040 * (61 + 662 * Math.Pow(tprime, 2) + 1320 * Math.Pow(tprime, 4) + 720 * Math.Pow(tprime, 6));
+
+            double latitude = (phiprime - term_1 + term_2 - term_3 + term_4) * 180 / Math.PI;
+            double longitude = lambdazero + 180 / Math.PI * (term1 - term2 + term3 - term4);
+
+
+            coordList.Add(latitude);
+            coordList.Add(longitude);
+            return coordList;
         }
     }
 }
