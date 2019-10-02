@@ -31,6 +31,10 @@ namespace RATA_FMM
         List<Road> roadList = new List<Road>(); //The list of all results
         List<Road> filteredFootpaths = new List<Road>(); //The list of filtered results
         List<string[]> qgisData = new List<string[]>();
+        List<double> LongList = new List<double>();
+        List<double> LatList = new List<double>();
+        List<List<double>> ListLatList = new List<List<double>>();
+        List<List<double>> ListLongList = new List<List<double>>();
         List<string> columnHeaders = new List<string>() {"Road Name", "Start", "End", "Length", "Date Added", "Side", "Footpath Surface Material", "Number of Faults",
         "Condition Rating", "Footpath Condition", "Town:", "Fault to Length Ratio", "Fault Information", "Zone Information", "Zone Information", "Zone Information"};
 
@@ -308,6 +312,10 @@ namespace RATA_FMM
                         }
                     }
                     Road r = new Road(dataArray);
+                    Console.WriteLine("Number of rows in excel file" + numRows);
+                    Console.WriteLine("Number of entries in List of Lists" + ListLatList.Count());
+                    r.SetLat(ListLatList[i]);
+                    r.SetLong(ListLongList[i]);
                     roadList.Add(r);
 
                     //find matching data in qgis data
@@ -453,12 +461,18 @@ namespace RATA_FMM
         /// <param name="e"></param>
         private void metroListViewData_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             int index = 0;
             foreach (ListViewItem item in metroListViewData.SelectedItems)
                 index = item.Index;
+
+            List<double> FndLat = roadList[index].GetLat();
+            List<double> FndLong = roadList[index].GetLong();
+            Console.WriteLine("Index of selected path in view box: " + index);
+            ChangeOverlay(FndLat, FndLong);
             if (index > -1)
             {
-                List<string> tempList = filteredFootpaths[index].GetRoadDataAsList();                
+                List<string> tempList = filteredFootpaths[index].GetRoadDataAsList();
                 metroListViewDataLong.BeginUpdate();                
                 metroListViewDataLong.Clear();
                 metroListViewDataLong.Columns.Add("Footpath Information", 340);
@@ -473,6 +487,8 @@ namespace RATA_FMM
                 //metroListViewDataLong.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                 //metroListViewDataLong.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
                 metroListViewDataLong.EndUpdate();
+
+
             }
         }        
 
@@ -549,13 +565,17 @@ namespace RATA_FMM
                 Geometry Geo = feat.Geometry;
                 GMapOverlay polygons = new GMapOverlay("Polygons");
                 List<PointLatLng> PLL = new List<PointLatLng>();
-
+                LatList.Clear();
+                LongList.Clear();
+                List<double> LatLong = new List<double>();
                 for (int k = 0; k < Geo.Coordinates.Length; k++)
                 {
-                    List<double> LatLong = new List<double>();
                     LatLong = LongLatCalculation(Geo.Coordinates[k].X, Geo.Coordinates[k].Y);
+                    LatList.Add(LatLong[0]);
+                    LongList.Add(LatLong[1]);
                     PLL.Add(new PointLatLng(LatLong[0], LatLong[1]));
                 }
+                //ListPLL.Add(PLL);
                 GMapPolygon poly = new GMapPolygon(PLL, "Polygon");
                 poly.Fill = new SolidBrush(Color.Orange);
                 poly.Stroke = new Pen(Color.Black);
@@ -619,6 +639,25 @@ namespace RATA_FMM
             coordList.Add(latitude);
             coordList.Add(longitude);
             return coordList;
+        }
+        public void ChangeOverlay(List<double> Long, List<double> Lat)
+        {
+            GMapOverlay SelectedOverlay = new GMapOverlay("Selected Polygons");
+            List<PointLatLng> SelectedPLL = new List<PointLatLng>();
+            for (int i = 0; i < Long.Count(); i++)
+            {
+                Console.WriteLine("Adding lat coords: " + Lat[i] + ", Adding long " + Long[i]);
+                SelectedPLL.Add(new PointLatLng(Long[i], Lat[i]));
+                Console.WriteLine("Amount of lat coords: " + Lat.Count() +", Amount of long coords: " +Long.Count());
+            }
+            GMapPolygon SelectedPoly = new GMapPolygon(SelectedPLL, "Selected Polygon");
+            SelectedPoly.Fill = new SolidBrush(Color.Green);
+            SelectedPoly.Stroke = new Pen(Color.Yellow);
+            SelectedOverlay.Polygons.Add(SelectedPoly);
+            //gMapControl1.Overlays.Clear();
+            gMapControl1.Overlays.Add(SelectedOverlay);
+            gMapControl1.Refresh();
+            Console.WriteLine("Added a selected footpath to the map");
         }
     }
 }

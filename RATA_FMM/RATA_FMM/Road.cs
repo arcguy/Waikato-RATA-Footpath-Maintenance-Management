@@ -93,6 +93,9 @@ namespace RATA_FMM
         private bool schoolZone;
         private bool serviceZone;
 
+        private List<double> Lat;
+        private List<double> Long;
+
         public Road(string[] roadData)
         {
             try
@@ -849,6 +852,22 @@ namespace RATA_FMM
         public double GetFaultLengthRatio()
         {
             return this.faultToLengthRatio;
+        }
+        public void SetLat(List<double> lat)
+        {
+            Lat = lat;
+        }
+        public List<double> GetLat()
+        {
+            return Lat;
+        }
+        public void SetLong(List<double> longi)
+        {
+            Long = longi;
+        }
+        public List<double> GetLong()
+        {
+            return Long;
         }
     }
 }
