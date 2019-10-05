@@ -47,7 +47,7 @@ namespace RATA_FMM
         {
             InitializeComponent();
 
-            //metro list view data
+            //setting size and locations of list views
             metroListViewData.Width = window_length / 3 + 50;
             metroListViewData.Height = window_height - 120;
             metroListViewData.Location = new Point(10, 60);
@@ -72,8 +72,23 @@ namespace RATA_FMM
 
             metroLabelPathRatings.Location = new Point((metroPanelSort.Width / 2) - (metroLabelPathRatings.Width / 2), metroTextBoxRating2.Location.Y - 30);
 
-            metroButtonUpdateAlgorithm.Location = new Point((metroPanelSort.Width / 2) - 100, metroPanelSort.Height - metroButtonUpdateAlgorithm.Height - 25);
-            metroButtonReset.Location = new Point((metroPanelSort.Width / 2) - 75 + metroButtonReset.Width, metroPanelSort.Height - metroButtonUpdateAlgorithm.Height - 25);
+            metroTextBoxRating2.Location = new Point((metroPanelSort.Width / 2) - (metroTextBoxRating2.Width / 2), metroLabelPathRatings.Location.Y + metroLabelPathRatings.Height + 5);
+            metroLabelRating2.Location = new Point(metroTextBoxRating2.Left - 25, metroLabelPathRatings.Location.Y + metroLabelPathRatings.Height + 5);
+
+            metroTextBoxRating1.Location = new Point(metroLabelRating2.Left - metroTextBoxRating1.Width - 15, metroLabelPathRatings.Location.Y + metroLabelPathRatings.Height + 5);
+            metroLabelRating1.Location = new Point(metroTextBoxRating1.Left - 25, metroLabelPathRatings.Location.Y + metroLabelPathRatings.Height + 5);
+
+            metroLabelRating3.Location = new Point(metroTextBoxRating2.Right + 10, metroLabelPathRatings.Location.Y + metroLabelPathRatings.Height + 5);
+            metroTextBoxRating3.Location = new Point(metroLabelRating3.Right + 15, metroLabelPathRatings.Location.Y + metroLabelPathRatings.Height + 5);
+
+            metroLabelRating5.Location = new Point((metroPanelSort.Width / 2) - (metroLabelRating5.Width / 2), metroTextBoxRating2.Bottom + 15);
+            metroTextBoxRating5.Location = new Point(metroLabelRating5.Right + 15, metroTextBoxRating2.Bottom + 15);
+
+            metroTextBoxRating4.Location = new Point(metroLabelRating5.Left - 15 - metroTextBoxRating4.Width, metroTextBoxRating2.Bottom + 15);
+            metroLabelRating4.Location = new Point(metroTextBoxRating4.Left - 25, metroTextBoxRating2.Bottom + 15);            
+
+            metroButtonReset.Location = new Point(metroTextBoxRating5.Location.X, metroPanelSort.Height - metroButtonUpdateAlgorithm.Height - 25);
+            metroButtonUpdateAlgorithm.Location = new Point(metroTextBoxRating4.Location.X, metroPanelSort.Height - metroButtonUpdateAlgorithm.Height - 25);
 
             //setting size and position of map control and intial settings
             gMapControl1.Width = window_length - metroPanelSort.Width - metroListViewData.Width - 50;
@@ -101,7 +116,7 @@ namespace RATA_FMM
 
             initializeDataListBox();
 
-            //reading file
+            //reading csv file
             StreamReader reader;
             string line = "";
             string[] csvArray;
@@ -113,14 +128,7 @@ namespace RATA_FMM
             {
                 line = reader.ReadLine();
                 csvArray = line.Split(',');
-                //0 - road id
-                //1 - start
-                //2 - end
-                //5 - length
-                //10 - age
-                //19 - service area
-                //21 - school area
-                //23 - health area
+
                 qgisData.Add(csvArray);
             }
             reader.Close();
@@ -128,12 +136,13 @@ namespace RATA_FMM
             //reading shapefile
             ArrayList feats = ReadSHP("Footpath_Polygon.shp", new GeometryFactory());
             AddOverlay(feats);
-
-             
-
-
         }
 
+        /// <summary>
+        /// Uses an openfiledialog to allow user to open an excel file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void metroButtonOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -164,6 +173,11 @@ namespace RATA_FMM
             printer.printFromTemplate(filteredFootpaths); //Print to report using the list of filtered footpaths
         }
 
+        /// <summary>
+        /// Uses the values provided by the user to recalculate the condition ratings for each footpath
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void metroButtonUpdateResults_Click(object sender, EventArgs e)
         {
             if (dataProcessed) //There is data to filter on
@@ -204,6 +218,11 @@ namespace RATA_FMM
             }
         }
 
+        /// <summary>
+        /// Showing full, unfiltered list of footpaths
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void metroButtonShowAll_Click(object sender, EventArgs e)
         {
             DisplayData(roadList);
@@ -216,6 +235,11 @@ namespace RATA_FMM
             metroComboBoxTown.Text = "";
         }
 
+        /// <summary>
+        /// Recalculates the condition ratingfor each footpath with the values provided by the user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void metroButtonUpdateAlgorithm_Click(object sender, EventArgs e)
         {
             try
@@ -241,6 +265,7 @@ namespace RATA_FMM
                 if (serviceMin >= serviceMax)
                     errorMessage += "Service minimum cannot be greater than Service max. \n";
 
+                //if no user input errors
                 if (errorMessage == "")
                 {
                     initializeDataListBox();
@@ -251,7 +276,7 @@ namespace RATA_FMM
                     SortList();
                     DisplayData(roadList);
                 }
-                else
+                else //if there are user input errors
                 {
                     MetroMessageBox.Show(this, errorMessage, "Error");
                 }
@@ -262,6 +287,11 @@ namespace RATA_FMM
             }
         }
 
+        /// <summary>
+        /// Recalculates the condition ratings for each footpath using the defaults values
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void metroButtonReset_Click(object sender, EventArgs e)
         {
             initializeDataListBox();
@@ -276,7 +306,7 @@ namespace RATA_FMM
         /// <summary>
         /// opens an excel file and creates a road object with the footpath data from each row
         /// </summary>
-        /// <param name="filename"></param>
+        /// <param name="filename">Name of the excel file to open</param>
         private void OpenExcelFile(string filename)
         {
             try
@@ -319,6 +349,9 @@ namespace RATA_FMM
                     roadList.Add(r);
 
                     //find matching data in qgis data
+                    //0 - road name
+                    //1 - start
+                    //2 - end
                     for (int k = 0; k <= qgisData.Count - 1; k++)
                     {
                         string[] data = qgisData[k];
@@ -557,6 +590,7 @@ namespace RATA_FMM
             sfDataReader.Dispose();
             return features;
         }
+
         public void AddOverlay(ArrayList features)
         {
             for (int i = 0; i < features.Count; i++)
@@ -640,6 +674,7 @@ namespace RATA_FMM
             coordList.Add(longitude);
             return coordList;
         }
+
         public void ChangeOverlay(List<double> Long, List<double> Lat)
         {
             GMapOverlay SelectedOverlay = new GMapOverlay("Selected Polygons");
