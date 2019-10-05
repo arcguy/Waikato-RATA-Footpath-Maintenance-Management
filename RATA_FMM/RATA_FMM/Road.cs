@@ -74,7 +74,7 @@ namespace RATA_FMM
         private double faultToLengthRatio;
 
         private string[] qgisData;
-        //0 - road id
+        //0 - road name
         //1 - start
         //2 - end
         //5 - length
