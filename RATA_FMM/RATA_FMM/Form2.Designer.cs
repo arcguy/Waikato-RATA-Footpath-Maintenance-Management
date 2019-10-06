@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.metroButtonOpen = new MetroFramework.Controls.MetroButton();
             this.metroButtonPrint = new MetroFramework.Controls.MetroButton();
             this.metroListViewData = new MetroFramework.Controls.MetroListView();
@@ -76,6 +77,8 @@
             this.metroTextBoxFilterCondition = new MetroFramework.Controls.MetroTextBox();
             this.metroLabelFilter1 = new MetroFramework.Controls.MetroLabel();
             this.metroLabelFilterResults = new MetroFramework.Controls.MetroLabel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.metroLabelHelp = new MetroFramework.Controls.MetroLabel();
             this.metroPanelSort.SuspendLayout();
             this.metroPanelFilter.SuspendLayout();
             this.metroPanelTown.SuspendLayout();
@@ -165,6 +168,7 @@
             // 
             this.metroPanelSort.AutoScroll = true;
             this.metroPanelSort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.metroPanelSort.Controls.Add(this.metroLabelHelp);
             this.metroPanelSort.Controls.Add(this.metroLabelZones);
             this.metroPanelSort.Controls.Add(this.metroTextBoxRating5);
             this.metroPanelSort.Controls.Add(this.metroTextBoxServiceMax);
@@ -228,7 +232,8 @@
             this.metroTextBoxRating5.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTextBoxRating5.CustomButton.UseSelectable = true;
             this.metroTextBoxRating5.CustomButton.Visible = false;
-            this.metroTextBoxRating5.Lines = new string[0];
+            this.metroTextBoxRating5.Lines = new string[] {
+        "60"};
             this.metroTextBoxRating5.Location = new System.Drawing.Point(293, 208);
             this.metroTextBoxRating5.MaxLength = 32767;
             this.metroTextBoxRating5.Name = "metroTextBoxRating5";
@@ -240,6 +245,7 @@
             this.metroTextBoxRating5.ShortcutsEnabled = true;
             this.metroTextBoxRating5.Size = new System.Drawing.Size(75, 23);
             this.metroTextBoxRating5.TabIndex = 12;
+            this.metroTextBoxRating5.Text = "60";
             this.metroTextBoxRating5.UseSelectable = true;
             this.metroTextBoxRating5.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxRating5.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -258,7 +264,8 @@
             this.metroTextBoxServiceMax.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTextBoxServiceMax.CustomButton.UseSelectable = true;
             this.metroTextBoxServiceMax.CustomButton.Visible = false;
-            this.metroTextBoxServiceMax.Lines = new string[0];
+            this.metroTextBoxServiceMax.Lines = new string[] {
+        "25"};
             this.metroTextBoxServiceMax.Location = new System.Drawing.Point(459, 112);
             this.metroTextBoxServiceMax.MaxLength = 32767;
             this.metroTextBoxServiceMax.Name = "metroTextBoxServiceMax";
@@ -270,6 +277,7 @@
             this.metroTextBoxServiceMax.ShortcutsEnabled = true;
             this.metroTextBoxServiceMax.Size = new System.Drawing.Size(100, 23);
             this.metroTextBoxServiceMax.TabIndex = 14;
+            this.metroTextBoxServiceMax.Text = "25";
             this.metroTextBoxServiceMax.UseSelectable = true;
             this.metroTextBoxServiceMax.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxServiceMax.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -288,7 +296,8 @@
             this.metroTextBoxRating4.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTextBoxRating4.CustomButton.UseSelectable = true;
             this.metroTextBoxRating4.CustomButton.Visible = false;
-            this.metroTextBoxRating4.Lines = new string[0];
+            this.metroTextBoxRating4.Lines = new string[] {
+        "45"};
             this.metroTextBoxRating4.Location = new System.Drawing.Point(200, 208);
             this.metroTextBoxRating4.MaxLength = 32767;
             this.metroTextBoxRating4.Name = "metroTextBoxRating4";
@@ -300,6 +309,7 @@
             this.metroTextBoxRating4.ShortcutsEnabled = true;
             this.metroTextBoxRating4.Size = new System.Drawing.Size(75, 23);
             this.metroTextBoxRating4.TabIndex = 11;
+            this.metroTextBoxRating4.Text = "45";
             this.metroTextBoxRating4.UseSelectable = true;
             this.metroTextBoxRating4.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxRating4.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -337,7 +347,8 @@
             this.metroTextBoxRating3.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTextBoxRating3.CustomButton.UseSelectable = true;
             this.metroTextBoxRating3.CustomButton.Visible = false;
-            this.metroTextBoxRating3.Lines = new string[0];
+            this.metroTextBoxRating3.Lines = new string[] {
+        "30"};
             this.metroTextBoxRating3.Location = new System.Drawing.Point(344, 173);
             this.metroTextBoxRating3.MaxLength = 32767;
             this.metroTextBoxRating3.Name = "metroTextBoxRating3";
@@ -349,6 +360,7 @@
             this.metroTextBoxRating3.ShortcutsEnabled = true;
             this.metroTextBoxRating3.Size = new System.Drawing.Size(75, 23);
             this.metroTextBoxRating3.TabIndex = 10;
+            this.metroTextBoxRating3.Text = "30";
             this.metroTextBoxRating3.UseSelectable = true;
             this.metroTextBoxRating3.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxRating3.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -367,7 +379,8 @@
             this.metroTextBoxSchoolMax.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTextBoxSchoolMax.CustomButton.UseSelectable = true;
             this.metroTextBoxSchoolMax.CustomButton.Visible = false;
-            this.metroTextBoxSchoolMax.Lines = new string[0];
+            this.metroTextBoxSchoolMax.Lines = new string[] {
+        "30"};
             this.metroTextBoxSchoolMax.Location = new System.Drawing.Point(459, 81);
             this.metroTextBoxSchoolMax.MaxLength = 32767;
             this.metroTextBoxSchoolMax.Name = "metroTextBoxSchoolMax";
@@ -379,6 +392,7 @@
             this.metroTextBoxSchoolMax.ShortcutsEnabled = true;
             this.metroTextBoxSchoolMax.Size = new System.Drawing.Size(100, 23);
             this.metroTextBoxSchoolMax.TabIndex = 13;
+            this.metroTextBoxSchoolMax.Text = "30";
             this.metroTextBoxSchoolMax.UseSelectable = true;
             this.metroTextBoxSchoolMax.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxSchoolMax.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -397,7 +411,8 @@
             this.metroTextBoxRating2.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTextBoxRating2.CustomButton.UseSelectable = true;
             this.metroTextBoxRating2.CustomButton.Visible = false;
-            this.metroTextBoxRating2.Lines = new string[0];
+            this.metroTextBoxRating2.Lines = new string[] {
+        "15"};
             this.metroTextBoxRating2.Location = new System.Drawing.Point(241, 173);
             this.metroTextBoxRating2.MaxLength = 32767;
             this.metroTextBoxRating2.Name = "metroTextBoxRating2";
@@ -409,6 +424,7 @@
             this.metroTextBoxRating2.ShortcutsEnabled = true;
             this.metroTextBoxRating2.Size = new System.Drawing.Size(75, 23);
             this.metroTextBoxRating2.TabIndex = 9;
+            this.metroTextBoxRating2.Text = "15";
             this.metroTextBoxRating2.UseSelectable = true;
             this.metroTextBoxRating2.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxRating2.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -437,7 +453,8 @@
             this.metroTextBoxRating1.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTextBoxRating1.CustomButton.UseSelectable = true;
             this.metroTextBoxRating1.CustomButton.Visible = false;
-            this.metroTextBoxRating1.Lines = new string[0];
+            this.metroTextBoxRating1.Lines = new string[] {
+        "5"};
             this.metroTextBoxRating1.Location = new System.Drawing.Point(142, 173);
             this.metroTextBoxRating1.MaxLength = 32767;
             this.metroTextBoxRating1.Name = "metroTextBoxRating1";
@@ -449,6 +466,7 @@
             this.metroTextBoxRating1.ShortcutsEnabled = true;
             this.metroTextBoxRating1.Size = new System.Drawing.Size(75, 23);
             this.metroTextBoxRating1.TabIndex = 8;
+            this.metroTextBoxRating1.Text = "5";
             this.metroTextBoxRating1.UseSelectable = true;
             this.metroTextBoxRating1.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxRating1.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -467,7 +485,8 @@
             this.metroTextBoxHealthMax.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTextBoxHealthMax.CustomButton.UseSelectable = true;
             this.metroTextBoxHealthMax.CustomButton.Visible = false;
-            this.metroTextBoxHealthMax.Lines = new string[0];
+            this.metroTextBoxHealthMax.Lines = new string[] {
+        "40"};
             this.metroTextBoxHealthMax.Location = new System.Drawing.Point(459, 47);
             this.metroTextBoxHealthMax.MaxLength = 32767;
             this.metroTextBoxHealthMax.Name = "metroTextBoxHealthMax";
@@ -479,6 +498,7 @@
             this.metroTextBoxHealthMax.ShortcutsEnabled = true;
             this.metroTextBoxHealthMax.Size = new System.Drawing.Size(100, 23);
             this.metroTextBoxHealthMax.TabIndex = 12;
+            this.metroTextBoxHealthMax.Text = "40";
             this.metroTextBoxHealthMax.UseSelectable = true;
             this.metroTextBoxHealthMax.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxHealthMax.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -524,7 +544,8 @@
             this.metroTextBoxServiceMin.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTextBoxServiceMin.CustomButton.UseSelectable = true;
             this.metroTextBoxServiceMin.CustomButton.Visible = false;
-            this.metroTextBoxServiceMin.Lines = new string[0];
+            this.metroTextBoxServiceMin.Lines = new string[] {
+        "10"};
             this.metroTextBoxServiceMin.Location = new System.Drawing.Point(179, 112);
             this.metroTextBoxServiceMin.MaxLength = 32767;
             this.metroTextBoxServiceMin.Name = "metroTextBoxServiceMin";
@@ -536,6 +557,7 @@
             this.metroTextBoxServiceMin.ShortcutsEnabled = true;
             this.metroTextBoxServiceMin.Size = new System.Drawing.Size(100, 23);
             this.metroTextBoxServiceMin.TabIndex = 11;
+            this.metroTextBoxServiceMin.Text = "10";
             this.metroTextBoxServiceMin.UseSelectable = true;
             this.metroTextBoxServiceMin.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxServiceMin.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -599,7 +621,8 @@
             this.metroTextBoxSchoolMin.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTextBoxSchoolMin.CustomButton.UseSelectable = true;
             this.metroTextBoxSchoolMin.CustomButton.Visible = false;
-            this.metroTextBoxSchoolMin.Lines = new string[0];
+            this.metroTextBoxSchoolMin.Lines = new string[] {
+        "15"};
             this.metroTextBoxSchoolMin.Location = new System.Drawing.Point(179, 81);
             this.metroTextBoxSchoolMin.MaxLength = 32767;
             this.metroTextBoxSchoolMin.Name = "metroTextBoxSchoolMin";
@@ -611,6 +634,7 @@
             this.metroTextBoxSchoolMin.ShortcutsEnabled = true;
             this.metroTextBoxSchoolMin.Size = new System.Drawing.Size(100, 23);
             this.metroTextBoxSchoolMin.TabIndex = 10;
+            this.metroTextBoxSchoolMin.Text = "15";
             this.metroTextBoxSchoolMin.UseSelectable = true;
             this.metroTextBoxSchoolMin.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxSchoolMin.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -665,7 +689,8 @@
             this.metroTextBoxHealthMin.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTextBoxHealthMin.CustomButton.UseSelectable = true;
             this.metroTextBoxHealthMin.CustomButton.Visible = false;
-            this.metroTextBoxHealthMin.Lines = new string[0];
+            this.metroTextBoxHealthMin.Lines = new string[] {
+        "30"};
             this.metroTextBoxHealthMin.Location = new System.Drawing.Point(179, 47);
             this.metroTextBoxHealthMin.MaxLength = 32767;
             this.metroTextBoxHealthMin.Name = "metroTextBoxHealthMin";
@@ -677,6 +702,7 @@
             this.metroTextBoxHealthMin.ShortcutsEnabled = true;
             this.metroTextBoxHealthMin.Size = new System.Drawing.Size(100, 23);
             this.metroTextBoxHealthMin.TabIndex = 9;
+            this.metroTextBoxHealthMin.Text = "30";
             this.metroTextBoxHealthMin.UseSelectable = true;
             this.metroTextBoxHealthMin.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxHealthMin.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -899,6 +925,19 @@
             this.metroLabelFilterResults.TabIndex = 2;
             this.metroLabelFilterResults.Text = "FilterResults";
             // 
+            // metroLabelHelp
+            // 
+            this.metroLabelHelp.AutoSize = true;
+            this.metroLabelHelp.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabelHelp.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabelHelp.Location = new System.Drawing.Point(562, 4);
+            this.metroLabelHelp.Name = "metroLabelHelp";
+            this.metroLabelHelp.Size = new System.Drawing.Size(15, 19);
+            this.metroLabelHelp.Style = MetroFramework.MetroColorStyle.Silver;
+            this.metroLabelHelp.TabIndex = 19;
+            this.metroLabelHelp.Text = "?";
+            this.metroLabelHelp.UseStyleColors = true;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -979,5 +1018,7 @@
         private MetroFramework.Controls.MetroLabel metroLabelSchoolMax;
         private MetroFramework.Controls.MetroLabel metroLabelHealthMin;
         private MetroFramework.Controls.MetroTextBox metroTextBoxHealthMin;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private MetroFramework.Controls.MetroLabel metroLabelHelp;
     }
 }
