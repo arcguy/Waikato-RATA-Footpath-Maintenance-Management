@@ -47,6 +47,9 @@ namespace RATA_FMM
         {
             InitializeComponent();
 
+            
+            toolTip1.SetToolTip(metroLabelHelp, "Modify the values used to calculate the condition rating");
+
             //setting size and locations of list views
             metroListViewData.Width = window_length / 3 + 50;
             metroListViewData.Height = window_height - 120;
@@ -66,6 +69,8 @@ namespace RATA_FMM
             //setting location of algorithm weighting components
             metroPanelSort.Width = window_length / 3 - 50;
             metroPanelSort.Location = new Point(metroListViewData.Right + 10, metroListViewDataLong.Bottom + 10);
+
+            metroLabelHelp.Location = new Point(metroPanelSort.Width - metroLabelHelp.Width);
 
             metroLabelAlgorithm.Location = new Point((metroPanelSort.Width / 2) - (metroLabelAlgorithm.Width / 2), 0);
             metroLabelZones.Location = new Point((metroPanelSort.Width / 2) - (metroLabelZones.Width / 2), metroLabelAlgorithm.Height + 2);
@@ -87,8 +92,8 @@ namespace RATA_FMM
             metroTextBoxRating4.Location = new Point(metroLabelRating5.Left - 15 - metroTextBoxRating4.Width, metroTextBoxRating2.Bottom + 15);
             metroLabelRating4.Location = new Point(metroTextBoxRating4.Left - 25, metroTextBoxRating2.Bottom + 15);            
 
-            metroButtonReset.Location = new Point(metroTextBoxRating5.Location.X, metroPanelSort.Height - metroButtonUpdateAlgorithm.Height - 25);
-            metroButtonUpdateAlgorithm.Location = new Point(metroTextBoxRating4.Location.X, metroPanelSort.Height - metroButtonUpdateAlgorithm.Height - 25);
+            metroButtonReset.Location = new Point(metroTextBoxRating5.Location.X - 15, metroPanelSort.Height - metroButtonUpdateAlgorithm.Height - 25);
+            metroButtonUpdateAlgorithm.Location = new Point(metroTextBoxRating4.Location.X + 15, metroPanelSort.Height - metroButtonUpdateAlgorithm.Height - 25);
 
             //setting size and position of map control and intial settings
             gMapControl1.Width = window_length - metroPanelSort.Width - metroListViewData.Width - 50;
