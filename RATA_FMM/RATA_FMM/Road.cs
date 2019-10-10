@@ -8,7 +8,6 @@ namespace RATA_FMM
 {
     public class Road
     {
-        //instance variables
         private int road;
         private string roadName;
         private int start;
@@ -374,34 +373,8 @@ namespace RATA_FMM
         {
             double fprating = 0;
             double rating = 0;
-            /*
-            if (parsedNotes.Count > 0)
-            {
-                if (parsedNotes[0][0] == "2")
-                {
-                    footpathCondition = int.Parse(parsedNotes[0][2]);
-                    if (footpathCondition == 1)
-                    {
-                        rating += 5;
-                    }
-                    if (footpathCondition == 2)
-                    {
-                        rating += 15;
-                    }
-                    if (footpathCondition == 3)
-                    {
-                        rating += 30;
-                    }
-                    if (footpathCondition == 4)
-                    {
-                        rating += 45;
-                    }
-                    if (footpathCondition == 5)
-                    {
-                        rating += 60;
-                    }
-                }
-            }*/
+
+            //calculating and setting the average rating of the footpath
             int length = GetLongLength();
             if (extra1 != -1)
                 fprating += extra1 * 1;
@@ -414,11 +387,13 @@ namespace RATA_FMM
             if (extra5 != -1)
                 fprating += extra5 * 5;
 
+            //if average is somehow greater than max value (5), set to 5
             if (fprating / length > 5)
                 fprating = 5;
             fprating /= length;
             footpathCondition = Math.Round(fprating, 3);
 
+            //calculate value to add to overall condition rating using average footpath rating
             if (fprating > 5)
             {
                 rating = (fprating / 100) * rating5;
@@ -445,12 +420,11 @@ namespace RATA_FMM
             }
             else if (fprating >= 0)
             {
-                //double temp = 1 - fprating;
                 rating = (fprating / 100) * rating1;
             }
             else
                 rating = 0;
-            //footpathCondition = rating;
+
             return rating;
         }
 
@@ -909,18 +883,22 @@ namespace RATA_FMM
         {
             return this.faultToLengthRatio;
         }
+
         public void SetLat(List<double> lat)//getters and setters for all the variables that a road can have that invovle coordinates of a polygon
         {
             Lat = lat;
         }
+
         public List<double> GetLat()
         {
             return Lat;
         }
+
         public void SetLong(List<double> longi)
         {
             Long = longi;
         }
+
         public List<double> GetLong()
         {
             return Long;
