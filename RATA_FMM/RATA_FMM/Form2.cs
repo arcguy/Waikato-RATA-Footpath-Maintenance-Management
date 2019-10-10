@@ -35,8 +35,8 @@ namespace RATA_FMM
         //List<double> LatList = new List<double>();
         //List<List<double>> ListLatList = new List<List<double>>();
         //List<List<double>> ListLongList = new List<List<double>>();
-        List<string> columnHeaders = new List<string>() {"Road Name", "Start", "End", "Length", "Date Added", "Side", "Footpath Surface Material", "Number of Faults",
-        "Condition Rating", "Footpath Condition", "Town:", "Fault to Length Ratio", "Fault Information", "Zone Information", "Zone Information", "Zone Information"};
+        List<string> columnHeaders = new List<string>() {"Road Name", "Start", "End", "Length", "Survey Date", "Side", "Footpath Surface Material", "Number of Faults",
+        "Condition Rating", "Average Footpath Rating", "Town:", "Fault to Length Ratio", "Fault Information", "Zone Information", "Zone Information", "Zone Information"};
 
         int window_length = Screen.PrimaryScreen.Bounds.Width;
         int window_height = Screen.PrimaryScreen.Bounds.Height;
@@ -46,31 +46,37 @@ namespace RATA_FMM
         public Form2()
         {
             InitializeComponent();
-
             
+            //setting tooltips
             toolTip1.SetToolTip(metroLabelHelp, "Modify the values used to calculate the condition rating");
 
             //setting size and locations of list views
-            metroListViewData.Width = window_length / 3 + 50;
+            metroListViewData.Width = window_length / 3;
             metroListViewData.Height = window_height - 120;
             metroListViewData.Location = new Point(10, 60);
 
-            metroListViewDataLong.Width = window_length / 3 + 230;
+            metroListViewDataLong.Width = window_length / 3;
             metroListViewDataLong.Height = window_height / 2 - 100;
-            metroListViewDataLong.Location = new Point(metroListViewData.Right + 10, 30);
+            metroListViewDataLong.Location = new Point(metroListViewData.Right + 10, metroButtonOpen.Bottom + 10);
 
             //setting locations of filter window components
+            metroPanelFilter.Width = window_length / 6;
+            metroPanelFilter.Height = metroLabelFilterResults.Height + (metroPanelFaults.Height * 4) + (metroButtonUpdateResults.Height * 2) + 80;
             metroLabelFilterResults.Location = new Point((metroPanelFilter.Width / 2) - (metroLabelFilterResults.Width / 2), 0);
-            metroPanelFilter.Location = new Point(metroListViewDataLong.Right + 10, 30);
+            metroPanelFilter.Location = new Point(metroListViewDataLong.Right + 10, metroListViewDataLong.Location.Y);
+            metroPanelCondition.Location = new Point((metroPanelFilter.Width / 2) - (metroPanelCondition.Width / 2), metroLabelFilterResults.Bottom + 10);
+            metroPanelFaults.Location = new Point((metroPanelFilter.Width / 2) - (metroPanelFaults.Width / 2), metroPanelCondition.Bottom + 10);
+            metroPanelPathRating.Location = new Point((metroPanelFilter.Width / 2) - (metroPanelFaults.Width / 2), metroPanelFaults.Bottom + 10);
+            metroPanelTown.Location = new Point((metroPanelFilter.Width / 2) - (metroPanelTown.Width / 2), metroPanelPathRating.Bottom + 10);
 
-            metroButtonUpdateResults.Location = new Point((metroPanelFilter.Width / 2) - (metroButtonUpdateResults.Width / 2), metroPanelFilter.Height - metroButtonShowAll.Height - metroButtonUpdateResults.Height - 20);
-            metroButtonShowAll.Location = new Point((metroPanelFilter.Width / 2) - (metroButtonShowAll.Width / 2), metroPanelFilter.Height - metroButtonShowAll.Height - 10);
+            metroButtonUpdateResults.Location = new Point((metroPanelFilter.Width / 2) - (metroButtonUpdateResults.Width / 2), metroPanelTown.Bottom + 10);
+            metroButtonShowAll.Location = new Point((metroPanelFilter.Width / 2) - (metroButtonShowAll.Width / 2), metroButtonUpdateResults.Bottom + 10);
 
             //setting location of algorithm weighting components
-            metroPanelSort.Width = window_length / 3 - 50;
+            metroPanelSort.Width = metroListViewDataLong.Width;
             metroPanelSort.Location = new Point(metroListViewData.Right + 10, metroListViewDataLong.Bottom + 10);
 
-            metroLabelHelp.Location = new Point(metroPanelSort.Width - metroLabelHelp.Width);
+            metroLabelHelp.Location = new Point(metroPanelSort.Width - metroLabelHelp.Width - 10);
 
             metroLabelAlgorithm.Location = new Point((metroPanelSort.Width / 2) - (metroLabelAlgorithm.Width / 2), 0);
             metroLabelZones.Location = new Point((metroPanelSort.Width / 2) - (metroLabelZones.Width / 2), metroLabelAlgorithm.Height + 2);
@@ -97,8 +103,8 @@ namespace RATA_FMM
 
             //setting size and position of map control and intial settings
             gMapControl1.Width = window_length - metroPanelSort.Width - metroListViewData.Width - 50;
-            gMapControl1.Height = window_height / 2;
-            gMapControl1.Location = new Point(metroPanelSort.Right + 10, metroListViewDataLong.Bottom + 10);
+            gMapControl1.Height = window_height - metroPanelFilter.Height - 110;
+            gMapControl1.Location = new Point(metroPanelSort.Right + 10, metroPanelFilter.Bottom + 10);
             gMapControl1.SetPositionByKeywords("Hamilton, New Zealand");
             gMapControl1.ShowCenter = false;
             gMapControl1.CanDragMap = true;
@@ -251,17 +257,17 @@ namespace RATA_FMM
             {
                 string errorMessage = "";
 
-                int healthMin = int.Parse(metroTextBoxHealthMin.Text);
-                int healthMax = int.Parse(metroTextBoxHealthMax.Text);
-                int schoolMin = int.Parse(metroTextBoxSchoolMin.Text);
-                int schoolMax = int.Parse(metroTextBoxSchoolMax.Text);
-                int serviceMin = int.Parse(metroTextBoxServiceMin.Text);
-                int serviceMax = int.Parse(metroTextBoxServiceMax.Text);
-                int rating1 = int.Parse(metroTextBoxRating1.Text);
-                int rating2 = int.Parse(metroTextBoxRating2.Text);
-                int rating3 = int.Parse(metroTextBoxRating3.Text);
-                int rating4 = int.Parse(metroTextBoxRating4.Text);
-                int rating5 = int.Parse(metroTextBoxRating5.Text);
+                double healthMin = double.Parse(metroTextBoxHealthMin.Text);
+                double healthMax = double.Parse(metroTextBoxHealthMax.Text);
+                double schoolMin = double.Parse(metroTextBoxSchoolMin.Text);
+                double schoolMax = double.Parse(metroTextBoxSchoolMax.Text);
+                double serviceMin = double.Parse(metroTextBoxServiceMin.Text);
+                double serviceMax = double.Parse(metroTextBoxServiceMax.Text);
+                double rating1 = double.Parse(metroTextBoxRating1.Text);
+                double rating2 = double.Parse(metroTextBoxRating2.Text);
+                double rating3 = double.Parse(metroTextBoxRating3.Text);
+                double rating4 = double.Parse(metroTextBoxRating4.Text);
+                double rating5 = double.Parse(metroTextBoxRating5.Text);
 
                 if (healthMin >= healthMax)
                     errorMessage += "Health minimum cannot be greater than Health max. \n";
@@ -274,12 +280,12 @@ namespace RATA_FMM
                 if (errorMessage == "")
                 {
                     initializeDataListBox();
-                    foreach (Road r in roadList)
+                    foreach (Road r in filteredFootpaths)
                     {
                         r.CalcConditionRating(healthMin, healthMax, schoolMin, schoolMax, serviceMin, serviceMax, rating1, rating2, rating3, rating4, rating5);
                     }
                     SortList();
-                    DisplayData(roadList);
+                    DisplayData(filteredFootpaths);
                 }
                 else //if there are user input errors
                 {
@@ -400,7 +406,7 @@ namespace RATA_FMM
             metroListViewData.Columns.Add("Length");
             metroListViewData.Columns.Add("Faults");
             metroListViewData.Columns.Add("Condition Rating");
-            metroListViewData.Columns.Add("Footpath Rating");
+            metroListViewData.Columns.Add("Average Footpath Rating");
 
             foreach (Road r in rList)
             {
@@ -408,7 +414,7 @@ namespace RATA_FMM
                 int pathLength = r.GetLongLength();
                 int pathFaults = r.GetNumFaults();
                 double pathCondition = r.GetConditionRating();
-                int pathRating = r.GetFootpathCondition();
+                double pathRating = r.GetFootpathCondition();
                 ListViewItem lvi = new ListViewItem(new string[] { PathName, pathLength.ToString(), pathFaults.ToString(), pathCondition.ToString(), pathRating.ToString() });
                 metroListViewData.Items.Add(lvi);
             }
@@ -536,6 +542,13 @@ namespace RATA_FMM
         public void SortList()
         {
             roadList.Sort((x, y) =>
+            {
+                var ret = y.GetConditionRating().CompareTo(x.GetConditionRating());
+                if (ret == 0)
+                    ret = y.GetFootpathCondition().CompareTo(x.GetFootpathCondition());
+                return ret;
+            });
+            filteredFootpaths.Sort((x, y) =>
             {
                 var ret = y.GetConditionRating().CompareTo(x.GetConditionRating());
                 if (ret == 0)

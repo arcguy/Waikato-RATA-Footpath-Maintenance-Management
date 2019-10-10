@@ -68,7 +68,7 @@ namespace RATA_FMM
 
         private int numFaults;
         private double conditionRating;
-        private int footpathCondition;
+        private double footpathCondition;
         private List<string[]> parsedNotes;
 
         private double faultToLengthRatio;
@@ -298,18 +298,24 @@ namespace RATA_FMM
         /// <param name="rating3">Value to be added if footpath has rating of 3</param>
         /// <param name="rating4">Value to be added if footpath has rating of 4</param>
         /// <param name="rating5">Value to be added if footpath has rating of 5</param>
-        public void CalcConditionRating(int healthMin, int healthMax, int schoolMin, int schoolMax, int serviceMin, int ServiceMax, int rating1, int rating2, int rating3, int rating4, int rating5)
+        public void CalcConditionRating(double healthMin, double healthMax, double schoolMin, double schoolMax, double serviceMin, double ServiceMax, double rating1, double rating2, double rating3, double rating4, double rating5)
         {
             this.conditionRating = 0;
             double rating = 0;
-            double maxRating = (healthMax + schoolMax + ServiceMax + rating5) * (CalcFaultLengthRatio() + 1);
+            double maxRating = 0;
+            if (CalcFaultLengthRatio() > 0)
+                maxRating = (healthMax + schoolMax + ServiceMax + rating5) * (CalcFaultLengthRatio() + 1);
+            else
+                maxRating = healthMax + schoolMax + ServiceMax + rating5;
 
             rating += CalcZoneRating(healthMin, healthMax, schoolMin, schoolMax, serviceMin, ServiceMax);
             rating += CalcFootpathRating(rating1, rating2, rating3, rating4, rating5);
 
             //uses fault to length ratio as a multiplier to condition rating
             if (CalcFaultLengthRatio() > 0)
+            {
                 rating *= (CalcFaultLengthRatio());
+            }
             rating /= (maxRating / 100);
             this.conditionRating = Math.Round(rating, 3);
         }
@@ -324,7 +330,7 @@ namespace RATA_FMM
         /// <param name="serviceMin">Minimum rating for a footpath in a service zone</param>
         /// <param name="serviceMax">Maximum rating for a footpath in a service zone</param>
         /// <returns></returns>
-        private double CalcZoneRating(int healthMin, int healthMax, int schoolMin, int schoolMax, int serviceMin, int serviceMax)
+        private double CalcZoneRating(double healthMin, double healthMax, double schoolMin, double schoolMax, double serviceMin, double serviceMax)
         {
             double rating = 0;
             try
@@ -364,10 +370,11 @@ namespace RATA_FMM
         /// <param name="rating4">Value to be added if footpath has rating of 4</param>
         /// <param name="rating5">Value to be added if footpath has rating of 5</param>
         /// <returns></returns>
-        private double CalcFootpathRating(int rating1, int rating2, int rating3, int rating4, int rating5)
+        private double CalcFootpathRating(double rating1, double rating2, double rating3, double rating4, double rating5)
         {
+            double fprating = 0;
             double rating = 0;
-
+            /*
             if (parsedNotes.Count > 0)
             {
                 if (parsedNotes[0][0] == "2")
@@ -394,7 +401,56 @@ namespace RATA_FMM
                         rating += 60;
                     }
                 }
+            }*/
+            int length = GetLongLength();
+            if (extra1 != -1)
+                fprating += extra1 * 1;
+            if (extra2 != -1)
+                fprating += extra2 * 2;
+            if (extra3 != -1)
+                fprating += extra3 * 3;
+            if (extra4 != -1)
+                fprating += extra4 * 4;
+            if (extra5 != -1)
+                fprating += extra5 * 5;
+
+            if (fprating / length > 5)
+                fprating = 5;
+            fprating /= length;
+            footpathCondition = Math.Round(fprating, 3);
+
+            if (fprating > 5)
+            {
+                rating = (fprating / 100) * rating5;
             }
+            else if (fprating >= 4)
+            {
+                double temp = fprating - 4;
+                rating = rating4 + ((temp / 100) * (rating5 - rating4));
+            }
+            else if (fprating >= 3)
+            {
+                double temp = fprating - 3;
+                rating = rating3 + ((temp / 100) * (rating4 - rating3));
+            }
+            else if (fprating >= 2)
+            {
+                double temp = fprating - 2;
+                rating = rating2 + ((temp / 100) * (rating3 - rating2));
+            }
+            else if (fprating >= 1)
+            {
+                double temp = fprating - 1;
+                rating = rating1 + ((temp / 100) * (rating2 - rating1));
+            }
+            else if (fprating >= 0)
+            {
+                //double temp = 1 - fprating;
+                rating = (fprating / 100) * rating1;
+            }
+            else
+                rating = 0;
+            //footpathCondition = rating;
             return rating;
         }
 
@@ -776,7 +832,7 @@ namespace RATA_FMM
             return this.conditionRating;
         }
 
-        public int GetFootpathCondition()
+        public double GetFootpathCondition()
         {
             return this.footpathCondition;
         }
