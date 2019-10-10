@@ -195,6 +195,7 @@ namespace RATA_FMM
             {
                 int numFaults = 0;
                 int conditionRating = 0;
+                int footpathRating = 0;
 
                 if (!int.TryParse(metroTextBoxFilterFaults.Text, out numFaults)) //Error handling - invalid input
                 {
@@ -222,8 +223,21 @@ namespace RATA_FMM
                     return;
                 }
 
+                if (!int.TryParse(metroTextBoxPathRating.Text, out footpathRating)) //Error handling - invalid input
+                {
+                    MetroMessageBox.Show(this, "Please enter a valid footpath rating to filter on", "Error");
+                    metroTextBoxPathRating.Text = "0";
+                    return;
+                }
+                else if (conditionRating < 0) //Error handling - condition rating is less than 0
+                {
+                    MetroMessageBox.Show(this, "Condition rating cannot be less than 0", "Error");
+                    metroTextBoxPathRating.Text = "0";
+                    return;
+                }
+
                 initializeDataListBox();
-                filteredFootpaths = filterResults(numFaults, conditionRating);
+                filteredFootpaths = filterResults(numFaults, conditionRating, footpathRating);
 
                 DisplayData(filteredFootpaths);
             }
@@ -437,15 +451,16 @@ namespace RATA_FMM
         /// <param name="numFaults">The number of faults to filter on</param>
         /// <param name="conditionRating">The condition rating to filter on</param>
         /// <returns>The new road list that conforms to the applied filters</returns>
-        private List<Road> filterResults(int numFaults, int conditionRating)
+        private List<Road> filterResults(int numFaults, int conditionRating, int footpathRating)
         {
             bool filterOnFaults = numFaults != 0; //Check if the user specified a number of faults
             bool filterOnCondition = conditionRating != 0; //Check if the user specified a condition rating
+            bool filterOnRating = footpathRating != 0; //Check if the user specified a footpath rating
 
             List<Road> filteredFootpaths = new List<Road>(roadList); //The list of filtered footpaths to be returned
             List<Road> temporaryList; //Temporary list which allows for cumulative processing
 
-            if (numFaults > 0) //The user has specified a filter for the number of faults
+            if (filterOnFaults) //The user has specified a filter for the number of faults
             {
                 temporaryList = new List<Road>();
 
@@ -461,7 +476,7 @@ namespace RATA_FMM
                 temporaryList = null; //Set the temporary list to null
             }
 
-            if (conditionRating > 0) //The user has specified a filter for the condition rating
+            if (filterOnCondition) //The user has specified a filter for the condition rating
             {
                 temporaryList = new List<Road>();
 
@@ -470,6 +485,22 @@ namespace RATA_FMM
                     if (checkConditionFilter.GetConditionRating() >= conditionRating) //The current footpath exceeds or meets the condition rating
                     {
                         temporaryList.Add(checkConditionFilter);
+                    }
+                }
+
+                filteredFootpaths = new List<Road>(temporaryList); //Set the new filtered list to the list of footpaths meeting the current condition
+                temporaryList = null; //Set the temporary list to null
+            }
+
+            if (filterOnRating) //The user has specified a filter for the footpath rating
+            {
+                temporaryList = new List<Road>();
+
+                foreach (Road checkFootpathFilter in filteredFootpaths)
+                {
+                    if (checkFootpathFilter.GetFootpathCondition() >= footpathRating) //The current footpath exceeds or meets the footpath rating
+                    {
+                        temporaryList.Add(checkFootpathFilter);
                     }
                 }
 
@@ -584,14 +615,14 @@ namespace RATA_FMM
         {
             ArrayList features = new ArrayList(); //Array list for all the coordinates from the shapefile
 
-            ShapefileDataReader sfDataReader = new ShapefileDataReader(filename, fact);
-            ShapefileHeader shpHeader = sfDataReader.ShapeHeader;
+            ShapefileDataReader sfDataReader = new ShapefileDataReader(filename, fact); //takes a file and a factory to build the geometries
+            ShapefileHeader shpHeader = sfDataReader.ShapeHeader; //reads the headers of the file for checking and looping purposes
             DbaseFileHeader DHeader = sfDataReader.DbaseHeader;
 
-            while (sfDataReader.Read() == true)
+            while (sfDataReader.Read() == true) //reading through all the data in the shapefile
             {
-                Feature feature = new Feature();
-                AttributesTable atTable = new AttributesTable();
+                Feature feature = new Feature(); //setting up a feature for each set of points
+                AttributesTable atTable = new AttributesTable(); //table for the set of points
                 string[] keys = new string[DHeader.NumFields];
                 Geometry geometry = sfDataReader.Geometry;
                 for (int i = 0; i < DHeader.NumFields; i++)
@@ -601,33 +632,37 @@ namespace RATA_FMM
                     atTable.Add(fldDescriptor.Name, sfDataReader.GetValue(i));
                 }
                 feature.Geometry = geometry;
-                feature.Attributes = atTable;
+                feature.Attributes = atTable; //setting the variables for the feature
                 features.Add(feature);
             }
-            sfDataReader.Close();
+            sfDataReader.Close();//closing the reader 
             sfDataReader.Dispose();
             return features;
         }
 
+        /// <summary>
+        /// Adds the overlay to the Google map by taking the lat and long coordinates 
+        /// </summary>
+        /// <param name="features">List of features that contains x and y coordinates</param>
         public void AddOverlay(ArrayList features)
         {
-            for (int i = 0; i < features.Count; i++)
+            for (int i = 0; i < features.Count; i++) //process all features in the list
             {
-                Feature feat = (Feature)features[i];
-                Geometry Geo = feat.Geometry;
-                GMapOverlay polygons = new GMapOverlay("Polygons");
-                List<PointLatLng> PLL = new List<PointLatLng>();
+                Feature feat = (Feature)features[i]; //extracts a feature from the list
+                Geometry Geo = feat.Geometry;        //Creates a geometry of that feature
+                GMapOverlay polygons = new GMapOverlay("Polygons"); //initalises the polygon overlay
+                List<PointLatLng> PLL = new List<PointLatLng>(); //initialises the lists needed to store the polygon points
                 List<double> LatLong = new List<double>();
-                for (int k = 0; k < Geo.Coordinates.Length; k++)
+                for (int k = 0; k < Geo.Coordinates.Length; k++) //runs through all the points associated with one feature
                 {
-                    LatLong = LongLatCalculation(Geo.Coordinates[k].X, Geo.Coordinates[k].Y);
-                    PLL.Add(new PointLatLng(LatLong[0], LatLong[1]));
+                    LatLong = LongLatCalculation(Geo.Coordinates[k].X, Geo.Coordinates[k].Y); //calculates the conversion from the x, y coordinates to the lat and long coordinates
+                    PLL.Add(new PointLatLng(LatLong[0], LatLong[1])); //Adds the points to a list which is used pass to the polygon constructor
                 }
-                GMapPolygon poly = new GMapPolygon(PLL, "Polygon");
+                GMapPolygon poly = new GMapPolygon(PLL, "Polygon"); //polygon constructor
                 poly.Fill = new SolidBrush(Color.Orange);
                 poly.Stroke = new Pen(Color.Black);
                 polygons.Polygons.Add(poly);
-                gMapControl1.Overlays.Add(polygons);
+                gMapControl1.Overlays.Add(polygons); //adds the polygons to the map in the form on an overlay
                 gMapControl1.Refresh();
             }
         }
@@ -688,6 +723,8 @@ namespace RATA_FMM
             return coordList;
         }
         /*
+        **Note** - Method for updating the polygons when a footpath is clicked, was attempted by trying to link polygons to roads but there was mismatch
+        **Note** - Other methods such as centering map by keywords also did not work as intended
         public void ChangeOverlay(List<double> Long, List<double> Lat)
         {
             GMapOverlay SelectedOverlay = new GMapOverlay("Selected Polygons");

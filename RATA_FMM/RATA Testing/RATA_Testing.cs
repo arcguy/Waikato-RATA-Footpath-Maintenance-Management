@@ -119,7 +119,7 @@ namespace RATA_Testing
 
             testRoad.SetQgisData(qgisTestData); //Set QGIS data
 
-            double expectedConditionRating = 54.839;
+            double expectedConditionRating = 3.745;
             double actualConditionRating = testRoad.GetConditionRating();
             Assert.AreEqual(expectedConditionRating, actualConditionRating);
         }
@@ -231,11 +231,6 @@ namespace RATA_Testing
             int expectedEnd = 94;
             int actualEnd = testRoad.GetEnd();
             Assert.AreEqual(expectedEnd, actualEnd);
-
-            //GetFootpathCondition
-            int expectedFootpathCondition = 0;
-            int actualFootpathCondition = testRoad.GetFootpathCondition();
-            Assert.AreEqual(expectedFootpathCondition, actualFootpathCondition);
         }
     }
 

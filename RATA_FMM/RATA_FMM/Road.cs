@@ -94,7 +94,7 @@ namespace RATA_FMM
         private bool serviceZone;
 
         private List<double> Lat;
-        private List<double> Long;
+        private List<double> Long;//lists to store lat and long points that belong to a specific road **Only needed for updating the polygons on click**
 
         public Road(string[] roadData)
         {
@@ -909,7 +909,7 @@ namespace RATA_FMM
         {
             return this.faultToLengthRatio;
         }
-        public void SetLat(List<double> lat)
+        public void SetLat(List<double> lat)//getters and setters for all the variables that a road can have that invovle coordinates of a polygon
         {
             Lat = lat;
         }
