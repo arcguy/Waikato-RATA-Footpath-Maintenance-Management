@@ -64,11 +64,15 @@
             this.metroLabelHealthMin = new MetroFramework.Controls.MetroLabel();
             this.metroTextBoxHealthMin = new MetroFramework.Controls.MetroTextBox();
             this.metroPanelFilter = new MetroFramework.Controls.MetroPanel();
+            this.metroPanelPathRating = new MetroFramework.Controls.MetroPanel();
+            this.metroLabelFilter6 = new MetroFramework.Controls.MetroLabel();
+            this.metroTextBoxPathRating = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabelFilter5 = new MetroFramework.Controls.MetroLabel();
             this.metroButtonShowAll = new MetroFramework.Controls.MetroButton();
-            this.metroButtonUpdateResults = new MetroFramework.Controls.MetroButton();
             this.metroPanelTown = new MetroFramework.Controls.MetroPanel();
             this.metroComboBoxTown = new MetroFramework.Controls.MetroComboBox();
             this.metroLabelFilter7 = new MetroFramework.Controls.MetroLabel();
+            this.metroButtonUpdateResults = new MetroFramework.Controls.MetroButton();
             this.metroPanelFaults = new MetroFramework.Controls.MetroPanel();
             this.metroLabelFilter4 = new MetroFramework.Controls.MetroLabel();
             this.metroTextBoxFilterFaults = new MetroFramework.Controls.MetroTextBox();
@@ -79,16 +83,12 @@
             this.metroLabelFilter1 = new MetroFramework.Controls.MetroLabel();
             this.metroLabelFilterResults = new MetroFramework.Controls.MetroLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.metroPanelPathRating = new MetroFramework.Controls.MetroPanel();
-            this.metroLabelFilter5 = new MetroFramework.Controls.MetroLabel();
-            this.metroTextBoxPathRating = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabelFilter6 = new MetroFramework.Controls.MetroLabel();
             this.metroPanelSort.SuspendLayout();
             this.metroPanelFilter.SuspendLayout();
+            this.metroPanelPathRating.SuspendLayout();
             this.metroPanelTown.SuspendLayout();
             this.metroPanelFaults.SuspendLayout();
             this.metroPanelCondition.SuspendLayout();
-            this.metroPanelPathRating.SuspendLayout();
             this.SuspendLayout();
             // 
             // metroButtonOpen
@@ -750,6 +750,73 @@
             this.metroPanelFilter.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanelFilter.VerticalScrollbarSize = 10;
             // 
+            // metroPanelPathRating
+            // 
+            this.metroPanelPathRating.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.metroPanelPathRating.Controls.Add(this.metroLabelFilter6);
+            this.metroPanelPathRating.Controls.Add(this.metroTextBoxPathRating);
+            this.metroPanelPathRating.Controls.Add(this.metroLabelFilter5);
+            this.metroPanelPathRating.HorizontalScrollbarBarColor = true;
+            this.metroPanelPathRating.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroPanelPathRating.HorizontalScrollbarSize = 10;
+            this.metroPanelPathRating.Location = new System.Drawing.Point(20, 182);
+            this.metroPanelPathRating.Name = "metroPanelPathRating";
+            this.metroPanelPathRating.Size = new System.Drawing.Size(258, 74);
+            this.metroPanelPathRating.TabIndex = 7;
+            this.metroPanelPathRating.VerticalScrollbarBarColor = true;
+            this.metroPanelPathRating.VerticalScrollbarHighlightOnWheel = false;
+            this.metroPanelPathRating.VerticalScrollbarSize = 10;
+            // 
+            // metroLabelFilter6
+            // 
+            this.metroLabelFilter6.AutoSize = true;
+            this.metroLabelFilter6.Location = new System.Drawing.Point(125, 32);
+            this.metroLabelFilter6.Name = "metroLabelFilter6";
+            this.metroLabelFilter6.Size = new System.Drawing.Size(69, 19);
+            this.metroLabelFilter6.TabIndex = 5;
+            this.metroLabelFilter6.Text = "or greater";
+            // 
+            // metroTextBoxPathRating
+            // 
+            // 
+            // 
+            // 
+            this.metroTextBoxPathRating.CustomButton.Image = null;
+            this.metroTextBoxPathRating.CustomButton.Location = new System.Drawing.Point(93, 1);
+            this.metroTextBoxPathRating.CustomButton.Name = "";
+            this.metroTextBoxPathRating.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.metroTextBoxPathRating.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.metroTextBoxPathRating.CustomButton.TabIndex = 1;
+            this.metroTextBoxPathRating.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.metroTextBoxPathRating.CustomButton.UseSelectable = true;
+            this.metroTextBoxPathRating.CustomButton.Visible = false;
+            this.metroTextBoxPathRating.Lines = new string[] {
+        "0"};
+            this.metroTextBoxPathRating.Location = new System.Drawing.Point(7, 32);
+            this.metroTextBoxPathRating.MaxLength = 32767;
+            this.metroTextBoxPathRating.Name = "metroTextBoxPathRating";
+            this.metroTextBoxPathRating.PasswordChar = '\0';
+            this.metroTextBoxPathRating.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.metroTextBoxPathRating.SelectedText = "";
+            this.metroTextBoxPathRating.SelectionLength = 0;
+            this.metroTextBoxPathRating.SelectionStart = 0;
+            this.metroTextBoxPathRating.ShortcutsEnabled = true;
+            this.metroTextBoxPathRating.Size = new System.Drawing.Size(115, 23);
+            this.metroTextBoxPathRating.TabIndex = 5;
+            this.metroTextBoxPathRating.Text = "0";
+            this.metroTextBoxPathRating.UseSelectable = true;
+            this.metroTextBoxPathRating.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.metroTextBoxPathRating.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // metroLabelFilter5
+            // 
+            this.metroLabelFilter5.AutoSize = true;
+            this.metroLabelFilter5.Location = new System.Drawing.Point(3, 10);
+            this.metroLabelFilter5.Name = "metroLabelFilter5";
+            this.metroLabelFilter5.Size = new System.Drawing.Size(191, 19);
+            this.metroLabelFilter5.TabIndex = 2;
+            this.metroLabelFilter5.Text = "Show footpaths with a rating of";
+            // 
             // metroButtonShowAll
             // 
             this.metroButtonShowAll.Location = new System.Drawing.Point(103, 374);
@@ -759,16 +826,6 @@
             this.metroButtonShowAll.Text = "Show All";
             this.metroButtonShowAll.UseSelectable = true;
             this.metroButtonShowAll.Click += new System.EventHandler(this.metroButtonShowAll_Click);
-            // 
-            // metroButtonUpdateResults
-            // 
-            this.metroButtonUpdateResults.Location = new System.Drawing.Point(103, 344);
-            this.metroButtonUpdateResults.Name = "metroButtonUpdateResults";
-            this.metroButtonUpdateResults.Size = new System.Drawing.Size(75, 23);
-            this.metroButtonUpdateResults.TabIndex = 7;
-            this.metroButtonUpdateResults.Text = "Update";
-            this.metroButtonUpdateResults.UseSelectable = true;
-            this.metroButtonUpdateResults.Click += new System.EventHandler(this.metroButtonUpdateResults_Click);
             // 
             // metroPanelTown
             // 
@@ -805,6 +862,16 @@
             this.metroLabelFilter7.Size = new System.Drawing.Size(132, 19);
             this.metroLabelFilter7.TabIndex = 2;
             this.metroLabelFilter7.Text = "Show footpaths from";
+            // 
+            // metroButtonUpdateResults
+            // 
+            this.metroButtonUpdateResults.Location = new System.Drawing.Point(103, 344);
+            this.metroButtonUpdateResults.Name = "metroButtonUpdateResults";
+            this.metroButtonUpdateResults.Size = new System.Drawing.Size(75, 23);
+            this.metroButtonUpdateResults.TabIndex = 7;
+            this.metroButtonUpdateResults.Text = "Update";
+            this.metroButtonUpdateResults.UseSelectable = true;
+            this.metroButtonUpdateResults.Click += new System.EventHandler(this.metroButtonUpdateResults_Click);
             // 
             // metroPanelFaults
             // 
@@ -846,7 +913,8 @@
             this.metroTextBoxFilterFaults.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTextBoxFilterFaults.CustomButton.UseSelectable = true;
             this.metroTextBoxFilterFaults.CustomButton.Visible = false;
-            this.metroTextBoxFilterFaults.Lines = new string[0];
+            this.metroTextBoxFilterFaults.Lines = new string[] {
+        "0"};
             this.metroTextBoxFilterFaults.Location = new System.Drawing.Point(135, 10);
             this.metroTextBoxFilterFaults.MaxLength = 32767;
             this.metroTextBoxFilterFaults.Name = "metroTextBoxFilterFaults";
@@ -858,6 +926,7 @@
             this.metroTextBoxFilterFaults.ShortcutsEnabled = true;
             this.metroTextBoxFilterFaults.Size = new System.Drawing.Size(115, 23);
             this.metroTextBoxFilterFaults.TabIndex = 3;
+            this.metroTextBoxFilterFaults.Text = "0";
             this.metroTextBoxFilterFaults.UseSelectable = true;
             this.metroTextBoxFilterFaults.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxFilterFaults.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -911,7 +980,8 @@
             this.metroTextBoxFilterCondition.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTextBoxFilterCondition.CustomButton.UseSelectable = true;
             this.metroTextBoxFilterCondition.CustomButton.Visible = false;
-            this.metroTextBoxFilterCondition.Lines = new string[0];
+            this.metroTextBoxFilterCondition.Lines = new string[] {
+        "0"};
             this.metroTextBoxFilterCondition.Location = new System.Drawing.Point(30, 33);
             this.metroTextBoxFilterCondition.MaxLength = 32767;
             this.metroTextBoxFilterCondition.Name = "metroTextBoxFilterCondition";
@@ -923,6 +993,7 @@
             this.metroTextBoxFilterCondition.ShortcutsEnabled = true;
             this.metroTextBoxFilterCondition.Size = new System.Drawing.Size(115, 23);
             this.metroTextBoxFilterCondition.TabIndex = 3;
+            this.metroTextBoxFilterCondition.Text = "0";
             this.metroTextBoxFilterCondition.UseSelectable = true;
             this.metroTextBoxFilterCondition.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxFilterCondition.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -945,76 +1016,11 @@
             this.metroLabelFilterResults.TabIndex = 2;
             this.metroLabelFilterResults.Text = "FilterResults";
             // 
-            // metroPanelPathRating
-            // 
-            this.metroPanelPathRating.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.metroPanelPathRating.Controls.Add(this.metroLabelFilter6);
-            this.metroPanelPathRating.Controls.Add(this.metroTextBoxPathRating);
-            this.metroPanelPathRating.Controls.Add(this.metroLabelFilter5);
-            this.metroPanelPathRating.HorizontalScrollbarBarColor = true;
-            this.metroPanelPathRating.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanelPathRating.HorizontalScrollbarSize = 10;
-            this.metroPanelPathRating.Location = new System.Drawing.Point(20, 182);
-            this.metroPanelPathRating.Name = "metroPanelPathRating";
-            this.metroPanelPathRating.Size = new System.Drawing.Size(258, 74);
-            this.metroPanelPathRating.TabIndex = 7;
-            this.metroPanelPathRating.VerticalScrollbarBarColor = true;
-            this.metroPanelPathRating.VerticalScrollbarHighlightOnWheel = false;
-            this.metroPanelPathRating.VerticalScrollbarSize = 10;
-            // 
-            // metroLabelFilter5
-            // 
-            this.metroLabelFilter5.AutoSize = true;
-            this.metroLabelFilter5.Location = new System.Drawing.Point(3, 10);
-            this.metroLabelFilter5.Name = "metroLabelFilter5";
-            this.metroLabelFilter5.Size = new System.Drawing.Size(191, 19);
-            this.metroLabelFilter5.TabIndex = 2;
-            this.metroLabelFilter5.Text = "Show footpaths with a rating of";
-            // 
-            // metroTextBoxPathRating
-            // 
-            // 
-            // 
-            // 
-            this.metroTextBoxPathRating.CustomButton.Image = null;
-            this.metroTextBoxPathRating.CustomButton.Location = new System.Drawing.Point(93, 1);
-            this.metroTextBoxPathRating.CustomButton.Name = "";
-            this.metroTextBoxPathRating.CustomButton.Size = new System.Drawing.Size(21, 21);
-            this.metroTextBoxPathRating.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroTextBoxPathRating.CustomButton.TabIndex = 1;
-            this.metroTextBoxPathRating.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.metroTextBoxPathRating.CustomButton.UseSelectable = true;
-            this.metroTextBoxPathRating.CustomButton.Visible = false;
-            this.metroTextBoxPathRating.Lines = new string[0];
-            this.metroTextBoxPathRating.Location = new System.Drawing.Point(7, 32);
-            this.metroTextBoxPathRating.MaxLength = 32767;
-            this.metroTextBoxPathRating.Name = "metroTextBoxPathRating";
-            this.metroTextBoxPathRating.PasswordChar = '\0';
-            this.metroTextBoxPathRating.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.metroTextBoxPathRating.SelectedText = "";
-            this.metroTextBoxPathRating.SelectionLength = 0;
-            this.metroTextBoxPathRating.SelectionStart = 0;
-            this.metroTextBoxPathRating.ShortcutsEnabled = true;
-            this.metroTextBoxPathRating.Size = new System.Drawing.Size(115, 23);
-            this.metroTextBoxPathRating.TabIndex = 5;
-            this.metroTextBoxPathRating.UseSelectable = true;
-            this.metroTextBoxPathRating.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.metroTextBoxPathRating.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            // 
-            // metroLabelFilter6
-            // 
-            this.metroLabelFilter6.AutoSize = true;
-            this.metroLabelFilter6.Location = new System.Drawing.Point(125, 32);
-            this.metroLabelFilter6.Name = "metroLabelFilter6";
-            this.metroLabelFilter6.Size = new System.Drawing.Size(69, 19);
-            this.metroLabelFilter6.TabIndex = 5;
-            this.metroLabelFilter6.Text = "or greater";
-            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 821);
+            this.ClientSize = new System.Drawing.Size(1370, 788);
             this.Controls.Add(this.metroPanelFilter);
             this.Controls.Add(this.gMapControl1);
             this.Controls.Add(this.metroButtonPrint);
@@ -1030,14 +1036,14 @@
             this.metroPanelSort.PerformLayout();
             this.metroPanelFilter.ResumeLayout(false);
             this.metroPanelFilter.PerformLayout();
+            this.metroPanelPathRating.ResumeLayout(false);
+            this.metroPanelPathRating.PerformLayout();
             this.metroPanelTown.ResumeLayout(false);
             this.metroPanelTown.PerformLayout();
             this.metroPanelFaults.ResumeLayout(false);
             this.metroPanelFaults.PerformLayout();
             this.metroPanelCondition.ResumeLayout(false);
             this.metroPanelCondition.PerformLayout();
-            this.metroPanelPathRating.ResumeLayout(false);
-            this.metroPanelPathRating.PerformLayout();
             this.ResumeLayout(false);
 
         }

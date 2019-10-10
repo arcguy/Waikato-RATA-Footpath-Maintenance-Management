@@ -195,6 +195,7 @@ namespace RATA_FMM
             {
                 int numFaults = 0;
                 int conditionRating = 0;
+                int footpathRating = 0;
 
                 if (!int.TryParse(metroTextBoxFilterFaults.Text, out numFaults)) //Error handling - invalid input
                 {
@@ -222,8 +223,21 @@ namespace RATA_FMM
                     return;
                 }
 
+                if (!int.TryParse(metroTextBoxPathRating.Text, out footpathRating)) //Error handling - invalid input
+                {
+                    MetroMessageBox.Show(this, "Please enter a valid footpath rating to filter on", "Error");
+                    metroTextBoxPathRating.Text = "0";
+                    return;
+                }
+                else if (conditionRating < 0) //Error handling - condition rating is less than 0
+                {
+                    MetroMessageBox.Show(this, "Condition rating cannot be less than 0", "Error");
+                    metroTextBoxPathRating.Text = "0";
+                    return;
+                }
+
                 initializeDataListBox();
-                filteredFootpaths = filterResults(numFaults, conditionRating);
+                filteredFootpaths = filterResults(numFaults, conditionRating, footpathRating);
 
                 DisplayData(filteredFootpaths);
             }
@@ -437,15 +451,16 @@ namespace RATA_FMM
         /// <param name="numFaults">The number of faults to filter on</param>
         /// <param name="conditionRating">The condition rating to filter on</param>
         /// <returns>The new road list that conforms to the applied filters</returns>
-        private List<Road> filterResults(int numFaults, int conditionRating)
+        private List<Road> filterResults(int numFaults, int conditionRating, int footpathRating)
         {
             bool filterOnFaults = numFaults != 0; //Check if the user specified a number of faults
             bool filterOnCondition = conditionRating != 0; //Check if the user specified a condition rating
+            bool filterOnRating = footpathRating != 0; //Check if the user specified a footpath rating
 
             List<Road> filteredFootpaths = new List<Road>(roadList); //The list of filtered footpaths to be returned
             List<Road> temporaryList; //Temporary list which allows for cumulative processing
 
-            if (numFaults > 0) //The user has specified a filter for the number of faults
+            if (filterOnFaults) //The user has specified a filter for the number of faults
             {
                 temporaryList = new List<Road>();
 
@@ -461,7 +476,7 @@ namespace RATA_FMM
                 temporaryList = null; //Set the temporary list to null
             }
 
-            if (conditionRating > 0) //The user has specified a filter for the condition rating
+            if (filterOnCondition) //The user has specified a filter for the condition rating
             {
                 temporaryList = new List<Road>();
 
@@ -470,6 +485,22 @@ namespace RATA_FMM
                     if (checkConditionFilter.GetConditionRating() >= conditionRating) //The current footpath exceeds or meets the condition rating
                     {
                         temporaryList.Add(checkConditionFilter);
+                    }
+                }
+
+                filteredFootpaths = new List<Road>(temporaryList); //Set the new filtered list to the list of footpaths meeting the current condition
+                temporaryList = null; //Set the temporary list to null
+            }
+
+            if (filterOnRating) //The user has specified a filter for the footpath rating
+            {
+                temporaryList = new List<Road>();
+
+                foreach (Road checkFootpathFilter in filteredFootpaths)
+                {
+                    if (checkFootpathFilter.GetFootpathCondition() >= footpathRating) //The current footpath exceeds or meets the footpath rating
+                    {
+                        temporaryList.Add(checkFootpathFilter);
                     }
                 }
 
