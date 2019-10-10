@@ -35,6 +35,7 @@
             this.metroListViewDataLong = new MetroFramework.Controls.MetroListView();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.metroPanelSort = new MetroFramework.Controls.MetroPanel();
+            this.metroLabelHelp = new MetroFramework.Controls.MetroLabel();
             this.metroLabelZones = new MetroFramework.Controls.MetroLabel();
             this.metroTextBoxRating5 = new MetroFramework.Controls.MetroTextBox();
             this.metroTextBoxServiceMax = new MetroFramework.Controls.MetroTextBox();
@@ -67,7 +68,7 @@
             this.metroButtonUpdateResults = new MetroFramework.Controls.MetroButton();
             this.metroPanelTown = new MetroFramework.Controls.MetroPanel();
             this.metroComboBoxTown = new MetroFramework.Controls.MetroComboBox();
-            this.metroLabelFilter5 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabelFilter7 = new MetroFramework.Controls.MetroLabel();
             this.metroPanelFaults = new MetroFramework.Controls.MetroPanel();
             this.metroLabelFilter4 = new MetroFramework.Controls.MetroLabel();
             this.metroTextBoxFilterFaults = new MetroFramework.Controls.MetroTextBox();
@@ -78,12 +79,16 @@
             this.metroLabelFilter1 = new MetroFramework.Controls.MetroLabel();
             this.metroLabelFilterResults = new MetroFramework.Controls.MetroLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.metroLabelHelp = new MetroFramework.Controls.MetroLabel();
+            this.metroPanelPathRating = new MetroFramework.Controls.MetroPanel();
+            this.metroLabelFilter5 = new MetroFramework.Controls.MetroLabel();
+            this.metroTextBoxPathRating = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabelFilter6 = new MetroFramework.Controls.MetroLabel();
             this.metroPanelSort.SuspendLayout();
             this.metroPanelFilter.SuspendLayout();
             this.metroPanelTown.SuspendLayout();
             this.metroPanelFaults.SuspendLayout();
             this.metroPanelCondition.SuspendLayout();
+            this.metroPanelPathRating.SuspendLayout();
             this.SuspendLayout();
             // 
             // metroButtonOpen
@@ -115,7 +120,7 @@
             this.metroListViewData.MultiSelect = false;
             this.metroListViewData.Name = "metroListViewData";
             this.metroListViewData.OwnerDraw = true;
-            this.metroListViewData.Size = new System.Drawing.Size(522, 743);
+            this.metroListViewData.Size = new System.Drawing.Size(439, 743);
             this.metroListViewData.Style = MetroFramework.MetroColorStyle.Silver;
             this.metroListViewData.TabIndex = 2;
             this.metroListViewData.UseCompatibleStateImageBehavior = false;
@@ -127,7 +132,7 @@
             this.metroListViewDataLong.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.metroListViewDataLong.FullRowSelect = true;
             this.metroListViewDataLong.GridLines = true;
-            this.metroListViewDataLong.Location = new System.Drawing.Point(553, 64);
+            this.metroListViewDataLong.Location = new System.Drawing.Point(469, 65);
             this.metroListViewDataLong.MultiSelect = false;
             this.metroListViewDataLong.Name = "metroListViewDataLong";
             this.metroListViewDataLong.OwnerDraw = true;
@@ -146,7 +151,7 @@
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(1141, 472);
+            this.gMapControl1.Location = new System.Drawing.Point(1060, 473);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
             this.gMapControl1.MinZoom = 2;
@@ -160,7 +165,7 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(219, 310);
+            this.gMapControl1.Size = new System.Drawing.Size(300, 310);
             this.gMapControl1.TabIndex = 6;
             this.gMapControl1.Zoom = 0D;
             // 
@@ -200,7 +205,7 @@
             this.metroPanelSort.HorizontalScrollbarBarColor = true;
             this.metroPanelSort.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanelSort.HorizontalScrollbarSize = 10;
-            this.metroPanelSort.Location = new System.Drawing.Point(553, 473);
+            this.metroPanelSort.Location = new System.Drawing.Point(469, 473);
             this.metroPanelSort.Name = "metroPanelSort";
             this.metroPanelSort.Size = new System.Drawing.Size(582, 299);
             this.metroPanelSort.TabIndex = 7;
@@ -208,6 +213,19 @@
             this.metroPanelSort.VerticalScrollbarBarColor = true;
             this.metroPanelSort.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanelSort.VerticalScrollbarSize = 10;
+            // 
+            // metroLabelHelp
+            // 
+            this.metroLabelHelp.AutoSize = true;
+            this.metroLabelHelp.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabelHelp.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabelHelp.Location = new System.Drawing.Point(562, 4);
+            this.metroLabelHelp.Name = "metroLabelHelp";
+            this.metroLabelHelp.Size = new System.Drawing.Size(20, 25);
+            this.metroLabelHelp.Style = MetroFramework.MetroColorStyle.Silver;
+            this.metroLabelHelp.TabIndex = 19;
+            this.metroLabelHelp.Text = "?";
+            this.metroLabelHelp.UseStyleColors = true;
             // 
             // metroLabelZones
             // 
@@ -711,9 +729,10 @@
             // 
             this.metroPanelFilter.AutoScroll = true;
             this.metroPanelFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.metroPanelFilter.Controls.Add(this.metroPanelPathRating);
             this.metroPanelFilter.Controls.Add(this.metroButtonShowAll);
-            this.metroPanelFilter.Controls.Add(this.metroButtonUpdateResults);
             this.metroPanelFilter.Controls.Add(this.metroPanelTown);
+            this.metroPanelFilter.Controls.Add(this.metroButtonUpdateResults);
             this.metroPanelFilter.Controls.Add(this.metroPanelFaults);
             this.metroPanelFilter.Controls.Add(this.metroPanelCondition);
             this.metroPanelFilter.Controls.Add(this.metroLabelFilterResults);
@@ -721,9 +740,9 @@
             this.metroPanelFilter.HorizontalScrollbarBarColor = true;
             this.metroPanelFilter.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanelFilter.HorizontalScrollbarSize = 10;
-            this.metroPanelFilter.Location = new System.Drawing.Point(1060, 63);
+            this.metroPanelFilter.Location = new System.Drawing.Point(976, 65);
             this.metroPanelFilter.Name = "metroPanelFilter";
-            this.metroPanelFilter.Size = new System.Drawing.Size(300, 330);
+            this.metroPanelFilter.Size = new System.Drawing.Size(300, 402);
             this.metroPanelFilter.Style = MetroFramework.MetroColorStyle.Silver;
             this.metroPanelFilter.TabIndex = 8;
             this.metroPanelFilter.VerticalScrollbar = true;
@@ -733,7 +752,7 @@
             // 
             // metroButtonShowAll
             // 
-            this.metroButtonShowAll.Location = new System.Drawing.Point(103, 292);
+            this.metroButtonShowAll.Location = new System.Drawing.Point(103, 374);
             this.metroButtonShowAll.Name = "metroButtonShowAll";
             this.metroButtonShowAll.Size = new System.Drawing.Size(75, 23);
             this.metroButtonShowAll.TabIndex = 8;
@@ -743,7 +762,7 @@
             // 
             // metroButtonUpdateResults
             // 
-            this.metroButtonUpdateResults.Location = new System.Drawing.Point(103, 262);
+            this.metroButtonUpdateResults.Location = new System.Drawing.Point(103, 344);
             this.metroButtonUpdateResults.Name = "metroButtonUpdateResults";
             this.metroButtonUpdateResults.Size = new System.Drawing.Size(75, 23);
             this.metroButtonUpdateResults.TabIndex = 7;
@@ -755,11 +774,11 @@
             // 
             this.metroPanelTown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.metroPanelTown.Controls.Add(this.metroComboBoxTown);
-            this.metroPanelTown.Controls.Add(this.metroLabelFilter5);
+            this.metroPanelTown.Controls.Add(this.metroLabelFilter7);
             this.metroPanelTown.HorizontalScrollbarBarColor = true;
             this.metroPanelTown.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanelTown.HorizontalScrollbarSize = 10;
-            this.metroPanelTown.Location = new System.Drawing.Point(20, 182);
+            this.metroPanelTown.Location = new System.Drawing.Point(20, 262);
             this.metroPanelTown.Name = "metroPanelTown";
             this.metroPanelTown.Size = new System.Drawing.Size(258, 74);
             this.metroPanelTown.TabIndex = 6;
@@ -774,17 +793,18 @@
             this.metroComboBoxTown.Location = new System.Drawing.Point(62, 32);
             this.metroComboBoxTown.Name = "metroComboBoxTown";
             this.metroComboBoxTown.Size = new System.Drawing.Size(121, 29);
+            this.metroComboBoxTown.Style = MetroFramework.MetroColorStyle.Silver;
             this.metroComboBoxTown.TabIndex = 3;
             this.metroComboBoxTown.UseSelectable = true;
             // 
-            // metroLabelFilter5
+            // metroLabelFilter7
             // 
-            this.metroLabelFilter5.AutoSize = true;
-            this.metroLabelFilter5.Location = new System.Drawing.Point(62, 9);
-            this.metroLabelFilter5.Name = "metroLabelFilter5";
-            this.metroLabelFilter5.Size = new System.Drawing.Size(132, 19);
-            this.metroLabelFilter5.TabIndex = 2;
-            this.metroLabelFilter5.Text = "Show footpaths from";
+            this.metroLabelFilter7.AutoSize = true;
+            this.metroLabelFilter7.Location = new System.Drawing.Point(62, 9);
+            this.metroLabelFilter7.Name = "metroLabelFilter7";
+            this.metroLabelFilter7.Size = new System.Drawing.Size(132, 19);
+            this.metroLabelFilter7.TabIndex = 2;
+            this.metroLabelFilter7.Text = "Show footpaths from";
             // 
             // metroPanelFaults
             // 
@@ -925,18 +945,70 @@
             this.metroLabelFilterResults.TabIndex = 2;
             this.metroLabelFilterResults.Text = "FilterResults";
             // 
-            // metroLabelHelp
+            // metroPanelPathRating
             // 
-            this.metroLabelHelp.AutoSize = true;
-            this.metroLabelHelp.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.metroLabelHelp.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.metroLabelHelp.Location = new System.Drawing.Point(562, 4);
-            this.metroLabelHelp.Name = "metroLabelHelp";
-            this.metroLabelHelp.Size = new System.Drawing.Size(15, 19);
-            this.metroLabelHelp.Style = MetroFramework.MetroColorStyle.Silver;
-            this.metroLabelHelp.TabIndex = 19;
-            this.metroLabelHelp.Text = "?";
-            this.metroLabelHelp.UseStyleColors = true;
+            this.metroPanelPathRating.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.metroPanelPathRating.Controls.Add(this.metroLabelFilter6);
+            this.metroPanelPathRating.Controls.Add(this.metroTextBoxPathRating);
+            this.metroPanelPathRating.Controls.Add(this.metroLabelFilter5);
+            this.metroPanelPathRating.HorizontalScrollbarBarColor = true;
+            this.metroPanelPathRating.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroPanelPathRating.HorizontalScrollbarSize = 10;
+            this.metroPanelPathRating.Location = new System.Drawing.Point(20, 182);
+            this.metroPanelPathRating.Name = "metroPanelPathRating";
+            this.metroPanelPathRating.Size = new System.Drawing.Size(258, 74);
+            this.metroPanelPathRating.TabIndex = 7;
+            this.metroPanelPathRating.VerticalScrollbarBarColor = true;
+            this.metroPanelPathRating.VerticalScrollbarHighlightOnWheel = false;
+            this.metroPanelPathRating.VerticalScrollbarSize = 10;
+            // 
+            // metroLabelFilter5
+            // 
+            this.metroLabelFilter5.AutoSize = true;
+            this.metroLabelFilter5.Location = new System.Drawing.Point(3, 10);
+            this.metroLabelFilter5.Name = "metroLabelFilter5";
+            this.metroLabelFilter5.Size = new System.Drawing.Size(191, 19);
+            this.metroLabelFilter5.TabIndex = 2;
+            this.metroLabelFilter5.Text = "Show footpaths with a rating of";
+            // 
+            // metroTextBoxPathRating
+            // 
+            // 
+            // 
+            // 
+            this.metroTextBoxPathRating.CustomButton.Image = null;
+            this.metroTextBoxPathRating.CustomButton.Location = new System.Drawing.Point(93, 1);
+            this.metroTextBoxPathRating.CustomButton.Name = "";
+            this.metroTextBoxPathRating.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.metroTextBoxPathRating.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.metroTextBoxPathRating.CustomButton.TabIndex = 1;
+            this.metroTextBoxPathRating.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.metroTextBoxPathRating.CustomButton.UseSelectable = true;
+            this.metroTextBoxPathRating.CustomButton.Visible = false;
+            this.metroTextBoxPathRating.Lines = new string[0];
+            this.metroTextBoxPathRating.Location = new System.Drawing.Point(7, 32);
+            this.metroTextBoxPathRating.MaxLength = 32767;
+            this.metroTextBoxPathRating.Name = "metroTextBoxPathRating";
+            this.metroTextBoxPathRating.PasswordChar = '\0';
+            this.metroTextBoxPathRating.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.metroTextBoxPathRating.SelectedText = "";
+            this.metroTextBoxPathRating.SelectionLength = 0;
+            this.metroTextBoxPathRating.SelectionStart = 0;
+            this.metroTextBoxPathRating.ShortcutsEnabled = true;
+            this.metroTextBoxPathRating.Size = new System.Drawing.Size(115, 23);
+            this.metroTextBoxPathRating.TabIndex = 5;
+            this.metroTextBoxPathRating.UseSelectable = true;
+            this.metroTextBoxPathRating.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.metroTextBoxPathRating.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // metroLabelFilter6
+            // 
+            this.metroLabelFilter6.AutoSize = true;
+            this.metroLabelFilter6.Location = new System.Drawing.Point(125, 32);
+            this.metroLabelFilter6.Name = "metroLabelFilter6";
+            this.metroLabelFilter6.Size = new System.Drawing.Size(69, 19);
+            this.metroLabelFilter6.TabIndex = 5;
+            this.metroLabelFilter6.Text = "or greater";
             // 
             // Form2
             // 
@@ -964,6 +1036,8 @@
             this.metroPanelFaults.PerformLayout();
             this.metroPanelCondition.ResumeLayout(false);
             this.metroPanelCondition.PerformLayout();
+            this.metroPanelPathRating.ResumeLayout(false);
+            this.metroPanelPathRating.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1001,7 +1075,7 @@
         private MetroFramework.Controls.MetroTextBox metroTextBoxFilterFaults;
         private MetroFramework.Controls.MetroLabel metroLabelFilter3;
         private MetroFramework.Controls.MetroPanel metroPanelTown;
-        private MetroFramework.Controls.MetroLabel metroLabelFilter5;
+        private MetroFramework.Controls.MetroLabel metroLabelFilter7;
         private MetroFramework.Controls.MetroComboBox metroComboBoxTown;
         private MetroFramework.Controls.MetroButton metroButtonUpdateResults;
         private MetroFramework.Controls.MetroButton metroButtonShowAll;
@@ -1020,5 +1094,9 @@
         private MetroFramework.Controls.MetroTextBox metroTextBoxHealthMin;
         private System.Windows.Forms.ToolTip toolTip1;
         private MetroFramework.Controls.MetroLabel metroLabelHelp;
+        private MetroFramework.Controls.MetroPanel metroPanelPathRating;
+        private MetroFramework.Controls.MetroLabel metroLabelFilter5;
+        private MetroFramework.Controls.MetroLabel metroLabelFilter6;
+        private MetroFramework.Controls.MetroTextBox metroTextBoxPathRating;
     }
 }
