@@ -47,7 +47,7 @@ namespace RATA_FMM
         {
             InitializeComponent();
             
-            //setting tooltips
+            //setting tooltip(s)
             toolTip1.SetToolTip(metroLabelHelp, "Modify the values used to calculate the condition rating");
 
             //setting size and locations of list views
@@ -559,11 +559,7 @@ namespace RATA_FMM
                     ListViewItem lvi = new ListViewItem(new string[] {columnHeaders[i], tempList[i]});
                     metroListViewDataLong.Items.Add(lvi);
                 }
-                //metroListViewDataLong.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-                //metroListViewDataLong.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
                 metroListViewDataLong.EndUpdate();
-
-
             }
         }        
 
@@ -722,6 +718,7 @@ namespace RATA_FMM
             coordList.Add(longitude);
             return coordList;
         }
+
         /*
         **Note** - Method for updating the polygons when a footpath is clicked, was attempted by trying to link polygons to roads but there was mismatch
         **Note** - Other methods such as centering map by keywords also did not work as intended
